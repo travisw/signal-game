@@ -75,8 +75,8 @@
   "atlas-sentinel": {
     "name": "ATLAS Sentinel",
     "type": "mechanical",
-    "maxHp": 80,
-    "attack": 15,
+    "maxHp": 55,
+    "attack": 12,
     "hackLevel": 3,
     "weakness": "Hacking (HACK 3+)",
     "description": "A towering machine guardian. ATLAS built these to protect its core. They still obey.",

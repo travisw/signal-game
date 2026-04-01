@@ -63,6 +63,7 @@
     "generator-room": {
       "name": "Generator Room",
       "art": "generator-room",
+      "radCost": 5,
       "description": "A cavernous room dominated by a dormant {cyan:backup generator}. The {pink:radiation} hits you like a wall of heat — your {purple:implant} flashes a warning.\n\nThe generator's fuel cell is spent, but a {cyan:control panel} on its flank might hold useful data. A {amber:power cell} sits in a maintenance rack on the wall.\n\n{pink:+5 RAD exposure while you're here.}",
       "exits": {
         "east": { "room": "junction" },

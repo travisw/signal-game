@@ -239,6 +239,13 @@ export class Game {
     this.renderer.printBreak();
     this._showExits(room);
 
+    // Apply radiation cost
+    if (room.radCost && room.radCost > 0) {
+      this.player.rad = Math.min(this.player.maxRad, this.player.rad + room.radCost);
+      this.renderer.printNotification(`+${room.radCost} RAD`, 'danger');
+      this._updateHUD();
+    }
+
     // Auto-generate choices
     this._generateRoomChoices(room);
 

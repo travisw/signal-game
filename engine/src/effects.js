@@ -139,7 +139,7 @@ export class Effects {
     ];
 
     for (const line of lines) {
-      if (this.skipRequested) {
+      if (this.skipRequested || this.skipAllRequested) {
         targetEl.innerHTML = '';
         return;
       }

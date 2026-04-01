@@ -108,6 +108,7 @@
     },
     "cooling-tower": {
       "name": "Cooling Tower",
+      "radCost": 3,
       "description": "A massive cooling system for the server farm. Huge fans line the walls, still and silent. Pipes run everywhere, some still dripping {pink:coolant} that pools on the floor in luminescent puddles. The acrid chemical smell burns your nostrils.\n\n{pink:Radiation levels are elevated here.} Don't linger.\n\n{pink:+3 RAD while you're here.}",
       "exits": {
         "west": { "room": "server-cathedral" },
