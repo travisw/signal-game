@@ -1283,10 +1283,33 @@ export class Game {
 
   _showExits(room) {
     const exits = room.exits || {};
-    const exitNames = Object.keys(exits);
-    if (exitNames.length > 0) {
-      const exitStr = exitNames.map(e => `{cyan:${e}}`).join(', ');
-      this.renderer.printLine(`Exits: ${exitStr}`);
+    const shortToFull = { n: 'north', s: 'south', e: 'east', w: 'west', u: 'up', d: 'down' };
+    const fullToShort = Object.fromEntries(Object.entries(shortToFull).map(([k, v]) => [v, k]));
+
+    // Group full directions with their shortcuts, pass through others
+    const shown = [];
+    const handled = new Set();
+
+    for (const dir of Object.keys(exits)) {
+      if (handled.has(dir)) continue;
+      handled.add(dir);
+
+      const shortcut = fullToShort[dir];
+      if (shortcut && exits[shortcut]) {
+        // Full direction with shortcut: "north (n)"
+        shown.push(`{cyan:${dir}} {dim:(${shortcut})}`);
+        handled.add(shortcut);
+      } else if (shortToFull[dir] && exits[shortToFull[dir]]) {
+        // Shortcut whose full form was already handled — skip
+        continue;
+      } else {
+        // Standalone (back, enter, northeast, etc.)
+        shown.push(`{cyan:${dir}}`);
+      }
+    }
+
+    if (shown.length > 0) {
+      this.renderer.printLine(`Exits: ${shown.join(', ')}`);
     }
   }
 
