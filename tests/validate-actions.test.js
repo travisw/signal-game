@@ -182,6 +182,117 @@ describe('Choice and exit equivalence', () => {
 });
 
 // =====================
+// Dead choice detection
+// =====================
+
+describe('No dead or broken choices', () => {
+  it('no choices have empty resultText with no other effect', () => {
+    const errors = [];
+    for (const [sectorId, sector] of Object.entries(sectors)) {
+      for (const [roomId, room] of Object.entries(sector.rooms)) {
+        for (let i = 0; i < (room.choices || []).length; i++) {
+          const choice = room.choices[i];
+          // A choice must DO something: navigate, run an action, give an item,
+          // set a flag, reveal a memory, deal damage, heal, change rad, show text, or trigger encounter
+          const doesSomething =
+            choice.action ||
+            choice.goRoom ||
+            choice.goSector ||
+            choice.giveItem ||
+            choice.setFlag ||
+            choice.revealMemory ||
+            choice.damage ||
+            choice.heal ||
+            choice.rad ||
+            choice.encounter ||
+            (choice.resultText && choice.resultText.length > 0);
+
+          if (!doesSomething) {
+            errors.push(`${sectorId}/${roomId} choice [${i + 1}] "${choice.text}" does nothing (no action, navigation, resultText, or effect)`);
+          }
+        }
+      }
+    }
+    if (errors.length > 0) {
+      assert.fail(`Dead choices that do nothing when selected:\n  ${errors.join('\n  ')}`);
+    }
+  });
+
+  it('no choices have goRoom: null without goSector', () => {
+    const errors = [];
+    for (const [sectorId, sector] of Object.entries(sectors)) {
+      for (const [roomId, room] of Object.entries(sector.rooms)) {
+        for (let i = 0; i < (room.choices || []).length; i++) {
+          const choice = room.choices[i];
+          if (choice.goRoom === null && !choice.goSector) {
+            errors.push(`${sectorId}/${roomId} choice [${i + 1}] "${choice.text}" has goRoom:null with no goSector`);
+          }
+        }
+      }
+    }
+    if (errors.length > 0) {
+      assert.fail(`Choices with null goRoom:\n  ${errors.join('\n  ')}`);
+    }
+  });
+
+  it('all hack action targets reference hackable examine objects', () => {
+    const errors = [];
+    for (const [sectorId, sector] of Object.entries(sectors)) {
+      for (const [roomId, room] of Object.entries(sector.rooms)) {
+        for (const choice of (room.choices || [])) {
+          if (choice.action && choice.action.startsWith('hack ')) {
+            const target = choice.action.replace('hack ', '').toLowerCase();
+            const examinables = room.examine || {};
+            let foundHackable = false;
+            for (const [key, exam] of Object.entries(examinables)) {
+              if (typeof exam === 'object' && exam.hackable) {
+                if (target.includes(key.toLowerCase()) || key.toLowerCase().includes(target)) {
+                  foundHackable = true;
+                  break;
+                }
+              }
+            }
+            if (!foundHackable) {
+              errors.push(`${sectorId}/${roomId} action "${choice.action}" — no hackable examine object matches "${target}"`);
+            }
+          }
+        }
+      }
+    }
+    if (errors.length > 0) {
+      assert.fail(`Hack actions with no hackable target:\n  ${errors.join('\n  ')}`);
+    }
+  });
+
+  it('choices with requires conditions use valid requirement format', () => {
+    const validReqKeys = ['flag', 'notFlag', 'hasItem', 'skill', 'level', 'memory', 'and', 'or'];
+    const errors = [];
+    for (const [sectorId, sector] of Object.entries(sectors)) {
+      for (const [roomId, room] of Object.entries(sector.rooms)) {
+        for (let i = 0; i < (room.choices || []).length; i++) {
+          const choice = room.choices[i];
+          if (choice.requires) {
+            const keys = Object.keys(choice.requires);
+            for (const key of keys) {
+              if (!validReqKeys.includes(key)) {
+                errors.push(`${sectorId}/${roomId} choice [${i + 1}] has unknown requirement key "${key}"`);
+              }
+            }
+            // If requires.hasItem, verify the item exists
+            if (choice.requires.hasItem && !items[choice.requires.hasItem]) {
+              errors.push(`${sectorId}/${roomId} choice [${i + 1}] requires unknown item "${choice.requires.hasItem}"`);
+            }
+          }
+        }
+      }
+    }
+    if (errors.length > 0) {
+      assert.fail(`Invalid choice requirements:\n  ${errors.join('\n  ')}`);
+    }
+  });
+});
+
+// =====================
 // Exit shorthand consistency
 // =====================
 
