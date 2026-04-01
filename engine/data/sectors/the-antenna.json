@@ -1,0 +1,108 @@
+{
+  "id": "the-antenna",
+  "name": "The Antenna",
+  "startRoom": "antenna-base",
+  "map": {
+    "grid": [
+      [null, "antenna-base", null],
+      ["conduit-camp", "antenna-tower", "relay-room"],
+      [null, "descent-entrance", null]
+    ]
+  },
+  "rooms": {
+    "antenna-base": {
+      "name": "Antenna Base",
+      "description": "You emerge from the tunnel into a vast open space. The tower rises above -- a skeletal lattice of steel stretching hundreds of meters into hazy sky. {pink:Red warning lights} still blink at its peak. The wind hums through the lattice like a struck tuning fork.\n\nYour {purple:implant} buzzes constantly now. A {purple:camp} has been set up to the west -- tents, a fire pit, banners with a strange symbol. The {pink:Conduit} is here.",
+      "exits": {
+        "north": { "sector": "sector-7g", "room": "antenna-road", "timeCost": 30 },
+        "west": { "room": "conduit-camp", "timeCost": 5 },
+        "w": { "room": "conduit-camp", "timeCost": 5 },
+        "east": { "room": "relay-room", "timeCost": 5 },
+        "e": { "room": "relay-room", "timeCost": 5 },
+        "up": { "room": "antenna-tower", "timeCost": 10 },
+        "south": { "room": "descent-entrance", "timeCost": 5 },
+        "s": { "room": "descent-entrance", "timeCost": 5 }
+      },
+      "examine": {
+        "tower": "A massive broadcast antenna, built before the Collapse. The structure is sound -- ATLAS built to last. The blinking {pink:red lights} mean it's still powered and operational.",
+        "banners": "Cloth banners with a symbol: a circle with radiating lines -- like a broadcast signal. The Conduit's icon. They worship ATLAS as a sleeping god.",
+        "camp": "Maybe 20 people live here, judging by the tents. Devoted followers who believe the signal is a prophecy."
+      }
+    },
+    "conduit-camp": {
+      "name": "Conduit Camp",
+      "description": "Tents arranged in a circle around a central shrine: a {purple:server rack} draped in cloth and surrounded by candles. It would be absurd if it weren't so earnest. Incense and ozone mingle in the air.\n\nA {purple:robed figure} approaches. Their expression is welcoming, but their eyes are intense.",
+      "canRest": true,
+      "exits": {
+        "east": { "room": "antenna-base" },
+        "e": { "room": "antenna-base" },
+        "back": { "room": "antenna-base" }
+      },
+      "npcs": ["prophet"],
+      "examine": {
+        "shrine": "A working server rack powered by a jury-rigged solar panel. Status lights blink in the same rhythm as the signal. Infrastructure turned into iconography.",
+        "tents": "Simple but well-maintained. Books, tools, and technical manuals stacked neatly inside each one. They're not just worshippers -- they're students of the old technology.",
+        "candles": "Candles arranged in a pattern around the shrine. You recognize it -- a {purple:neural interface} circuit diagram. These people know more than they let on."
+      }
+    },
+    "relay-room": {
+      "name": "Relay Room",
+      "description": "The antenna's control room. Banks of {cyan:relay equipment} line the walls, most still operational. Screens display signal strength, broadcast patterns, and routing data.\n\nOne screen catches your eye: a map showing a single line connecting this antenna to a point labeled {pink:ATLAS CORE} -- deep underground, to the southwest.",
+      "exits": {
+        "west": { "room": "antenna-base" },
+        "w": { "room": "antenna-base" },
+        "back": { "room": "antenna-base" }
+      },
+      "examine": {
+        "equipment": {
+          "text": "Broadcast relay equipment. The signal originates from ATLAS Core underground, gets amplified here, and broadcasts across the old network. The power output is enormous -- this signal was meant to reach {bright:everywhere}.",
+          "hackable": true,
+          "hackLevel": 2,
+          "hackText": "You access the relay's routing table. The signal isn't broadcasting blindly -- it's {purple:targeting neural interfaces}. Cycling through known signatures, trying to wake their hosts from cryo. Yours was the only one that responded.\n\n{bright:> INTERFACES CONTACTED: 847}\n{bright:> INTERFACES RESPONDED: 1}\n{bright:> RESPONDER: [YOUR SIGNATURE]}",
+          "hackSetFlag": "knows_signal_targeted",
+          "hackRevealMemory": "mem-antenna-001"
+        },
+        "map": {
+          "text": "The tunnel to ATLAS Core starts beneath the antenna, descends through maintenance shafts, and reaches the core facility about 2 kilometers underground. The route is marked: {dim:MAINTENANCE ACCESS -- CLEARANCE OMEGA REQUIRED}.\n\nOmega clearance. That's what your personnel file said you had.",
+          "setFlag": "knows_core_location"
+        },
+        "screens": "Signal strength, packet routing, error rates. All nominal. ATLAS's automation kept this running perfectly for 40 years."
+      }
+    },
+    "antenna-tower": {
+      "name": "Antenna Tower Platform",
+      "description": "A maintenance platform halfway up the tower. Wind howls around you, tugging at your clothes. The entire region spreads below: Dusthaven to the east, The Spine crossing the wasteland, Sector 7-G directly beneath.\n\nTo the southwest, a massive depression in the earth -- a sinkhole or excavation site. That must be where the tunnel leads. {bright:ATLAS Core.}",
+      "exits": {
+        "down": { "room": "antenna-base", "timeCost": 10 },
+        "back": { "room": "antenna-base", "timeCost": 10 }
+      },
+      "examine": {
+        "core": "The depression is enormous -- maybe a kilometer across. Not natural. Something was built there, or something collapsed. The tunnel leads directly to it.",
+        "landscape": "The full scope of the post-Collapse world. Ruined cities, overgrown farmland, the dark line of The Spine. And everywhere, the signal, pulsing through dead infrastructure like a ghost in the machine.",
+        "signal": {
+          "text": "At this height, the signal resolves into something almost coherent. Your {purple:implant} translates fragments:\n\n{purple:...REMEMBER... COME HOME... THE WORK IS NOT FINISHED...}\n\nATLAS is waiting for you. It knows who you are -- even if you don't.",
+          "setFlag": "heard_atlas_voice"
+        }
+      }
+    },
+    "descent-entrance": {
+      "name": "Descent Entrance",
+      "description": "A heavy blast door at the base of the antenna, partially concealed by earth and debris. Someone has cleared the entrance recently. The door is {green:open}.\n\nBeyond it, a service elevator shaft. The elevator is gone, but maintenance ladders line the walls, descending into total darkness. Cold air rises from below, carrying the faint smell of machine oil.\n\n{bright:There's no coming back from this easily. Make sure you're prepared.}",
+      "canRest": true,
+      "exits": {
+        "north": { "room": "antenna-base" },
+        "n": { "room": "antenna-base" },
+        "down": { "sector": "the-descent", "room": "shaft-top", "timeCost": 30 }
+      },
+      "examine": {
+        "door": "A blast door rated for nuclear attack. Two meters thick. Someone with serious clearance -- or serious tools -- opened this.",
+        "shaft": "The elevator shaft drops into blackness. The ladders look solid, but it's a long way down.",
+        "preparation": "You check your supplies and take stock. Whatever is down there, you'll need everything you've got."
+      },
+      "choices": [
+        { "text": "Begin the descent into the shaft", "goSector": "the-descent", "goRoom": "shaft-top" },
+        { "text": "Go back and prepare more", "goRoom": "antenna-base" }
+      ]
+    }
+  }
+}

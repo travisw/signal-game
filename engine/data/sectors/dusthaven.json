@@ -1,0 +1,132 @@
+{
+  "id": "dusthaven",
+  "name": "Dusthaven",
+  "startRoom": "dusthaven-gate",
+  "map": {
+    "grid": [
+      [null, "dusthaven-gate", null],
+      ["workshop", "market-square", "water-tower"],
+      [null, "tavern", null],
+      [null, "west-road", null]
+    ]
+  },
+  "rooms": {
+    "dusthaven-gate": {
+      "name": "Settlement Gate",
+      "description": "A wall of scrap metal and old car doors rings the settlement. Two guards watch from behind sandbags, hands resting on makeshift weapons. A hand-painted sign reads: {dim:DUSTHAVEN -- POP. ~200}.\n\nThe air smells of woodsmoke and rust. The guards wave you through after a cursory look.",
+      "exits": {
+        "south": { "room": "market-square", "timeCost": 5 },
+        "s": { "room": "market-square", "timeCost": 5 },
+        "back": { "sector": "surface-ruins", "room": "northeast-road", "timeCost": 60 }
+      },
+      "examine": {
+        "guards": "Weathered men with pipe-weapons and sharp eyes. Tired but alert -- the kind who survived by being careful.",
+        "wall": "Car doors, sheet metal, corrugated iron -- all welded and bolted into a perimeter wall. It wouldn't stop a tank, but it keeps out the wildlife and the desperate.",
+        "sign": "Hand-painted, carefully lettered. Someone takes pride in this place."
+      },
+      "choices": [
+        { "text": "Enter the settlement", "goRoom": "market-square" },
+        { "text": "Head back to the surface ruins", "goSector": "surface-ruins", "goRoom": "northeast-road" }
+      ]
+    },
+    "market-square": {
+      "name": "Market Square",
+      "description": "The heart of Dusthaven. Packed earth surrounded by lean-to stalls where traders hawk salvage, food, and tools. The air is thick with the smell of cooking meat and machine oil. Children chase each other between the stalls.\n\n{purple:Wex} the merchant has a large cart in the center, piled high with goods. He waves when he spots you.",
+      "canRest": false,
+      "exits": {
+        "north": { "room": "dusthaven-gate" },
+        "n": { "room": "dusthaven-gate" },
+        "west": { "room": "workshop", "timeCost": 5 },
+        "w": { "room": "workshop", "timeCost": 5 },
+        "east": { "room": "water-tower", "timeCost": 5 },
+        "e": { "room": "water-tower", "timeCost": 5 },
+        "south": { "room": "tavern", "timeCost": 5 },
+        "s": { "room": "tavern", "timeCost": 5 },
+        "southwest": { "room": "west-road", "timeCost": 5 }
+      },
+      "npcs": ["the-merchant"],
+      "examine": {
+        "stalls": "Electronics, food, clothing, weapons -- the economy of survival, spread across blankets and plywood counters.",
+        "children": "Three kids playing tag. They look healthy enough. Someone is feeding them, keeping them safe. Life goes on.",
+        "square": "People trade, gossip, argue, and plan. The center of everything Dusthaven has rebuilt."
+      }
+    },
+    "workshop": {
+      "name": "Workshop",
+      "description": "An open-air workshop under a corrugated roof. Workbenches overflow with tools, components, and half-finished projects. A {cyan:forge} glows in the back corner, radiating waves of heat.\n\nA {cyan:notice board} near the entrance has several job postings pinned to it.",
+      "exits": {
+        "east": { "room": "market-square" },
+        "e": { "room": "market-square" },
+        "back": { "room": "market-square" }
+      },
+      "items": [
+        { "id": "scrap-metal", "qty": 2 },
+        { "id": "copper-wire", "qty": 1 }
+      ],
+      "examine": {
+        "forge": "A makeshift forge built from an old industrial furnace. The tools beside it are well-maintained -- someone knows what they're doing.",
+        "board": {
+          "text": "Job postings on the notice board:\n\n{bright:WANTED:} Scavenger for Spine expedition. Good pay. Dangerous. Ask at tavern.\n{bright:WANTED:} Circuit boards, power cells. Will trade food. -- Wex\n{pink:WARNING:} Conduit cultists spotted near the antenna. Do NOT approach alone.\n{bright:NOTICE:} Anyone with pre-Collapse medical knowledge, report to water tower.",
+          "setFlag": "read_job_board"
+        },
+        "tools": "Wrenches, pliers, soldering irons, a hand-cranked drill. The basics of post-apocalyptic engineering.",
+        "workbenches": "A radio being repaired, a water filter half-assembled, what looks like a weapon modification. Resourceful people."
+      }
+    },
+    "water-tower": {
+      "name": "Water Tower",
+      "description": "A converted water tower serves as Dusthaven's medical station and lookout post. A {purple:medic} works at a table covered in salvaged supplies. The sharp smell of antiseptic cuts through the wind up here.\n\nThe view stretches to the horizon -- wasteland in every direction. Far to the west, the dark line of an elevated highway cuts across the landscape.",
+      "canRest": true,
+      "exits": {
+        "west": { "room": "market-square" },
+        "w": { "room": "market-square" },
+        "back": { "room": "market-square" }
+      },
+      "items": [
+        { "id": "stim-pack", "qty": 1 }
+      ],
+      "examine": {
+        "view": "Kilometers of visibility. The ruined city behind you, scrubland ahead. The Spine highway is a dark line cutting southwest. Beyond it, something tall catches the light -- the antenna.",
+        "medic": "A tired-looking woman sorting pill bottles and bandages. She glances at your {purple:neural implant} with professional interest.",
+        "supplies": "Bandages, antiseptic, a few precious bottles of pre-Collapse medication. Not much for a settlement of 200.",
+        "signal": {
+          "text": "You focus on your {purple:implant}. From this height, the signal is clearer: {bright:BEARING 274 WEST -- STRENGTH 4/10}. It's coming from beyond The Spine, past the antenna. Somewhere underground.",
+          "setFlag": "signal_stronger_dusthaven"
+        }
+      }
+    },
+    "tavern": {
+      "name": "The Rusty Valve",
+      "description": "Dusthaven's tavern -- shipping containers welded together into a dim, low-ceilinged space. Mismatched furniture, a bar made from an old service counter, and the sour tang of homebrew in the air.\n\nA {purple:grizzled woman} sits alone in the corner, studying a map spread across her table. She has the look of someone who knows The Spine.",
+      "canRest": true,
+      "exits": {
+        "north": { "room": "market-square" },
+        "n": { "room": "market-square" },
+        "back": { "room": "market-square" }
+      },
+      "npcs": ["kira"],
+      "examine": {
+        "bar": "The bartender nods. Homebrew spirits or filtered water. Both cost scrap.",
+        "map": "The woman's map shows The Spine in detail -- safe routes, danger zones, supply caches marked with symbols you don't recognize. She's been out there.",
+        "locals": "A handful of settlers nursing drinks. They eye you with the casual wariness of people who've learned not to trust strangers quickly."
+      }
+    },
+    "west-road": {
+      "name": "West Road",
+      "description": "The road out of Dusthaven heading southwest. A weathered sign points the way: {dim:THE SPINE -- 8KM}. A newer sign below it reads: {pink:CAUTION -- BANDIT ACTIVITY REPORTED}.\n\nWind kicks grit across the packed earth. The road is well-worn -- traders use this route regularly, but it's not without risk.",
+      "exits": {
+        "northeast": { "room": "market-square" },
+        "back": { "room": "market-square" },
+        "southwest": { "sector": "the-spine", "room": "spine-east", "timeCost": 45 }
+      },
+      "examine": {
+        "sign": "The Spine is an elevated highway that survived the Collapse mostly intact. The main route west toward Sector 7-G and the antenna.",
+        "road": "Tire tracks and footprints. Regular traffic. Safety in numbers -- or at least in well-worn paths."
+      },
+      "choices": [
+        { "text": "Set out for The Spine", "goSector": "the-spine", "goRoom": "spine-east" },
+        { "text": "Go back to Dusthaven", "goRoom": "market-square" }
+      ]
+    }
+  }
+}

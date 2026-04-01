@@ -1,0 +1,120 @@
+{
+  "id": "surface-ruins",
+  "name": "Surface Ruins",
+  "startRoom": "overlook",
+  "map": {
+    "grid": [
+      [null, "overlook", null],
+      ["rubble-field", "crossroads", "scavenger-camp"],
+      [null, "northeast-road", null]
+    ]
+  },
+  "rooms": {
+    "overlook": {
+      "name": "Surface Overlook",
+      "art": "surface-overlook",
+      "description": "You emerge and the world hits you.\n\nThe sky hangs {pink:bruised orange-grey}, choked with dust. A ruined cityscape sprawls below — shattered towers, collapsed overpasses, streets swallowed by wild vegetation. The wind carries the smell of wet concrete and something organic, growing. {bright:Nothing moves.}\n\nThis was a city. Millions lived here. Now it's a graveyard.\n\nYour {purple:implant} points west, steady and insistent.",
+      "exits": {
+        "south": { "room": "crossroads", "timeCost": 10 },
+        "s": { "room": "crossroads", "timeCost": 10 },
+        "down": { "sector": "maintenance-tunnels", "room": "tunnel-exit", "timeCost": 15 }
+      },
+      "examine": {
+        "city": "Skyscrapers reduced to broken fingers against the sky. Not bomb damage — neglect. 40 years without power or repair. Entropy won.",
+        "sky": "Dust and particulates from decades of unchecked fires, volcanic activity, industrial decay. The sun is a pale disc behind the haze.",
+        "signal": "Your {purple:implant} reads: {cyan:SIGNAL BEARING: 274° WEST — STRENGTH: 3/10}. Far, but reachable.",
+        "vegetation": "Scrub brush, hardy weeds, even trees punching through concrete. Nature is slowly digesting the city."
+      },
+      "choices": [
+        { "text": "Pick your way down into the ruins", "goRoom": "crossroads" },
+        { "text": "Retreat underground", "goSector": "maintenance-tunnels", "goRoom": "tunnel-exit" }
+      ]
+    },
+    "crossroads": {
+      "name": "Crossroads",
+      "description": "An intersection of two cracked roads. Street signs bleached beyond reading. Rubble chokes most directions, but three paths remain passable. The asphalt radiates heat underfoot.",
+      "exits": {
+        "north": { "room": "overlook" },
+        "n": { "room": "overlook" },
+        "west": { "room": "rubble-field", "timeCost": 10 },
+        "w": { "room": "rubble-field", "timeCost": 10 },
+        "east": { "room": "scavenger-camp", "timeCost": 5 },
+        "e": { "room": "scavenger-camp", "timeCost": 5 },
+        "northeast": { "room": "northeast-road", "timeCost": 10 }
+      },
+      "examine": {
+        "signs": "Sun-bleached and rust-eaten. But someone scratched an arrow into one with the word {amber:DUSTHAVEN} and a distance. Recent.",
+        "smoke": "Thin, controlled smoke to the east. A campfire, not a wildfire. Someone is living out here.",
+        "rubble": "A collapsed building blocks the western road. You can pick through, but it'll take time and attention."
+      }
+    },
+    "rubble-field": {
+      "name": "Rubble Field",
+      "description": "A collapsed residential block. Concrete slabs and twisted rebar form a jagged landscape. {dim:Footprints} in the dust say scavengers work these ruins regularly.\n\nAmong the debris: a {cyan:crushed vehicle} with an accessible trunk, and a {cyan:partially intact room} exposed by the collapse. The sharp smell of corroded metal hangs in the air.",
+      "exits": {
+        "east": { "room": "crossroads" },
+        "e": { "room": "crossroads" },
+        "back": { "room": "crossroads" }
+      },
+      "items": [
+        { "id": "scrap-metal", "qty": 3 },
+        { "id": "copper-wire", "qty": 2 }
+      ],
+      "examine": {
+        "vehicle": {
+          "text": "A crushed sedan, half-buried. The trunk pops with effort. Inside: {amber:scrap metal} and {amber:copper wire} stripped from the electrical system.",
+          "giveItem": "scrap-metal",
+          "setFlag": "searched_vehicle"
+        },
+        "room": {
+          "text": "Someone's living room, open to the sky. A couch, a broken screen, children's toys scattered in dust. A faded family photo on the wall — they were happy once.\n\nBeneath the rubble, something glows. A {purple:data cache} embedded in old infrastructure. A memory fragment, waiting.",
+          "revealMemory": "mem-surface-001"
+        },
+        "footprints": "Multiple sets of tracks, some fresh. You're not alone out here."
+      },
+      "encounter": {
+        "enemy": "tunnel-crawler",
+        "introText": "Something shifts in the rubble. A pale, eyeless creature drags itself from a crack — a {pink:Tunnel Crawler}, warped by decades of radiation. It hisses and lunges."
+      }
+    },
+    "scavenger-camp": {
+      "name": "Scavenger Camp",
+      "art": "scavenger-camp",
+      "description": "A small camp sheltered between two standing walls. A {dim:fire} crackles in a metal drum, its smoke funneled through a makeshift chimney. The warmth is startling after the tunnels.\n\n{purple:Mara}, a wiry scavenger, looks up from sorting components as you approach. Not hostile — just surprised anyone else is alive out here.",
+      "canRest": true,
+      "exits": {
+        "west": { "room": "crossroads" },
+        "w": { "room": "crossroads" },
+        "back": { "room": "crossroads" }
+      },
+      "npcs": ["mara"],
+      "items": [
+        { "id": "flashlight", "qty": 1 }
+      ],
+      "examine": {
+        "fire": "Carefully maintained — the smoke chimney keeps the light signature low. {purple:Mara} doesn't want visitors she hasn't vetted.",
+        "shelters": "Two lean-tos. One holds a bedroll, the other is packed with organized salvage — circuits, wire, tools. A professional operation.",
+        "camp": "Small but disciplined. Everything has a place. {purple:Mara} has survived out here a long time.",
+        "flashlight": "A working {amber:flashlight} on a supply crate. Batteries are gold out here — this is a real find."
+      }
+    },
+    "northeast-road": {
+      "name": "Northeast Road",
+      "description": "A wider road heading northeast. The rubble thins, giving way to cracked asphalt and dry scrubland. A hot wind pushes against your back.\n\nA hand-painted sign nailed to a pole reads: {amber:DUSTHAVEN — TRADE WELCOME — NO WEAPONS DRAWN}.\n\nThe road stretches into haze. Long walk, but passable.",
+      "exits": {
+        "southwest": { "room": "crossroads" },
+        "back": { "room": "crossroads" },
+        "northeast": { "sector": "dusthaven", "room": "dusthaven-gate", "timeCost": 60 }
+      },
+      "examine": {
+        "sign": "Hand-painted on scrap wood. Neat lettering — someone cares about first impressions. Below: {dim:Pop. ~200. Est. 2094}. Five years after the Collapse, someone chose to build instead of just survive.",
+        "road": "Cracked but usable. Vehicle tracks suggest traders run this route. You might hitch a ride if you're lucky.",
+        "distance": "About 12 kilometers. On legs stiff from 40 years of cryo, that's going to hurt."
+      },
+      "choices": [
+        { "text": "Set out for Dusthaven", "goSector": "dusthaven", "goRoom": "dusthaven-gate" },
+        { "text": "Head back to explore more ruins first", "goRoom": "crossroads" }
+      ]
+    }
+  }
+}

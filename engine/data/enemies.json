@@ -1,0 +1,89 @@
+{
+  "rogue-drone": {
+    "name": "Rogue Drone",
+    "type": "mechanical",
+    "artId": "rogue-drone",
+    "maxHp": 30,
+    "attack": 6,
+    "hackLevel": 1,
+    "weakness": "EMP, Hacking",
+    "description": "A maintenance drone with corrupted firmware. Its single eye glows an angry red.",
+    "loot": [
+      { "id": "circuit-board", "qty": 1, "chance": 0.8 },
+      { "id": "copper-wire", "qty": 1, "chance": 0.5 }
+    ],
+    "xp": 30
+  },
+  "rad-beast": {
+    "name": "Rad Beast",
+    "type": "mutant",
+    "artId": "rad-beast",
+    "maxHp": 45,
+    "attack": 10,
+    "bioLevel": 2,
+    "weakness": "BIO analysis, Fire",
+    "description": "A creature warped by decades of radiation exposure. It moves on too many legs.",
+    "loot": [
+      { "id": "bio-sample", "qty": 1, "chance": 0.7 },
+      { "id": "rad-away", "qty": 1, "chance": 0.2 }
+    ],
+    "xp": 50
+  },
+  "tunnel-crawler": {
+    "name": "Tunnel Crawler",
+    "type": "mutant",
+    "artId": "rad-beast",
+    "maxHp": 25,
+    "attack": 7,
+    "bioLevel": 1,
+    "weakness": "BIO analysis",
+    "description": "A pale, eyeless thing that hunts by vibration in the dark tunnels.",
+    "loot": [
+      { "id": "bio-sample", "qty": 1, "chance": 0.6 }
+    ],
+    "xp": 25
+  },
+  "bandit-scout": {
+    "name": "Bandit Scout",
+    "type": "human",
+    "artId": "bandit",
+    "maxHp": 35,
+    "attack": 8,
+    "weakness": "Intimidation (COMBAT 2+)",
+    "description": "A ragged figure with a makeshift weapon. Desperate eyes scan you for valuables.",
+    "loot": [
+      { "id": "scrap-metal", "qty": 1, "chance": 0.6 },
+      { "id": "energy-bar", "qty": 1, "chance": 0.4 }
+    ],
+    "xp": 35
+  },
+  "security-turret": {
+    "name": "Security Turret",
+    "type": "mechanical",
+    "artId": "rogue-drone",
+    "maxHp": 50,
+    "attack": 12,
+    "hackLevel": 2,
+    "weakness": "Hacking, EMP",
+    "description": "An automated defense turret. Still running on emergency power after 40 years.",
+    "loot": [
+      { "id": "power-cell", "qty": 1, "chance": 0.8 },
+      { "id": "circuit-board", "qty": 1, "chance": 0.5 }
+    ],
+    "xp": 55
+  },
+  "atlas-sentinel": {
+    "name": "ATLAS Sentinel",
+    "type": "mechanical",
+    "maxHp": 80,
+    "attack": 15,
+    "hackLevel": 3,
+    "weakness": "Hacking (HACK 3+)",
+    "description": "A towering machine guardian. ATLAS built these to protect its core. They still obey.",
+    "loot": [
+      { "id": "power-cell", "qty": 2, "chance": 1.0 },
+      { "id": "circuit-board", "qty": 2, "chance": 0.8 }
+    ],
+    "xp": 100
+  }
+}

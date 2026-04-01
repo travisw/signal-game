@@ -1,0 +1,390 @@
+/* ============================================
+   SIGNAL — Synthwave Terminal Stylesheet
+   ============================================ */
+
+/* --- Reset & Base --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Synthwave palette */
+  --bg: #0a0a1a;
+  --bg-panel: #0d0d1f;
+  --pink: #ff2d95;
+  --cyan: #00e5ff;
+  --green: #39ff14;
+  --purple: #bf5fff;
+  --amber: #ffb347;
+  --red: #ff3366;
+  --text: #b8c0e0;
+  --text-bright: #e0e0ff;
+  --text-dim: #6a6a8e;
+  --border: #2a2a4a;
+
+  /* Glow variants */
+  --pink-glow: rgba(255, 45, 149, 0.4);
+  --cyan-glow: rgba(0, 229, 255, 0.4);
+  --green-glow: rgba(57, 255, 20, 0.4);
+  --purple-glow: rgba(191, 95, 255, 0.4);
+  --amber-glow: rgba(255, 179, 71, 0.4);
+
+  /* Typography */
+  --font-mono: 'Fira Code', 'Courier New', 'Consolas', 'Liberation Mono', monospace;
+  --font-size: 13px;
+  --line-height: 1.6;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+/* --- Game Container --- */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+/* Ambient neon glow from top */
+.game-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(180deg,
+    rgba(255, 45, 149, 0.1) 0%,
+    rgba(191, 95, 255, 0.05) 40%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Scanlines --- */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 45, 149, 0.008) 2px,
+    rgba(255, 45, 149, 0.008) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* --- Top Bar --- */
+.top-bar {
+  padding: 12px 24px 10px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.top-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--pink), var(--purple), var(--cyan), var(--purple), var(--pink));
+  opacity: 0.4;
+}
+
+.game-title {
+  color: var(--pink);
+  text-shadow: 0 0 8px var(--pink-glow);
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.top-bar .location {
+  color: var(--cyan);
+  text-shadow: 0 0 6px var(--cyan-glow);
+  letter-spacing: 1px;
+}
+
+.top-bar .time-display {
+  color: var(--text-dim);
+}
+
+/* --- Main Area --- */
+.main {
+  display: flex;
+  flex: 1;
+  padding: 16px 24px;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* --- Narrative Panel --- */
+.narrative {
+  flex: 3;
+  overflow-y: auto;
+  padding-right: 8px;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar styling */
+.narrative::-webkit-scrollbar {
+  width: 4px;
+}
+
+.narrative::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.narrative::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.narrative::-webkit-scrollbar-thumb:hover {
+  background: var(--purple);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  flex: 0 0 200px;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-y: auto;
+  white-space: pre;
+}
+
+/* --- Input Bar --- */
+.input-bar {
+  padding: 10px 24px 14px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.input-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(255, 45, 149, 0.2),
+    rgba(191, 95, 255, 0.2),
+    rgba(0, 229, 255, 0.2),
+    rgba(191, 95, 255, 0.2),
+    rgba(255, 45, 149, 0.2));
+}
+
+.prompt-char {
+  color: var(--pink);
+  text-shadow: 0 0 6px var(--pink-glow);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.command-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
+  flex: 1;
+  caret-color: var(--cyan);
+}
+
+.command-input::selection {
+  background: rgba(0, 229, 255, 0.3);
+}
+
+/* --- Text Colors --- */
+.t-pink { color: var(--pink); text-shadow: 0 0 6px rgba(255, 45, 149, 0.3); }
+.t-cyan { color: var(--cyan); text-shadow: 0 0 6px rgba(0, 229, 255, 0.3); }
+.t-green { color: var(--green); text-shadow: 0 0 6px rgba(57, 255, 20, 0.3); }
+.t-purple { color: var(--purple); text-shadow: 0 0 6px rgba(191, 95, 255, 0.3); }
+.t-amber { color: var(--amber); text-shadow: 0 0 6px rgba(255, 179, 71, 0.3); }
+.t-red { color: var(--red); text-shadow: 0 0 6px rgba(255, 51, 102, 0.3); }
+.t-dim { color: var(--text-dim); }
+.t-bright { color: var(--text-bright); }
+
+/* --- Panel Borders --- */
+.panel-border { color: var(--border); }
+.panel-header { color: var(--purple); text-shadow: 0 0 6px var(--purple-glow); }
+
+/* --- Stat Bars --- */
+.bar-hp { color: var(--green); text-shadow: 0 0 4px var(--green-glow); }
+.bar-nrg { color: var(--cyan); text-shadow: 0 0 4px var(--cyan-glow); }
+.bar-rad { color: var(--pink); text-shadow: 0 0 4px var(--pink-glow); }
+.bar-empty { color: var(--border); }
+
+/* --- Choice Options --- */
+.choice-number {
+  color: var(--cyan);
+  text-shadow: 0 0 4px var(--cyan-glow);
+}
+
+/* --- ASCII Art --- */
+.ascii-art {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+  line-height: 1.3;
+  white-space: pre;
+  font-size: 12px;
+}
+
+/* --- Narrative Elements --- */
+.narrative-line {
+  margin-bottom: 2px;
+}
+
+.narrative-break {
+  height: 16px;
+}
+
+.choices {
+  margin-top: 12px;
+}
+
+.choice-line {
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.choice-line:hover .choice-number {
+  text-shadow: 0 0 8px var(--cyan-glow);
+}
+
+/* --- Effects --- */
+
+/* Typing cursor */
+.typing-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan-glow);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Glitch effect */
+.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); filter: hue-rotate(0deg); }
+  20% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+  40% { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+  60% { transform: translate(-1px, -1px); filter: hue-rotate(180deg); }
+  80% { transform: translate(1px, 2px); filter: hue-rotate(-180deg); }
+  100% { transform: translate(0); filter: hue-rotate(0deg); }
+}
+
+/* Screen shake */
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-4px, 2px); }
+  30% { transform: translate(4px, -2px); }
+  50% { transform: translate(-2px, 4px); }
+  70% { transform: translate(2px, -4px); }
+  90% { transform: translate(-2px, 2px); }
+}
+
+/* Fade in */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* High RAD color shift */
+.rad-shift {
+  filter: hue-rotate(-30deg) saturate(1.3);
+}
+
+/* Boot screen */
+.boot-text {
+  color: var(--cyan);
+  text-shadow: 0 0 4px var(--cyan-glow);
+  font-size: 12px;
+}
+
+/* Memory fragment reveal */
+.memory-fragment {
+  border-left: 2px solid var(--purple);
+  padding-left: 12px;
+  margin: 8px 0;
+  color: var(--text-bright);
+  font-style: italic;
+}
+
+/* Combat display */
+.enemy-display {
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 45, 149, 0.03);
+}
+
+.enemy-name {
+  color: var(--red);
+  text-shadow: 0 0 6px rgba(255, 51, 102, 0.3);
+  font-weight: bold;
+}
+
+.enemy-hp-bar {
+  margin: 4px 0;
+}
+
+/* Notification flash */
+.notification {
+  padding: 4px 8px;
+  margin: 4px 0;
+  border-left: 2px solid var(--amber);
+  color: var(--amber);
+}
+
+/* Hidden until revealed */
+.hidden {
+  display: none;
+}

@@ -1,0 +1,47 @@
+{
+  "cryo-chamber": {
+    "art": "    {cyan:[---]}  {dim:[---]}  {dim:[---]}  {dim:[---]}\n    {cyan:| o |}  {dim:|   |}  {dim:|   |}  {dim:|   |}\n    {cyan:|///|}  {dim:|   |}  {dim:|   |}  {dim:|   |}\n    {cyan:|___|}  {dim:|___|}  {dim:|___|}  {dim:|___|}\n    {green:OPEN}   {dim:SHUT}   {dim:SHUT}   {dim:SHUT}\n\n    {cyan:> TERMINAL ONLINE}"
+  },
+  "monitoring-station": {
+    "art": "    {cyan:+======+}  {dim:[----]  [----]}\n    {cyan:| MAIN |}  {dim:|LIFE|  | ENV|}\n    {cyan:|SYSTEM|}  {dim:|SIGN|  |CTRL|}\n    {cyan:+======+}  {dim:[----]  [----]}\n     {amber:***}{dim:oo}    {green:*}{dim:oooo}  {pink:****}{dim:o}\n     {amber:POWER}     {green:BIO}     {pink:RAD}"
+  },
+  "supply-closet": {
+    "art": "    {amber:. . .}  {dim:shelves}\n    {amber:.}   {dim:.}  {amber:. .}\n             {dim:.}\n    {green:# crate}   {amber:. .}"
+  },
+  "corridor": {
+    "art": "    {dim:-----}     {dim:-----}     {dim:-----}\n    {pink:#####}     {dim:ooooo}     {dim:ooooo}\n    {pink:#####}     {dim:ooooo}     {dim:ooooo}\n    {pink:RAD!}      {dim:-----}     {dim:-----}"
+  },
+  "exit-hatch": {
+    "art": "       {cyan:+========+}\n       {cyan:|  EXIT  |}\n       {cyan:|  HATCH |}\n       {cyan:+========+}\n        {amber:^ LADDER}\n        {amber:|}\n        {amber:|}"
+  },
+  "tunnel-entrance": {
+    "art": "    {pink:xxxxx}  MAINTENANCE  {pink:xxxxx}\n    {pink:xxxxx}   TUNNELS    {pink:xxxxx}\n           {amber:!! CAUTION}\n    {dim:pipes: ===+===+===}\n              {dim:|}   {dim:|}"
+  },
+  "junction": {
+    "art": "         {dim:|}\n    {dim:-----|         |-----}\n         {dim:|}   {cyan:N}\n         {dim:|} {cyan:W}   {cyan:E}\n         {dim:|}   {cyan:S}\n    {dim:-----|         |-----}\n         {dim:|}"
+  },
+  "generator-room": {
+    "art": "    {amber:+==========+}\n    {amber:| GENERATOR |}  {pink:!! RAD}\n    {amber:|}{green:  ######}{amber:  |}  {pink:ZONE}\n    {amber:|}{green:  ######}{amber:  |}\n    {amber:+==========+}\n    {dim:===========}  {cyan:> PANEL}"
+  },
+  "server-room": {
+    "art": "    {cyan:[####]} {dim:[oooo] [oooo] [oooo]}\n    {cyan:[####]} {dim:[oooo] [oooo] [oooo]}\n    {cyan:[####]} {dim:[oooo] [oooo] [oooo]}\n    {green:*****} {dim:ooooo ooooo ooooo}\n    {green:ACTIVE} {dim:DEAD   DEAD   DEAD}"
+  },
+  "locked-door": {
+    "art": "       {pink:+==========+}\n       {pink:|  LOCKED  |}\n       {pink:|   ####   |}\n       {pink:|   ####   |}\n       {pink:+==========+}\n       {cyan:> ACCESS PANEL}"
+  },
+  "surface-overlook": {
+    "art": "  {pink:~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~}\n  {amber:nnn}   {dim:nnnnn}       {dim:nn}    {amber:nnnn}\n  {amber:###}   {dim:#####}  {dim:nn}  {dim:##}    {amber:####}\n  {amber:###}   {dim:#####}{dim:####}{dim:####}    {amber:####}\n  {dim:================================}\n  {green:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,}"
+  },
+  "scavenger-camp": {
+    "art": "       {amber:/\\}       {dim:smoke}  {amber:/\\}\n      {amber:/  \\}       {dim:|}   {amber:/  \\}\n     {amber:/    \\}      {dim:|}  {amber:/    \\}\n    {amber:/------\\}  {pink:*}{amber:<><>}{pink:*} {amber:/------\\}\n    {dim:| tent  |}  {amber:fire}  {dim:| tent  |}\n    {dim:+-------+}        {dim:+-------+}"
+  },
+  "rogue-drone": {
+    "art": "        {pink:+=====+}\n        {pink:| (@) |}\n        {pink:+=+|+=+}\n         {pink:v v v}"
+  },
+  "rad-beast": {
+    "art": "      {green:/--\\__}\n     {green:/ O  O \\}\n     {green:\\  \\/  /}\n      {green:\\____/}\n     {green://    \\\\}\n    {green://      \\\\}"
+  },
+  "bandit": {
+    "art": "        {amber:o}\n       {amber:/|\\}\n      {amber:/ | \\}\n        {amber:|}\n       {amber:/ \\}"
+  }
+}

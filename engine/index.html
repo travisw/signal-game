@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGNAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+  <div id="game-container" class="game-container">
+    <div class="scanlines"></div>
+
+    <!-- Top bar -->
+    <div id="top-bar" class="top-bar">
+      <span class="game-title">S I G N A L</span>
+      <span id="location-display" class="location"></span>
+      <span id="time-display" class="time-display"></span>
+    </div>
+
+    <!-- Main area -->
+    <div class="main">
+      <!-- Narrative panel -->
+      <div id="narrative" class="narrative"></div>
+
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar"></div>
+    </div>
+
+    <!-- Input bar -->
+    <div id="input-bar" class="input-bar">
+      <span class="prompt-char">❯ </span>
+      <input type="text" id="command-input" class="command-input" autofocus autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

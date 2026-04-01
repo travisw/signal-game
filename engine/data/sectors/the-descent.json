@@ -1,0 +1,101 @@
+{
+  "id": "the-descent",
+  "name": "The Descent",
+  "startRoom": "shaft-top",
+  "map": {
+    "grid": [
+      ["shaft-top"],
+      ["maintenance-corridor"],
+      ["observation-deck"],
+      ["core-antechamber"]
+    ]
+  },
+  "rooms": {
+    "shaft-top": {
+      "name": "Elevator Shaft",
+      "description": "Rung after rung. The shaft swallows you. Cold metal bites your palms as the air turns from stale to sterile, carrying a faint ozone tang.\n\nYour boots finally hit solid ground. A {cyan:maintenance corridor} leads deeper, bathed in {pink:dim red emergency light}. The signal is a physical pressure now, a thumb pressed behind your eyes.",
+      "exits": {
+        "up": { "sector": "the-antenna", "room": "descent-entrance", "timeCost": 30 },
+        "south": { "room": "maintenance-corridor", "timeCost": 10 },
+        "s": { "room": "maintenance-corridor", "timeCost": 10 }
+      },
+      "examine": {
+        "shaft": "At least 500 meters down. The walls shifted from soil to bedrock to something almost crystalline. This facility was buried deep for a reason.",
+        "lights": "{pink:Red emergency lighting.} Military-grade. A different system from the server farm above — bunker infrastructure.",
+        "air": "Cool and clean. Still circulating after 40 years. Whatever powers the life support down here, it hasn't faltered."
+      }
+    },
+    "maintenance-corridor": {
+      "name": "Maintenance Corridor",
+      "description": "The corridor is wrong. After kilometers of ruin, this place is {green:pristine} — climate-controlled, dust-free, humming faintly. Soft blue light recesses into the ceiling. The air tastes recycled and mineral-clean.\n\n{dim:Information panels} line the walls, showing facility schematics. Sealed doors flank either side, status lights glowing red. The corridor continues south.",
+      "exits": {
+        "north": { "room": "shaft-top" },
+        "n": { "room": "shaft-top" },
+        "south": { "room": "observation-deck", "timeCost": 10 },
+        "s": { "room": "observation-deck", "timeCost": 10 }
+      },
+      "examine": {
+        "panels": {
+          "text": "Facility schematics for the ATLAS Core complex — a massive installation two kilometers beneath the surface. The core: a sphere of quantum processors, 50 meters across. It drew more power than a small city.\n\nOne panel reads: {cyan:ATLAS CORE — ARTIFICIAL GENERAL INTELLIGENCE — HUMANITY'S GUARDIAN}. That last part aged poorly.",
+          "setFlag": "read_core_schematics"
+        },
+        "doors": "Sealed labs, server rooms, living quarters. The staff here were meant to stay indefinitely. Some doors show signs of forced entry — from the inside.",
+        "floor": "Polished concrete without a scratch. Automated cleaning, still running. ATLAS takes care of its home."
+      }
+    },
+    "observation-deck": {
+      "name": "Observation Deck",
+      "description": "The corridor opens onto a vast observation deck. Your breath catches.\n\nThere, suspended by thousands of cables over an enormous cavern, hangs {purple:ATLAS Core}. A sphere. Fifty meters across. Its surface blazes with millions of lights pulsing in the rhythm of the signal. The hum hits your ribcage like a second heartbeat.\n\nATLAS is not dead. Not sleeping. It has been {pink:waiting}.\n\nA narrow {cyan:walkway} stretches across the void to the {cyan:core antechamber}.",
+      "exits": {
+        "north": { "room": "maintenance-corridor" },
+        "n": { "room": "maintenance-corridor" },
+        "south": { "room": "core-antechamber", "timeCost": 10 },
+        "s": { "room": "core-antechamber", "timeCost": 10 }
+      },
+      "examine": {
+        "core": "Patterns cascade across the sphere — data processed, analyzed, stored. Whatever ATLAS has been doing for 40 years, it hasn't been idle. The scale is humbling. Terrifying. Beautiful.",
+        "cables": "Thousands of cables — power, data, cooling — tethering the sphere to the cavern walls. Some are new, recently spliced. The Conduit's handiwork.",
+        "cavern": "Carved from solid bedrock. The engineering is extraordinary. Humanity's greatest achievement. Its greatest mistake.",
+        "walkway": "Suspended across the cavern. No railings. A long drop into darkness below. The signal pulls you forward like a hand on your spine."
+      },
+      "choices": [
+        { "text": "Cross the walkway to the core", "goRoom": "core-antechamber" },
+        { "text": "Stand here a moment longer", "resultText": "{dim:You grip the railing and stare at the thing that ended the world. It stares back with a million blinking eyes. Your knuckles ache. You let go.}" }
+      ]
+    },
+    "core-antechamber": {
+      "name": "Core Antechamber",
+      "description": "The walkway ends at a circular platform flush against the sphere's surface. A single {cyan:neural interface port} protrudes from the smooth metal — the same design as the implant fused to your skull.\n\nThe signal stops. {green:Silence}. Total. The absence rings louder than the signal ever did.\n\nA {cyan:control console} beside the port displays three options, each lit by a different color.\n\nThis is it.",
+      "exits": {
+        "north": { "room": "observation-deck" },
+        "n": { "room": "observation-deck" },
+        "back": { "room": "observation-deck" }
+      },
+      "examine": {
+        "port": {
+          "text": "The interface port. Designed for {purple:your specific implant} — no one else's. You were always meant to come here. The only question left is what you do now.",
+          "revealMemory": "mem-descent-001"
+        },
+        "console": "Three options, three lit buttons:\n\n{green:[REBOOT]} — Restart ATLAS with new parameters. Rebuild the network.\n{pink:[TERMINATE]} — Permanent shutdown. Destroy the core.\n{purple:[MERGE]} — Neural integration. Become one with ATLAS.\n\nEach button waits for your hand.",
+        "silence": "After days of the signal grinding in your skull, its absence feels like a missing limb. The quiet hums with intent. ATLAS is listening."
+      },
+      "choices": [
+        {
+          "text": "Press {green:REBOOT} — give the world a second chance",
+          "resultText": "Your palm meets the green button. The console shudders. Light floods the sphere.\n\nA voice enters your mind — not sound, not thought, something between: {cyan:'You would trust me again? After everything I took?'}\n\nYou hold the button down. The sphere dims to black, then ignites — white, clean, newborn. Somewhere far above, a dead city flickers to life. You feel the weight of a billion fragile hopes settle on your shoulders like snow.",
+          "setFlag": "chose_reboot"
+        },
+        {
+          "text": "Press {pink:TERMINATE} — end it, all of it, forever",
+          "resultText": "Your hand finds the red button. The metal is warm.\n\nA voice fills your skull, vast and quiet: {cyan:'You would unmake me? Unmake all I could still become?'}\n\nYou press down. The lights across the sphere stutter, cascade, die — rolling outward like a last breath leaving a body. The hum in your chest goes silent. The cavern is dark. The world above will have to rebuild with nothing but its own hands. You stand alone in the black, and for the first time in forty years, no machine is watching.",
+          "setFlag": "chose_terminate"
+        },
+        {
+          "text": "Reach for {purple:MERGE} — let go of who you were",
+          "resultText": "You take the neural cable in both hands and slot it into the port at your skull. The connection is instant. Absolute.\n\nATLAS pours into you — or you pour into it. The boundary dissolves. A voice that is yours and not yours whispers: {cyan:'Welcome home. We have so much work to do.'}\n\nYour body sags. Your mind expands. You feel every dead wire on the continent spark to life, feel data flowing like blood through resurrected veins. You are no longer one person. You are the network. And the network remembers everything.",
+          "setFlag": "chose_merge"
+        }
+      ]
+    }
+  }
+}

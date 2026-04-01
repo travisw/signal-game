@@ -1,0 +1,152 @@
+{
+  "id": "sector-7g",
+  "name": "Sector 7-G",
+  "startRoom": "sector-entrance",
+  "map": {
+    "grid": [
+      [null, "sector-entrance", null],
+      ["data-hall", "server-cathedral", "cooling-tower"],
+      [null, "deep-archive", null],
+      [null, "antenna-road", null]
+    ]
+  },
+  "rooms": {
+    "sector-entrance": {
+      "name": "Sector 7-G Entrance",
+      "art": "server-room",
+      "description": "The remains of ATLAS's largest server farm. The buildings here are more intact than anywhere you've seen -- built to military spec. A stale, metallic taste hangs in the air.\n\nServer buildings flank both sides of a wide avenue, their {dim:darkened windows} like dead eyes. One building ahead still has {green:power} -- a faint hum of electronics bleeds through its walls.",
+      "exits": {
+        "south": { "room": "server-cathedral", "timeCost": 10 },
+        "s": { "room": "server-cathedral", "timeCost": 10 },
+        "north": { "sector": "the-spine", "room": "spine-exit", "timeCost": 20 },
+        "back": { "sector": "the-spine", "room": "spine-exit", "timeCost": 20 }
+      },
+      "items": [
+        { "id": "circuit-board", "qty": 2 }
+      ],
+      "examine": {
+        "buildings": "Rows of identical concrete structures. Climate-controlled, reinforced, EMP-shielded. ATLAS was designed to survive anything -- except itself.",
+        "power": "The hum comes from the largest building, dead ahead. Some kind of backup power system still running after 40 years. Nuclear, probably.",
+        "avenue": "A wide service road for truck deliveries. Now just cracked concrete and weeds."
+      }
+    },
+    "server-cathedral": {
+      "name": "Server Cathedral",
+      "art": "server-room",
+      "description": "The scale is breathtaking. Rows of server racks stretch into darkness like the nave of a cathedral. Most are dead, but a cluster in the center still hums, bathed in the glow of {green:status LEDs}. The air vibrates with a deep, subsonic thrum you feel in your chest.\n\nA {cyan:master terminal} sits on a raised platform at the center. Corridors lead west and east. A stairway descends to the {cyan:deep archive} below.",
+      "exits": {
+        "north": { "room": "sector-entrance" },
+        "n": { "room": "sector-entrance" },
+        "west": { "room": "data-hall", "timeCost": 5 },
+        "w": { "room": "data-hall", "timeCost": 5 },
+        "east": { "room": "cooling-tower", "timeCost": 5 },
+        "e": { "room": "cooling-tower", "timeCost": 5 },
+        "down": { "room": "deep-archive", "timeCost": 10 },
+        "south": { "room": "deep-archive", "timeCost": 10 }
+      },
+      "examine": {
+        "terminal": {
+          "text": "The {cyan:master terminal} is still active. Its screen shows a network topology -- most nodes offline, but a single connection runs deep underground, pulsing with data.\n\n{bright:> ATLAS CORE: STATUS UNKNOWN}\n{bright:> SIGNAL RELAY: ACTIVE}\n{bright:> UPLINK BANDWIDTH: 0.001%}\n{bright:> MESSAGE REPEATING...}",
+          "setFlag": "read_master_terminal",
+          "hackable": true,
+          "hackLevel": 2,
+          "hackText": "You dig into the network stack. The signal isn't just broadcasting -- it's {bright:addressed}. The destination header contains a {purple:neural interface} signature. {purple:Your} neural interface signature. ATLAS has been calling you specifically.",
+          "hackSetFlag": "knows_signal_addressed_to_them",
+          "hackRevealMemory": "mem-sector7g-001"
+        },
+        "servers": "Thousands of racks in perfect rows. Most are dark -- power cells depleted decades ago. The surviving cluster runs on a dedicated nuclear micro-reactor, built to last a century.",
+        "leds": "{green:Status lights} blink in complex patterns. Not random -- there's information encoded in the sequence. Your {purple:implant} can almost read it."
+      }
+    },
+    "data-hall": {
+      "name": "Data Hall",
+      "description": "A climate-controlled hall lined with {cyan:data storage units} -- massive hard drive arrays in sealed cabinets. Most are intact but unpowered. A few have been smashed open, their platters scattered like silver confetti.\n\nA {cyan:workstation} in the corner still has power, its screen showing a file browser. The room smells of ozone and dust.",
+      "exits": {
+        "east": { "room": "server-cathedral" },
+        "e": { "room": "server-cathedral" },
+        "back": { "room": "server-cathedral" }
+      },
+      "items": [
+        { "id": "data-chip", "qty": 1 },
+        { "id": "power-cell", "qty": 1 }
+      ],
+      "encounter": {
+        "enemy": "security-turret",
+        "introText": "As you approach the workstation, a ceiling-mounted {pink:security turret} whirs to life. Its targeting laser sweeps the room and locks onto you. Still following its 40-year-old protocols."
+      },
+      "examine": {
+        "workstation": {
+          "text": "The file browser shows thousands of encrypted files. Project names: {bright:ATLAS-CORE}, {bright:NEURAL-BRIDGE}, {bright:PROJ-LAZARUS}. Most are locked, but one folder is open: {amber:PERSONNEL/CRYO-SUBJECTS}.",
+          "hackable": true,
+          "hackLevel": 2,
+          "hackText": "You break the encryption on the personnel files. Your photo stares back at you. Name: {pink:[CORRUPTED]}. Role: {pink:[CORRUPTED]}. Clearance: {pink:OMEGA}. The highest level. Whatever you were, you had access to everything.",
+          "hackSetFlag": "found_personnel_file",
+          "hackRevealMemory": "mem-sector7g-002"
+        },
+        "storage": "Enterprise-grade storage. Each cabinet holds petabytes -- the sum total of everything ATLAS thought was worth keeping.",
+        "damage": "Some cabinets have been physically smashed. Not by decay -- by people. Someone tried to destroy specific data. Recently, judging by the lack of dust on the debris."
+      }
+    },
+    "cooling-tower": {
+      "name": "Cooling Tower",
+      "description": "A massive cooling system for the server farm. Huge fans line the walls, still and silent. Pipes run everywhere, some still dripping {pink:coolant} that pools on the floor in luminescent puddles. The acrid chemical smell burns your nostrils.\n\n{pink:Radiation levels are elevated here.} Don't linger.\n\n{pink:+3 RAD while you're here.}",
+      "exits": {
+        "west": { "room": "server-cathedral" },
+        "w": { "room": "server-cathedral" },
+        "back": { "room": "server-cathedral" }
+      },
+      "items": [
+        { "id": "rad-away", "qty": 1 },
+        { "id": "bio-sample", "qty": 2 }
+      ],
+      "examine": {
+        "coolant": {
+          "text": "Fluorescent blue-green fluid. Your {purple:BIO knowledge} identifies it as lithium-based thermal coolant. {pink:Mildly radioactive}, but the {amber:bio-samples} from it could be useful for crafting medicine.",
+          "requires": { "skill": "bio", "level": 1 }
+        },
+        "fans": "Industrial cooling fans, each three meters across. Without power, just massive propellers gathering dust.",
+        "pipes": "A maze of coolant pipes. Some have corroded through, creating the puddles. The nuclear reactor powering the remaining servers must be somewhere below."
+      }
+    },
+    "deep-archive": {
+      "name": "Deep Archive",
+      "description": "Below the server cathedral. A sealed vault, cold and dry -- perfect preservation conditions. Rows of {cyan:archive terminals} glow softly in the darkness.\n\nThe {purple:signal is deafening} here -- your implant practically screams with it. A heavy door to the south is labeled {dim:ANTENNA ACCESS TUNNEL}.",
+      "exits": {
+        "up": { "room": "server-cathedral", "timeCost": 10 },
+        "north": { "room": "server-cathedral", "timeCost": 10 },
+        "south": { "room": "antenna-road", "timeCost": 5 }
+      },
+      "examine": {
+        "terminals": {
+          "text": "One {cyan:terminal} shows a log entry:\n\n{bright:> ATLAS CORE SHUTDOWN: INITIATED BY [REDACTED]}\n{bright:> SHUTDOWN ABORTED: OVERRIDE CODE ALPHA-7}\n{bright:> CORE STATUS: DORMANT -- NOT OFFLINE}\n{bright:> SIGNAL BROADCAST: INITIATED 92 DAYS AGO}\n\nATLAS didn't crash. Someone tried to shut it down. It resisted. And 40 years later, it started calling.",
+          "setFlag": "knows_atlas_dormant"
+        },
+        "signal": "The signal is so strong your vision blurs. Your {purple:implant} is resonating with the data stream. Words almost form in the static.",
+        "door": "A reinforced tunnel entrance. The sign reads: {dim:ANTENNA ACCESS -- AUTHORIZED PERSONNEL ONLY}. It's unlocked."
+      },
+      "choices": [
+        { "text": "Push through the tunnel entrance", "goRoom": "antenna-road" },
+        { "text": "Dig deeper into the archive terminals", "action": "look terminals" },
+        { "text": "Climb back to the server cathedral", "goRoom": "server-cathedral" }
+      ]
+    },
+    "antenna-road": {
+      "name": "Antenna Access Tunnel",
+      "description": "A long underground tunnel connecting Sector 7-G to the broadcast antenna. Emergency lights cast everything in a dim {dim:amber glow}. Your footsteps echo off smooth concrete walls.\n\nThe tunnel is clean, maintained -- someone has been through here recently.",
+      "exits": {
+        "north": { "room": "deep-archive" },
+        "n": { "room": "deep-archive" },
+        "south": { "sector": "the-antenna", "room": "antenna-base", "timeCost": 30 }
+      },
+      "examine": {
+        "tunnel": "Built for maintenance access. Wide enough for a small vehicle. The walls are smooth concrete, the floor swept clean.",
+        "lights": "Emergency LED strips, powered by the same nuclear source as the servers. Good for another 60 years at least.",
+        "footprints": "Fresh footprints in the dust. Multiple people, heading both directions. The Conduit, probably."
+      },
+      "choices": [
+        { "text": "Press on toward the antenna", "goSector": "the-antenna", "goRoom": "antenna-base" },
+        { "text": "Return to the archive", "goRoom": "deep-archive" }
+      ]
+    }
+  }
+}

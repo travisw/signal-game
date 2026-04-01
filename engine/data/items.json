@@ -1,0 +1,145 @@
+{
+  "stim-pack": {
+    "name": "Stim Pack",
+    "description": "Emergency medical injection. Restores health.",
+    "examineText": "A military-grade auto-injector filled with nanite solution. The label reads: ATLAS MEDICAL CORP.",
+    "type": "consumable",
+    "usable": true,
+    "consumable": true,
+    "stackable": true,
+    "useText": "You press the injector against your arm. A rush of warmth spreads through your body as the nanites get to work.",
+    "effects": { "hp": 35 }
+  },
+  "energy-bar": {
+    "name": "Energy Bar",
+    "description": "Compressed nutrition. Tastes like cardboard, works like fuel.",
+    "type": "food",
+    "usable": true,
+    "consumable": true,
+    "stackable": true,
+    "useText": "You chew through the dense bar. It tastes like sawdust and vitamins.",
+    "effects": { "nrg": 25 }
+  },
+  "rad-away": {
+    "name": "Rad-Away",
+    "description": "Rare anti-radiation medicine. Flushes accumulated radiation.",
+    "type": "consumable",
+    "usable": true,
+    "consumable": true,
+    "stackable": true,
+    "useText": "The bitter liquid burns going down, but you can feel the {green:radiation fading} from your cells.",
+    "effects": { "rad": -30 }
+  },
+  "circuit-board": {
+    "name": "Circuit Board",
+    "description": "Salvaged electronics. Useful for crafting.",
+    "type": "component",
+    "stackable": true
+  },
+  "copper-wire": {
+    "name": "Copper Wire",
+    "description": "Salvaged wiring. Essential crafting material.",
+    "type": "component",
+    "stackable": true
+  },
+  "power-cell": {
+    "name": "Power Cell",
+    "description": "Small rechargeable battery. Stores energy.",
+    "type": "component",
+    "stackable": true
+  },
+  "scrap-metal": {
+    "name": "Scrap Metal",
+    "description": "Bent and rusted metal fragments. Can be shaped into tools.",
+    "type": "component",
+    "stackable": true
+  },
+  "bio-sample": {
+    "name": "Bio Sample",
+    "description": "Organic tissue in a sealed vial. Useful for BIO analysis.",
+    "type": "component",
+    "stackable": true
+  },
+  "data-chip": {
+    "name": "Data Chip",
+    "description": "Small storage device. May contain useful information.",
+    "examineText": "The chip is labeled: PROJ. ATLAS — PHASE 3. The data is encrypted.",
+    "type": "key",
+    "stackable": false
+  },
+  "cryo-keycard": {
+    "name": "Cryo Keycard",
+    "description": "Access card for cryo facility doors.",
+    "examineText": "A magnetic keycard. The name field reads: Dr. ████████. The rest is corrupted.",
+    "type": "key",
+    "stackable": false
+  },
+  "signal-tuner": {
+    "name": "Signal Tuner",
+    "description": "Boosts your neural implant's signal reception.",
+    "examineText": "A small device that amplifies specific radio frequencies. It's tuned to the same frequency as... the signal.",
+    "type": "key",
+    "stackable": false
+  },
+  "pipe-wrench": {
+    "name": "Pipe Wrench",
+    "description": "Heavy wrench. Doubles as a weapon.",
+    "type": "weapon",
+    "slot": "weapon",
+    "damage": 8,
+    "stackable": false
+  },
+  "emp-grenade": {
+    "name": "EMP Grenade",
+    "description": "Electromagnetic pulse device. Devastating to electronics.",
+    "type": "consumable",
+    "usable": true,
+    "consumable": true,
+    "stackable": true,
+    "useText": "The EMP grenade detonates with a sharp {cyan:crack}. All electronics in the area shudder."
+  },
+  "makeshift-armor": {
+    "name": "Makeshift Armor",
+    "description": "Scrap metal plates strapped together. Better than nothing.",
+    "type": "armor",
+    "slot": "armor",
+    "defense": 3,
+    "stackable": false,
+    "recipe": [
+      { "id": "scrap-metal", "qty": 3 }
+    ]
+  },
+  "med-kit": {
+    "name": "Med Kit",
+    "description": "Cobbled-together medical supplies. Restores significant health.",
+    "type": "consumable",
+    "usable": true,
+    "consumable": true,
+    "stackable": true,
+    "useText": "You carefully apply the bandages and antiseptic. {green:Much better.}",
+    "effects": { "hp": 60 },
+    "recipe": [
+      { "id": "bio-sample", "qty": 1 },
+      { "id": "stim-pack", "qty": 1 }
+    ]
+  },
+  "emp-device": {
+    "name": "EMP Device",
+    "description": "Reusable electromagnetic pulse emitter.",
+    "type": "tool",
+    "slot": "tool",
+    "stackable": false,
+    "recipe": [
+      { "id": "circuit-board", "qty": 2 },
+      { "id": "power-cell", "qty": 1 },
+      { "id": "copper-wire", "qty": 1 }
+    ]
+  },
+  "flashlight": {
+    "name": "Flashlight",
+    "description": "Battery-powered light. Reveals hidden areas in dark zones.",
+    "type": "tool",
+    "slot": "tool",
+    "stackable": false
+  }
+}

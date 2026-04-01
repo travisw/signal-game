@@ -1,0 +1,186 @@
+{
+  "id": "maintenance-tunnels",
+  "name": "Maintenance Tunnels",
+  "startRoom": "tunnel-entrance",
+  "map": {
+    "grid": [
+      [null, "tunnel-entrance", null],
+      ["generator-room", "junction", "server-room"],
+      [null, "locked-door", null],
+      [null, "tunnel-exit", null]
+    ]
+  },
+  "rooms": {
+    "tunnel-entrance": {
+      "name": "Tunnel Entrance",
+      "art": "tunnel-entrance",
+      "description": "You climb down into a wide maintenance tunnel. Faded {pink:radiation warnings} line the walls. The air is warmer here, thick with dust that coats your tongue. Pipes overhead hiss softly — the only sound besides your own breathing.",
+      "exits": {
+        "south": { "room": "junction" },
+        "s": { "room": "junction" },
+        "up": { "sector": "cryo-lab", "room": "exit-hatch", "timeCost": 10 }
+      },
+      "examine": {
+        "warnings": "{pink:CAUTION — ELEVATED RAD LEVELS BEYOND THIS POINT}. The paint is cracked and peeling, but the message is clear enough.",
+        "pipes": "Coolant, water, waste — all dead lines now. Empty tubes gathering dust for four decades."
+      }
+    },
+    "junction": {
+      "name": "Tunnel Junction",
+      "art": "junction",
+      "description": "A four-way intersection. Water drips from a ceiling crack in a steady, hollow rhythm. Signs on the walls point each direction:\n\n{dim:NORTH} — Cryo Level Access\n{dim:WEST} — Generator Room {pink:(⚠ RAD)}\n{dim:EAST} — Server Room B\n{dim:SOUTH} — Surface Access\n\nThe {pink:radiation} grows stronger to the west.",
+      "exits": {
+        "north": { "room": "tunnel-entrance" },
+        "n": { "room": "tunnel-entrance" },
+        "west": { "room": "generator-room", "timeCost": 5 },
+        "w": { "room": "generator-room", "timeCost": 5 },
+        "east": { "room": "server-room", "timeCost": 5 },
+        "e": { "room": "server-room", "timeCost": 5 },
+        "south": { "room": "locked-door" },
+        "s": { "room": "locked-door" }
+      },
+      "examine": {
+        "signs": "Standard facility wayfinding. ATLAS Infrastructure Corp branding — clean, official, and 40 years out of date.",
+        "water": "Groundwater seeping through a hairline crack. Slightly {green:luminescent}. Definitely irradiated. Don't drink it.",
+        "ceiling": "Reinforced concrete. 40 years underground and still holding. They built this place to outlast the people inside it."
+      }
+    },
+    "generator-room": {
+      "name": "Generator Room",
+      "art": "generator-room",
+      "description": "A cavernous room dominated by a dormant {cyan:backup generator}. The {pink:radiation} hits you like a wall of heat — your {purple:implant} flashes a warning.\n\nThe generator's fuel cell is spent, but a {cyan:control panel} on its flank might hold useful data. A {amber:power cell} sits in a maintenance rack on the wall.\n\n{pink:+5 RAD exposure while you're here.}",
+      "exits": {
+        "east": { "room": "junction" },
+        "e": { "room": "junction" },
+        "back": { "room": "junction" }
+      },
+      "items": [
+        { "id": "power-cell", "qty": 1 },
+        { "id": "scrap-metal", "qty": 2 }
+      ],
+      "examine": {
+        "generator": "ATLAS GEN-IV Fusion Cell. Massive. It kept this facility breathing for decades, and the spent fuel is still cooking the air around it.",
+        "panel": {
+          "text": "The control panel clings to a trickle charge. The screen shows one final maintenance log, dated 40 years ago:\n\n{cyan:> FUEL CELL CRITICAL — 2% REMAINING}\n{cyan:> CRYO SYSTEM PRIORITY: MAXIMUM}\n{cyan:> ALL NON-ESSENTIAL SYSTEMS: SHUTDOWN}\n{cyan:> NOTE: Rerouting final reserves to Pod 4. God help them.}\n\nPod 4. That was yours.",
+          "setFlag": "read_generator_logs",
+          "hackable": true,
+          "hackLevel": 1,
+          "hackText": "You push deeper into the system. Buried in the maintenance logs — a {purple:memory fragment}, recorded by your neural implant before you went under.",
+          "hackRevealMemory": "mem-tunnel-002"
+        }
+      },
+      "choices": [
+        { "text": "Access the control panel", "action": "look panel" },
+        { "text": "Grab the power cell from the rack", "action": "take power cell" },
+        { "text": "Get out before the RAD gets worse", "goRoom": "junction" }
+      ]
+    },
+    "server-room": {
+      "name": "Server Room B",
+      "art": "server-room",
+      "description": "Rows of dead server racks — dark slabs of silicon and steel. But one rack near the entrance still breathes, its status LEDs blinking {green:green}.\n\nA {cyan:terminal} is bolted to the active rack. The air hums with residual charge, tingling against your skin.",
+      "exits": {
+        "west": { "room": "junction" },
+        "w": { "room": "junction" },
+        "back": { "room": "junction" }
+      },
+      "items": [
+        { "id": "circuit-board", "qty": 2 },
+        { "id": "copper-wire", "qty": 1 }
+      ],
+      "encounter": {
+        "enemy": "rogue-drone",
+        "introText": "As you reach for the terminal, a {pink:maintenance drone} detaches from the ceiling. Its red eye locks onto you. Corrupted firmware has turned routine protocols into something predatory."
+      },
+      "examine": {
+        "terminal": {
+          "text": "Network traffic logs from before the Collapse scroll past — mostly corrupted, but fragments survive:\n\n{cyan:> ATLAS NODE 7-G: ONLINE}\n{cyan:> ATLAS NODE 12-A: ONLINE}\n{cyan:> ATLAS CORE: ████████}\n{cyan:> SIGNAL ORIGIN: ATLAS CORE}\n\nThe signal is coming from ATLAS itself.",
+          "setFlag": "knows_signal_from_atlas",
+          "hackable": true,
+          "hackLevel": 1,
+          "hackText": "Deeper in the data stream, a cached {purple:memory fragment} surfaces like a body from dark water.",
+          "hackRevealMemory": "mem-cryo-002"
+        },
+        "racks": "Dead servers. The {amber:circuit boards} and {amber:wiring} inside are still worth salvaging.",
+        "drone": "Standard ATLAS maintenance drone — or it was. 40 years of firmware rot turned routine maintenance into territorial aggression."
+      }
+    },
+    "locked-door": {
+      "name": "Locked Security Door",
+      "art": "locked-door",
+      "description": "A reinforced security door blocks the tunnel. A {pink:red light} pulses on the lock mechanism. An {cyan:access panel} is mounted beside it.\n\nBeyond the steel, you can feel the signal pulling. The surface is close.",
+      "conditionalDesc": [
+        {
+          "requires": { "flag": "security_door_open" },
+          "text": "The reinforced security door stands open, lock mechanism {green:bypassed}. The tunnel slopes south toward a faint glow — {bright:daylight}."
+        }
+      ],
+      "exits": {
+        "north": { "room": "junction" },
+        "n": { "room": "junction" },
+        "south": {
+          "room": "tunnel-exit",
+          "requires": { "flag": "security_door_open" },
+          "failText": "{pink:The security door is locked.} You need to bypass the {cyan:access panel}."
+        },
+        "s": {
+          "room": "tunnel-exit",
+          "requires": { "flag": "security_door_open" },
+          "failText": "{pink:The security door is locked.} You need to bypass the {cyan:access panel}."
+        }
+      },
+      "examine": {
+        "door": "Heavy steel. Military grade. Built to keep people out — or in.",
+        "panel": {
+          "text": "A keycard reader and digital access panel. The keycard slot takes standard ATLAS facility cards. The digital panel might be {cyan:hackable} with the right skills.",
+          "hackable": true,
+          "hackLevel": 1,
+          "hackText": "The encryption is ancient — 40-year-old protocols. Your {purple:implant} makes short work of it.\n\n{green:ACCESS GRANTED.} The security door grinds open with a hiss.",
+          "hackSetFlag": "security_door_open"
+        },
+        "light": "Steady red pulse. The lock system is still powered and functional after all this time."
+      },
+      "choices": [
+        {
+          "text": "Swipe the Cryo Keycard through the reader",
+          "requires": { "hasItem": "cryo-keycard" },
+          "resultText": "You swipe the keycard. The reader beeps — {green:ACCESS GRANTED}. The door grinds open.",
+          "setFlag": "security_door_open"
+        },
+        {
+          "text": "Hack the access panel",
+          "requires": { "skill": "hack", "level": 1 },
+          "resultText": "",
+          "goRoom": null
+        },
+        {
+          "text": "Shoulder the door open by force",
+          "resultText": "{pink:The door doesn't budge.} Military-grade steel. You'd need explosives or a bypass — not brute force.",
+          "damage": 5
+        },
+        {
+          "text": "Go back to the junction",
+          "goRoom": "junction"
+        }
+      ]
+    },
+    "tunnel-exit": {
+      "name": "Tunnel Exit",
+      "description": "The tunnel slopes upward toward a rectangle of pale light. Real light. {bright:Daylight}.\n\nThe air shifts — dusty but fresh, carrying scents of earth and slow decay. After 40 years underground, the surface is steps away.\n\nThe signal in your {purple:implant} beats steady and clear, like a second pulse.",
+      "canRest": true,
+      "exits": {
+        "north": { "room": "locked-door" },
+        "n": { "room": "locked-door" },
+        "up": { "sector": "surface-ruins", "room": "overlook", "timeCost": 15 }
+      },
+      "examine": {
+        "light": "Natural light from above. Weak, filtered through dust — but real. It's been 40 years since you last saw it, even if you don't remember.",
+        "signal": "The signal pulses through your {purple:implant} like a heartbeat. Steady. Directional. It's calling you west."
+      },
+      "choices": [
+        { "text": "Climb to the surface", "goSector": "surface-ruins", "goRoom": "overlook" },
+        { "text": "Rest here before going up", "resultText": "{dim:You sit against the tunnel wall and catch your breath. The pale light from above is strangely comforting.}" }
+      ]
+    }
+  }
+}

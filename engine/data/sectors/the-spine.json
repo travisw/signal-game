@@ -1,0 +1,110 @@
+{
+  "id": "the-spine",
+  "name": "The Spine",
+  "startRoom": "spine-east",
+  "map": {
+    "grid": [
+      ["spine-east", "overpass", "wreckage", "spine-west", "spine-exit"]
+    ]
+  },
+  "rooms": {
+    "spine-east": {
+      "name": "The Spine -- East End",
+      "description": "You climb a crumbling on-ramp onto The Spine -- an elevated highway stretching west across the wasteland. Rusted vehicles litter both lanes, baking in the heat. The asphalt radiates warmth through your boots.\n\nEndless scrubland dotted with ruins under a hazy {dim:amber-grey} sky. To the west, the highway stretches onward. Behind you, Dusthaven is a smudge on the horizon.",
+      "exits": {
+        "west": { "room": "overpass", "timeCost": 15 },
+        "w": { "room": "overpass", "timeCost": 15 },
+        "east": { "sector": "dusthaven", "room": "west-road", "timeCost": 45 },
+        "back": { "sector": "dusthaven", "room": "west-road", "timeCost": 45 }
+      },
+      "items": [
+        { "id": "scrap-metal", "qty": 1 }
+      ],
+      "examine": {
+        "vehicles": "Cars and trucks frozen mid-journey, picked clean by scavengers. A few still have personal belongings visible through dirty windows -- snapshots of the moment everything stopped.",
+        "view": "Flat scrubland with occasional ruins. Far to the west, a tall structure rises above the horizon -- the antenna.",
+        "road": "Four lanes of cracked asphalt. Weeds push through the gaps. Built to last, and it has -- barely."
+      }
+    },
+    "overpass": {
+      "name": "Overpass Junction",
+      "description": "The highway crosses a collapsed interchange. Part of the road has fallen away, leaving a {pink:dangerous gap} with twisted rebar and rubble below. Wind whistles through the opening.\n\nSomeone has laid a {cyan:makeshift bridge} across the gap using car hoods and rope. It looks... functional.",
+      "exits": {
+        "east": { "room": "spine-east", "timeCost": 15 },
+        "e": { "room": "spine-east", "timeCost": 15 },
+        "west": { "room": "wreckage", "timeCost": 10 },
+        "w": { "room": "wreckage", "timeCost": 10 }
+      },
+      "examine": {
+        "bridge": "Car hoods lashed together with wire and rope. It sways when you test it. Not reassuring, but it'll hold.",
+        "gap": "A three-meter gap. Below, a 15-meter drop into rubble. Not survivable.",
+        "below": "Collapsed concrete and rusted vehicles. Something moves down there -- animals, probably. Or something else."
+      },
+      "choices": [
+        { "text": "Edge across the makeshift bridge", "resultText": "You edge across. It creaks and sways, but holds. Your heart rate doesn't return to normal for several minutes.", "goRoom": "wreckage" },
+        { "text": "Search for another way around", "resultText": "There's no other way across. The bridge is it." }
+      ]
+    },
+    "wreckage": {
+      "name": "Vehicle Wreckage",
+      "description": "A massive pileup blocks the road -- dozens of vehicles fused together in a wall of rust and broken glass. Forty years old, but you can still read the panic in the arrangement. The air reeks of old oil and corroded metal.\n\nA narrow path has been cleared through the wreckage. It's {pink:tight and dark} inside.",
+      "exits": {
+        "east": { "room": "overpass", "timeCost": 10 },
+        "e": { "room": "overpass", "timeCost": 10 },
+        "west": { "room": "spine-west", "timeCost": 10 },
+        "w": { "room": "spine-west", "timeCost": 10 }
+      },
+      "items": [
+        { "id": "circuit-board", "qty": 1 },
+        { "id": "power-cell", "qty": 1 },
+        { "id": "energy-bar", "qty": 2 }
+      ],
+      "encounter": {
+        "enemy": "bandit-scout",
+        "introText": "As you squeeze through the wreckage, a figure drops from the top of the bus. {pink:A bandit}, armed with a length of pipe. 'Hand over your supplies, or this gets ugly.'"
+      },
+      "examine": {
+        "bus": {
+          "text": "A city bus, windows smashed. Inside, personal items litter the floor -- bags, a child's toy, a phone with a dead battery. On one seat, a {purple:data cache} blinks faintly, powered by a tiny solar cell.",
+          "revealMemory": "mem-spine-001"
+        },
+        "vehicles": "Everyone tried to flee at once. The highway became a parking lot, then a graveyard. Some doors are still open, as if the occupants walked away on foot.",
+        "path": "A narrow channel cut through by scavengers. Just wide enough for one person. Dark enough to hide an ambush."
+      }
+    },
+    "spine-west": {
+      "name": "The Spine -- West End",
+      "description": "The highway opens up past the wreckage. A junction ahead: one branch continues west toward the off-ramp. The other curves {dim:northwest} but is completely collapsed -- impassable.\n\nThe {purple:signal in your implant} is noticeably stronger here. Your hands are tingling.",
+      "exits": {
+        "east": { "room": "wreckage", "timeCost": 10 },
+        "e": { "room": "wreckage", "timeCost": 10 },
+        "west": { "room": "spine-exit", "timeCost": 10 },
+        "w": { "room": "spine-exit", "timeCost": 10 }
+      },
+      "examine": {
+        "fork": "The northwest branch is gone -- a 50-meter section collapsed into rubble. West is the only option.",
+        "signal": {
+          "text": "Your {purple:implant} reads: {bright:SIGNAL BEARING: 274 WEST -- STRENGTH 6/10}. Getting close. The signal has a rhythm to it now -- almost like breathing.",
+          "setFlag": "signal_strong_spine"
+        }
+      }
+    },
+    "spine-exit": {
+      "name": "Spine Off-Ramp",
+      "description": "The off-ramp descends into a flat industrial zone. Warehouses and server buildings stretch ahead -- the old tech district. A sign, barely legible: {dim:SECTOR 7-G -- ATLAS INFRASTRUCTURE CORP}.\n\nThe {purple:signal} pulls you forward like a current.",
+      "exits": {
+        "east": { "room": "spine-west" },
+        "e": { "room": "spine-west" },
+        "west": { "sector": "sector-7g", "room": "sector-entrance", "timeCost": 20 }
+      },
+      "examine": {
+        "sign": "ATLAS INFRASTRUCTURE CORP -- SECTOR 7-G -- AUTHORIZED PERSONNEL ONLY. The restriction seems quaint now.",
+        "buildings": "Low concrete buildings, most with caved-in roofs. Server farms, data centers, networking hubs. Where ATLAS's physical infrastructure lived."
+      },
+      "choices": [
+        { "text": "Descend into Sector 7-G", "goSector": "sector-7g", "goRoom": "sector-entrance" },
+        { "text": "Turn back along The Spine", "goRoom": "spine-west" }
+      ]
+    }
+  }
+}

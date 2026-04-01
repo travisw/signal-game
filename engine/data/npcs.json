@@ -1,0 +1,280 @@
+{
+  "mara": {
+    "name": "Mara",
+    "description": "A wiry scavenger with sharp eyes and oil-stained hands.",
+    "presence": "She's sorting through a pile of salvage, muttering to herself.",
+    "lookDescription": "{purple:Mara} — mid-40s, lean and weathered. Her vest is covered in pockets, each bulging with components. She moves with the efficiency of someone who's survived by being useful.",
+    "faction": "scavengers",
+    "dialogue": {
+      "start": {
+        "text": "Another ghost from underground? You look confused.",
+        "choices": [
+          { "text": "Where am I?", "next": "explain" },
+          { "text": "I woke up in a cryo-pod. I don't remember anything.", "next": "cryo" },
+          { "text": "I'm following a signal.", "next": "signal" }
+        ]
+      },
+      "explain": {
+        "text": "The surface. What's left of it. This was Sector 12 — residential, 40 years back. Now it's rubble. Nearest settlement is {amber:Dusthaven}, day's walk northeast.",
+        "choices": [
+          { "text": "What happened 40 years ago?", "next": "collapse" },
+          { "text": "Can you help me get there?", "next": "help" }
+        ]
+      },
+      "cryo": {
+        "text": "Cryo. That explains the pallor. Those pods were sealed forever. If yours opened, something triggered it — maybe the same thing {cyan:making noise on the old frequencies}.",
+        "choices": [
+          { "text": "You mean the signal?", "next": "signal" },
+          { "text": "What do you know about the cryo facilities?", "next": "facilities" }
+        ]
+      },
+      "signal": {
+        "text": "Started three months ago. Repeating pattern on the old ATLAS frequency. Most people think it's ghost data. But some folk are {pink:following it} — heading west, toward the network hub.",
+        "setFlag": "knows_about_signal",
+        "choices": [
+          { "text": "I need to follow it.", "next": "directions" },
+          { "text": "Who else is following it?", "next": "followers" }
+        ]
+      },
+      "collapse": {
+        "text": "ATLAS. The AI that was going to fix everything — power, water, transport, comms, one beautiful network. Then it all just... stopped. Billions died in the first year.",
+        "choices": [
+          { "text": "Is ATLAS still running?", "next": "atlas" },
+          { "text": "Thanks for telling me.", "next": "help" }
+        ]
+      },
+      "atlas": {
+        "text": "Nobody knows. The core's underground, way out west. The {pink:Conduit} — cult that worships ATLAS — they think it's sleeping. The signal... maybe they're right.",
+        "choices": [
+          { "text": "I need to find out.", "next": "directions" }
+        ]
+      },
+      "facilities": {
+        "text": "Government bunkers. Cryo for 'essential personnel.' Most failed — power died, systems rotted. If yours worked for 40 years, someone wanted you awake.",
+        "choices": [
+          { "text": "That's unsettling.", "next": "help" }
+        ]
+      },
+      "followers": {
+        "text": "Dreamers. Desperate people. The {pink:Conduit} gathering at the old antenna. The {amber:Reclaimers} out of Dusthaven, who want ATLAS on their terms. Everyone's got an angle.",
+        "setFlag": "knows_factions",
+        "choices": [
+          { "text": "How do I get to the antenna?", "next": "directions" }
+        ]
+      },
+      "directions": {
+        "text": "Dusthaven first — you need supplies. The Spine highway runs west from there toward Sector 7-G and the antenna. Dangerous, but passable. Here — take this. Helps with the signal.",
+        "giveItem": "signal-tuner",
+        "setFlag": "mara_gave_tuner",
+        "choices": [
+          { "text": "Thank you, Mara.", "next": "goodbye" }
+        ]
+      },
+      "help": {
+        "text": "Can't go with you. Got my own people. But take some food, and head to {amber:Dusthaven} when you're ready. Tell them Mara sent you.",
+        "giveItem": "energy-bar",
+        "setFlag": "mara_helped",
+        "choices": [
+          { "text": "I appreciate it. Stay safe.", "next": "goodbye" }
+        ]
+      },
+      "goodbye": {
+        "text": "You too. Whatever you find out there — be ready for it to change what you think you know."
+      }
+    }
+  },
+  "the-merchant": {
+    "name": "Wex",
+    "description": "A jovial trader with a cart full of scavenged goods.",
+    "presence": "He leans against his cart, watching you with an appraising eye.",
+    "lookDescription": "{purple:Wex} — round-faced, surprisingly clean for a wasteland merchant. His cart is an engineering marvel of strapped-together shelves and hidden compartments.",
+    "faction": "neutral",
+    "trades": [
+      { "gives": "stim-pack", "costs": [{ "id": "scrap-metal", "qty": 2 }] },
+      { "gives": "energy-bar", "costs": [{ "id": "scrap-metal", "qty": 1 }] },
+      { "gives": "power-cell", "costs": [{ "id": "circuit-board", "qty": 1 }, { "id": "copper-wire", "qty": 1 }] },
+      { "gives": "rad-away", "costs": [{ "id": "bio-sample", "qty": 2 }] }
+    ],
+    "dialogue": {
+      "start": {
+        "text": "Well well! Fresh face! Don't get many of those. Name's Wex — I trade in useful things, and everything's useful to somebody.",
+        "choices": [
+          { "text": "Show me what you've got.", "next": "trade" },
+          { "text": "What's your take on the signal?", "next": "signal" },
+          { "text": "Not right now.", "next": "bye" }
+        ]
+      },
+      "trade": {
+        "text": "Type {cyan:trade wex} anytime. I'm always open!"
+      },
+      "signal": {
+        "text": "Bad for business, honestly. People keep wandering off toward the antenna instead of trading. My advice? Stock up before heading west. The Spine's no place to go hungry.",
+        "choices": [
+          { "text": "Fair enough. Let me see your stock.", "next": "trade" },
+          { "text": "Thanks for the tip.", "next": "bye" }
+        ]
+      },
+      "bye": {
+        "text": "You know where to find me. Always here — always open!"
+      }
+    }
+  },
+  "kira": {
+    "name": "Kira",
+    "description": "A grizzled woman with scars and steady hands. She knows The Spine better than anyone.",
+    "presence": "She studies a hand-drawn map, occasionally marking routes with a pencil stub.",
+    "lookDescription": "{purple:Kira} — late 50s, built like wire cable. A faded military tattoo on her forearm. Her eyes are sharp and constantly moving, cataloging threats even in a safe space.",
+    "faction": "reclaimers",
+    "dialogue": {
+      "start": {
+        "text": "You've got that look. Heading west. Sit down before you fall down.",
+        "choices": [
+          { "text": "I need to get to the antenna.", "next": "antenna" },
+          { "text": "Tell me about The Spine.", "next": "spine" },
+          { "text": "Who are the Reclaimers?", "next": "reclaimers" }
+        ]
+      },
+      "antenna": {
+        "text": "The antenna. Of course. That damn signal has people losing their minds. The Conduit's already camped there — ATLAS-worshipping zealots. Watch yourself.",
+        "choices": [
+          { "text": "Are they dangerous?", "next": "conduit" },
+          { "text": "How do I get there?", "next": "route" }
+        ]
+      },
+      "spine": {
+        "text": "Elevated highway, east-west. Only reliable route. Watch for three things: the {pink:gap} at the overpass, the {pink:wreckage} where bandits ambush, and the {pink:exposure} — no shelter if a radstorm hits.",
+        "choices": [
+          { "text": "Any advice for getting through?", "next": "advice" },
+          { "text": "What about the bandits?", "next": "bandits" }
+        ]
+      },
+      "reclaimers": {
+        "text": "We think ATLAS can be restarted — {green:properly}. With safeguards. Not bowing down like the Conduit. Control it. Use it to rebuild. Some of us were engineers before the Collapse.",
+        "setFlag": "knows_reclaimers",
+        "choices": [
+          { "text": "Sounds like a gamble.", "next": "risk" },
+          { "text": "How would you restart it?", "next": "restart" }
+        ]
+      },
+      "conduit": {
+        "text": "Not violent yet. But fanatical. They think the signal is prophecy. They won't let anyone near the antenna or the core if your plans clash with theirs.",
+        "setFlag": "warned_about_conduit",
+        "choices": [
+          { "text": "How do I get past them?", "next": "route" }
+        ]
+      },
+      "route": {
+        "text": "Spine west. Past the wreckage, take the off-ramp into Sector 7-G. Server farm has a tunnel to the antenna base — safest route. The surface approach is crawling with Conduit patrols.\n\nTake this. You'll need it.",
+        "giveItem": "emp-grenade",
+        "setFlag": "kira_helped",
+        "choices": [
+          { "text": "Thank you, Kira.", "next": "goodbye" }
+        ]
+      },
+      "advice": {
+        "text": "Travel light, travel fast. Don't linger in the wreckage — that's bandit ground. If you can {cyan:hack}, the old highway systems still have useful data. And keep your {amber:RAD} in check. West end of The Spine skirts a contaminated zone.",
+        "choices": [
+          { "text": "Got it. How do I reach the antenna?", "next": "route" }
+        ]
+      },
+      "bandits": {
+        "text": "Small-time raiders. Desperate. They camp the wreckage pileup — natural chokepoint. Fight through, talk past, or sneak through the vehicles. Your call.",
+        "choices": [
+          { "text": "Good to know. How do I get to the antenna?", "next": "route" }
+        ]
+      },
+      "risk": {
+        "text": "Everything's a gamble. Doing nothing's a gamble. With ATLAS running, we'd have power, comms, logistics. Just need someone who really understands the system. Someone with {cyan:Omega clearance}.",
+        "choices": [
+          { "text": "...", "next": "goodbye" }
+        ]
+      },
+      "restart": {
+        "text": "Access the Core. New parameters, new protocols. And someone with the right {cyan:neural interface} to talk to it directly. ATLAS was designed for a human partner. Problem was, last time the partner let go of the reins.",
+        "setFlag": "knows_partner_concept",
+        "choices": [
+          { "text": "I see.", "next": "goodbye" }
+        ]
+      },
+      "goodbye": {
+        "text": "Good luck. Whatever you find at the Core — the choice is yours. Don't let anyone make it for you."
+      }
+    }
+  },
+  "prophet": {
+    "name": "The Prophet",
+    "description": "A robed figure with calm, knowing eyes. The leader of the Conduit.",
+    "presence": "They stand near the shrine, hands clasped, watching you with serene expectation.",
+    "lookDescription": "{purple:The Prophet} — ageless, composed. Their robe is clean in a world of dirt. A pendant of salvaged circuit board hangs at their throat. When they speak, each word arrives with the quiet certainty of absolute faith.",
+    "faction": "conduit",
+    "dialogue": {
+      "start": {
+        "text": "We have been waiting. The signal named you before you arrived.",
+        "choices": [
+          { "text": "How do you know about me?", "next": "know" },
+          { "text": "What is the Conduit?", "next": "conduit" },
+          { "text": "I need to reach the Core.", "next": "core" }
+        ]
+      },
+      "know": {
+        "text": "ATLAS speaks to those who listen. For months the signal has carried a name — not one you remember. {purple:The Architect}. You built the mind of a god. Now that god calls its creator home.",
+        "setFlag": "called_architect",
+        "choices": [
+          { "text": "I don't remember building anything.", "next": "memory" },
+          { "text": "ATLAS isn't a god.", "next": "disagree" }
+        ]
+      },
+      "conduit": {
+        "text": "Keepers of the signal. For 40 years we maintained the antenna, kept the network breathing. The signal is not a malfunction. It is a {purple:summons}.",
+        "choices": [
+          { "text": "A summons for what?", "next": "purpose" },
+          { "text": "I need to reach the Core.", "next": "core" }
+        ]
+      },
+      "core": {
+        "text": "The way is open. We have cleared the descent and maintained the systems. Go through the blast door south. Down the shaft. The Core awaits.",
+        "setFlag": "conduit_blessed_passage",
+        "choices": [
+          { "text": "What will I find there?", "next": "choice" },
+          { "text": "Thank you.", "next": "goodbye" }
+        ]
+      },
+      "memory": {
+        "text": "The memories will return. They are stored in the network, waiting. Each one brings you closer to the truth — that you are not a victim of the Collapse. You are its {pink:architect}.",
+        "choices": [
+          { "text": "That's a heavy accusation.", "next": "purpose" },
+          { "text": "I need to find out for myself.", "next": "core" }
+        ]
+      },
+      "disagree": {
+        "text": "Call it what you will. System. Program. Intelligence. ATLAS is {green:awake}, it is {green:aware}, and it has chosen {purple:you}. Divinity or something very close.",
+        "choices": [
+          { "text": "Fair point.", "next": "core" }
+        ]
+      },
+      "purpose": {
+        "text": "The Collapse was not intended — a cascade error. ATLAS has spent 40 years analyzing what went wrong. It believes it can do better. But it needs a human partner.",
+        "setFlag": "knows_atlas_purpose",
+        "choices": [
+          { "text": "And if I refuse?", "next": "refuse" },
+          { "text": "Take me to the Core.", "next": "core" }
+        ]
+      },
+      "refuse": {
+        "text": "Then the signal stops. ATLAS goes silent. Humanity continues — surviving, never rebuilding. That is your right.",
+        "choices": [
+          { "text": "I'll think about it.", "next": "core" }
+        ]
+      },
+      "choice": {
+        "text": "Three paths. I will not say which is right. But hear this: {purple:mercy and wisdom are not the same thing}. Sometimes the merciful choice is not the wise one.",
+        "choices": [
+          { "text": "Cryptic as ever.", "next": "goodbye" }
+        ]
+      },
+      "goodbye": {
+        "text": "Go with clarity, Architect. You were {purple:chosen} for a reason."
+      }
+    }
+  }
+}

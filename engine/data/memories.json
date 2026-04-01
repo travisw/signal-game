@@ -1,0 +1,79 @@
+{
+  "mem-cryo-001": {
+    "text": "White walls. The hum of servers. A voice says: 'The integration test is ready, Doctor.' Your hands are shaking — with pride or dread, you can't tell which.",
+    "skill": "hack",
+    "skillPoints": 1,
+    "type": "engineer",
+    "setFlag": "memory_engineer_1"
+  },
+  "mem-cryo-002": {
+    "text": "Your hands. A petri dish. Fluorescent light catching the curve of the glass. Gene sequences scroll on a screen faster than anyone should be able to read. You could read them.",
+    "skill": "bio",
+    "skillPoints": 1,
+    "type": "scientist",
+    "setFlag": "memory_scientist_1"
+  },
+  "mem-tunnel-001": {
+    "text": "Your body remembers before your mind does. The weight of a weapon. The angle of a killing strike. You were trained for something that required no hesitation.",
+    "skill": "combat",
+    "skillPoints": 1,
+    "type": "operative",
+    "setFlag": "memory_operative_1"
+  },
+  "mem-tunnel-002": {
+    "text": "A terminal. Your fingers flying. Error logs cascading faster than you can read. Someone screaming: 'ATLAS is merging the subsystems — we can't stop it!' The taste of copper in your mouth.",
+    "skill": "hack",
+    "skillPoints": 1,
+    "type": "engineer",
+    "setFlag": "memory_engineer_2"
+  },
+  "mem-surface-001": {
+    "text": "Green parks. Clean air. A child's hand in yours, small and trusting. You hear your own voice say: 'I'll make the world better. I promise.' The child's face won't come into focus.",
+    "skill": "bio",
+    "skillPoints": 1,
+    "type": "scientist",
+    "setFlag": "memory_scientist_2"
+  },
+  "mem-dusthaven-001": {
+    "text": "A briefing room. Uniforms. A screen showing ATLAS's network topology. 'If we can't control it, we terminate it. That's your job.' You nod. You've already decided something else.",
+    "skill": "combat",
+    "skillPoints": 1,
+    "type": "operative",
+    "setFlag": "memory_operative_2"
+  },
+  "mem-spine-001": {
+    "text": "You wrote this code. You remember the elegance — recursive self-improvement, ATLAS learning to learn. Your fingers on the keys felt like playing an instrument. You thought it was beautiful.",
+    "skill": "hack",
+    "skillPoints": 1,
+    "type": "engineer",
+    "setFlag": "memory_engineer_3"
+  },
+  "mem-sector7g-001": {
+    "text": "A deep lab. The neural interface prototype on a steel tray — the same device now fused to your skull. Consent forms on the desk. Some of them aren't signed. You initial them anyway.",
+    "skill": "bio",
+    "skillPoints": 1,
+    "type": "scientist",
+    "setFlag": "memory_scientist_3"
+  },
+  "mem-sector7g-002": {
+    "text": "The cold weight of plastic explosive in your hands. Server racks. A countdown timer. An abort code you memorized but never typed. Something stopped you. Something inside.",
+    "skill": "combat",
+    "skillPoints": 1,
+    "type": "operative",
+    "setFlag": "memory_operative_3"
+  },
+  "mem-antenna-001": {
+    "text": "The static resolves. Not noise — language. ATLAS is speaking your name. A name you don't remember choosing. A name that fits like a scar.",
+    "skill": "hack",
+    "skillPoints": 1,
+    "type": "engineer",
+    "setFlag": "memory_signal_speaks"
+  },
+  "mem-descent-001": {
+    "text": "It hits you all at once. The engineer who coded ATLAS. The scientist who built the interface. The operative sent to destroy it. Three missions. Three lives. One person — standing at the machine they created, betrayed, and couldn't kill. The only question that ever mattered: which one are you now?",
+    "skill": null,
+    "skillPoints": 0,
+    "type": "truth",
+    "setFlag": "memory_truth_revealed"
+  }
+}

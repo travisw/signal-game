@@ -1,0 +1,145 @@
+{
+  "id": "cryo-lab",
+  "name": "Cryo Lab",
+  "startRoom": "cryo-chamber",
+  "map": {
+    "grid": [
+      [null, "monitoring-station", null],
+      ["supply-closet", "corridor", "cryo-chamber"],
+      [null, "exit-hatch", null]
+    ]
+  },
+  "rooms": {
+    "cryo-chamber": {
+      "name": "Cryo Chamber",
+      "art": "cryo-chamber",
+      "description": "Cold fluorescent light stings your eyes. You're standing beside an open {cyan:cryo-pod} — yours. Frost still clings to the glass. Three other pods line the wall, dark and silent.\n\nA {cyan:terminal} beside your pod blinks steadily. The air tastes of ozone and recycled staleness.",
+      "exits": {
+        "west": { "room": "corridor" },
+        "w": { "room": "corridor" }
+      },
+      "items": [
+        { "id": "stim-pack", "qty": 1 }
+      ],
+      "examine": {
+        "pod": {
+          "text": "Ice crystals sublimate off padding shaped to your body. The control panel reads: {cyan:SUBJECT: [REDACTED] — PRESERVATION TIME: 14,612 DAYS}. That's... 40 years.",
+          "setFlag": "examined_pod"
+        },
+        "terminal": {
+          "text": "The screen glows with a single message:\n\n{cyan:> NEURAL INTERFACE ACTIVE}\n{cyan:> SUBJECT VITAL SIGNS: NOMINAL}\n{cyan:> DIRECTIVE: FOLLOW THE SIGNAL}\n{cyan:> REMEMBER WHO YOU ARE}\n\nA data port blinks below. Your {purple:neural implant} hums in response.",
+          "revealMemory": "mem-cryo-001",
+          "setFlag": "read_terminal"
+        },
+        "pods": "Frost blankets the other three pods. Through the ice you make out shapes — but no movement, no breath fog, no signs of life. Their control panels are dead.",
+        "stim": "A {amber:Stim Pack} in the emergency supply bracket beside your pod. Standard cryo-recovery issue."
+      },
+      "choices": [
+        { "text": "Inspect the cryo-pod you woke in", "action": "look pod" },
+        { "text": "Access the blinking terminal", "action": "look terminal" },
+        { "text": "Head into the corridor", "goRoom": "corridor" }
+      ]
+    },
+    "corridor": {
+      "name": "Corridor",
+      "art": "corridor",
+      "description": "A long corridor stretches ahead, lined with {dim:pipes} and {dim:cable runs}. Emergency lighting casts everything in dim amber. One of the pipes drips something cold onto the floor in a slow, echoing rhythm.",
+      "exits": {
+        "east": { "room": "cryo-chamber" },
+        "e": { "room": "cryo-chamber" },
+        "north": { "room": "monitoring-station" },
+        "n": { "room": "monitoring-station" },
+        "west": { "room": "supply-closet" },
+        "w": { "room": "supply-closet" },
+        "south": { "room": "exit-hatch" },
+        "s": { "room": "exit-hatch" },
+        "down": { "room": "exit-hatch" }
+      },
+      "examine": {
+        "pipes": "Coolant lines to the cryo-pods — most have stopped flowing. One weeps a {green:fluorescent liquid} that pools on the floor.",
+        "cables": "Heavy cable bundles along the ceiling. Some are severed, ends blackened. Whatever hit this place, the power grid didn't survive it.",
+        "floor": "Scuff marks and dust. Nobody has walked here in decades — except you, just now.",
+        "light": "Battery-powered emergency strips. The flicker says they won't last forever."
+      }
+    },
+    "monitoring-station": {
+      "name": "Monitoring Station",
+      "art": "monitoring-station",
+      "description": "A semicircular room crammed with monitoring equipment. Most screens are dead, but three still flicker. A faint electrical hum fills the space, raising the hairs on your arms.\n\nA {cyan:main system terminal} scrolls cascading errors. A {green:life signs monitor} shows one active signature — yours. A {pink:radiation sensor} pulses with elevated readings.\n\nA {amber:data chip} blinks in a reader slot.",
+      "exits": {
+        "south": { "room": "corridor" },
+        "s": { "room": "corridor" },
+        "back": { "room": "corridor" }
+      },
+      "items": [
+        { "id": "data-chip", "qty": 1 }
+      ],
+      "examine": {
+        "system": {
+          "text": "Error logs cascade down the screen:\n\n{pink:> ATLAS NETWORK: OFFLINE (14612 DAYS)}\n{pink:> CRYO SYSTEM: FAILURE IMMINENT}\n{pink:> EMERGENCY REVIVAL: INITIATED}\n{cyan:> EXTERNAL SIGNAL DETECTED}\n{cyan:> SIGNAL SOURCE: BEARING 274° — DISTANCE UNKNOWN}\n\nThe signal triggered your emergency revival. That's what dragged you back from the dark.",
+          "setFlag": "knows_signal_woke_them"
+        },
+        "life": "A single green dot — you. Heart rate slightly elevated. Neural activity off the charts. The {purple:implant} is doing something it shouldn't be.",
+        "radiation": {
+          "text": "The sensor maps a {pink:hot zone} in the lower levels. The tunnels below the exit hatch glow with elevated RAD readings. Survivable, but you won't want to linger.",
+          "setFlag": "knows_tunnel_radiation"
+        },
+        "chip": "A {amber:data chip} labeled {dim:PROJ. ATLAS — PHASE 3}. Whatever Phase 3 was, someone thought it worth recording."
+      },
+      "choices": [
+        { "text": "Pull up the system error logs", "action": "look system" },
+        { "text": "Check the radiation sensor readings", "action": "look radiation" },
+        { "text": "Pocket the data chip", "action": "take chip" },
+        { "text": "Go back to the corridor", "goRoom": "corridor" }
+      ]
+    },
+    "supply-closet": {
+      "name": "Supply Closet",
+      "art": "supply-closet",
+      "description": "A cramped storage room, ransacked. Shelves toppled, crates pried open. The smell of old plastic and dust. Someone — or something — picked this place clean long ago.\n\nA {amber:pipe wrench} rests on a shelf, and an {amber:intact crate} sits wedged in the corner.",
+      "exits": {
+        "east": { "room": "corridor" },
+        "e": { "room": "corridor" },
+        "back": { "room": "corridor" }
+      },
+      "items": [
+        { "id": "pipe-wrench", "qty": 1 },
+        { "id": "energy-bar", "qty": 2 }
+      ],
+      "examine": {
+        "shelves": "Labels for medical and maintenance supplies. The good stuff vanished long ago.",
+        "crate": {
+          "text": "You pry open the crate. Inside: two {amber:Energy Bars} in vacuum packaging. Still sealed. Still edible — probably.",
+          "giveItem": "energy-bar",
+          "setFlag": "opened_crate"
+        },
+        "wrench": "A heavy {amber:pipe wrench}. Solid steel. Good for turning bolts — or skulls."
+      }
+    },
+    "exit-hatch": {
+      "name": "Exit Hatch",
+      "art": "exit-hatch",
+      "description": "A heavy metal hatch set into the floor, stenciled {cyan:EMERGENCY EXIT — MAINTENANCE LEVEL}. A ladder descends into darkness. Warm air rises from below, carrying the smell of rust and damp concrete.\n\nYour {purple:neural implant} buzzes — the signal is stronger here. Whatever is broadcasting, it's beyond these tunnels.",
+      "conditionalDesc": [
+        {
+          "requires": { "flag": "knows_tunnel_radiation" },
+          "text": "A heavy metal hatch set into the floor, stenciled {cyan:EMERGENCY EXIT — MAINTENANCE LEVEL}. A ladder descends into darkness. Warm air rises from below, carrying the smell of rust and damp concrete.\n\nThe {pink:radiation readings} flash through your mind — the tunnels below are hot. Move quickly.\n\nYour {purple:neural implant} buzzes — the signal is stronger here."
+        }
+      ],
+      "exits": {
+        "north": { "room": "corridor" },
+        "n": { "room": "corridor" },
+        "back": { "room": "corridor" },
+        "down": { "room": null, "sector": "maintenance-tunnels", "room": "tunnel-entrance", "timeCost": 10 }
+      },
+      "examine": {
+        "hatch": "Heavy steel with a manual release lever. The hinges groan when tested but hold. Below, metal rungs descend about 10 meters into blackness.",
+        "ladder": "Sturdy metal rungs. Cold to the touch. They'll hold."
+      },
+      "choices": [
+        { "text": "Descend into the maintenance tunnels", "goSector": "maintenance-tunnels", "goRoom": "tunnel-entrance" },
+        { "text": "Go back to prepare more", "goRoom": "corridor" }
+      ]
+    }
+  }
+}
