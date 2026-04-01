@@ -269,14 +269,10 @@ export class Game {
       this.renderer.printBreak();
     }
 
-    // Numbered choice
     const num = parseInt(raw);
-    if (num > 0 && this.activeChoices && num <= this.activeChoices.length) {
-      await this._executeChoice(this.activeChoices[num - 1]);
-      return;
-    }
 
-    // Phase-specific handling
+    // Phase-specific handling takes priority — combat and dialogue
+    // have their own numbered choice systems
     if (this.phase === 'combat') {
       await this._handleCombatCommand(raw, num);
       return;
@@ -284,6 +280,12 @@ export class Game {
 
     if (this.phase === 'dialogue') {
       await this._handleDialogueCommand(raw, num);
+      return;
+    }
+
+    // Numbered choice (exploration phase)
+    if (num > 0 && this.activeChoices && num <= this.activeChoices.length) {
+      await this._executeChoice(this.activeChoices[num - 1]);
       return;
     }
 
