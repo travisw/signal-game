@@ -10,6 +10,7 @@ export class Effects {
     this.container = container;
     this.typingSpeed = 20; // ms per character
     this.skipRequested = false;
+    this.skipAllRequested = false;
     this.isTyping = false;
   }
 
@@ -21,8 +22,14 @@ export class Effects {
     this.isTyping = true;
     this.skipRequested = false;
 
+    if (this.skipAllRequested) {
+      targetEl.textContent = text;
+      this.isTyping = false;
+      return;
+    }
+
     for (let i = 0; i < text.length; i++) {
-      if (this.skipRequested) {
+      if (this.skipRequested || this.skipAllRequested) {
         targetEl.textContent = text;
         break;
       }
@@ -40,6 +47,12 @@ export class Effects {
   async typeHTML(targetEl, html, speed = this.typingSpeed) {
     this.isTyping = true;
     this.skipRequested = false;
+
+    if (this.skipAllRequested) {
+      targetEl.innerHTML = html;
+      this.isTyping = false;
+      return;
+    }
 
     // Parse into segments: text characters and HTML tags
     const segments = [];
@@ -71,7 +84,7 @@ export class Effects {
 
     let built = '';
     for (const seg of segments) {
-      if (this.skipRequested) {
+      if (this.skipRequested || this.skipAllRequested) {
         targetEl.innerHTML = html;
         break;
       }
@@ -94,12 +107,20 @@ export class Effects {
   }
 
   /**
-   * Skip the current typing animation.
+   * Skip all current and pending typing animations.
    */
   skip() {
-    if (this.isTyping) {
-      this.skipRequested = true;
-    }
+    this.skipRequested = true;
+    this.skipAllRequested = true;
+  }
+
+  /**
+   * Reset skip state. Call when starting a new command/action
+   * so typing resumes normally.
+   */
+  resetSkip() {
+    this.skipRequested = false;
+    this.skipAllRequested = false;
   }
 
   /**

@@ -252,6 +252,9 @@ export class Game {
   // =====================
 
   async handleCommand(input, { silent = false } = {}) {
+    // Reset skip state so typing works fresh for this command
+    this.renderer.effects.resetSkip();
+
     const raw = input.trim().toLowerCase();
     const parts = raw.split(/\s+/);
     const verb = parts[0];
