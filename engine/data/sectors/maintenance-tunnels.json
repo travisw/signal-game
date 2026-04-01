@@ -169,9 +169,7 @@
         },
         {
           "text": "Hack the access panel",
-          "requires": { "skill": "hack", "level": 1 },
-          "resultText": "",
-          "goRoom": null
+          "action": "hack panel"
         },
         {
           "text": "Shoulder the door open by force",
