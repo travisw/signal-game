@@ -9,7 +9,6 @@
     { "id": "the-spine", "name": "The Spine", "act": 2, "connections": ["surface-ruins", "dusthaven", "sector-7g"] },
     { "id": "sector-7g", "name": "Sector 7-G", "act": 2, "connections": ["dusthaven", "the-spine", "the-antenna"] },
     { "id": "the-antenna", "name": "The Antenna", "act": 2, "connections": ["sector-7g", "the-descent"] },
-    { "id": "the-descent", "name": "The Descent", "act": 3, "connections": ["the-antenna", "atlas-core"] },
-    { "id": "atlas-core", "name": "ATLAS Core", "act": 3, "connections": ["the-descent"] }
+    { "id": "the-descent", "name": "The Descent", "act": 3, "connections": ["the-antenna"] }
   ]
 }

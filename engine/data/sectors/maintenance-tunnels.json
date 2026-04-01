@@ -41,7 +41,10 @@
       },
       "examine": {
         "signs": "Standard facility wayfinding. ATLAS Infrastructure Corp branding — clean, official, and 40 years out of date.",
-        "water": "Groundwater seeping through a hairline crack. Slightly {green:luminescent}. Definitely irradiated. Don't drink it.",
+        "water": {
+          "text": "Groundwater seeping through a hairline crack. Slightly {green:luminescent}. Definitely irradiated. Don't drink it.\n\nAs you crouch to look, a {purple:memory fragment} surfaces unbidden — triggered by the posture, the smell of damp concrete, something your body remembers.",
+          "revealMemory": "mem-tunnel-001"
+        },
         "ceiling": "Reinforced concrete. 40 years underground and still holding. They built this place to outlast the people inside it."
       }
     },

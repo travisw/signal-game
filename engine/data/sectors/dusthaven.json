@@ -107,7 +107,10 @@
       "npcs": ["kira"],
       "examine": {
         "bar": "The bartender nods. Homebrew spirits or filtered water. Both cost scrap.",
-        "map": "The woman's map shows The Spine in detail -- safe routes, danger zones, supply caches marked with symbols you don't recognize. She's been out there.",
+        "map": {
+          "text": "The woman's map shows The Spine in detail — safe routes, danger zones, supply caches marked with symbols you don't recognize.\n\nSomething about the tactical markings triggers a flash behind your eyes. A {purple:memory fragment} — unbidden, sharp as a knife.",
+          "revealMemory": "mem-dusthaven-001"
+        },
         "locals": "A handful of settlers nursing drinks. They eye you with the casual wariness of people who've learned not to trust strangers quickly."
       }
     },
