@@ -319,17 +319,11 @@ export class Renderer {
       }
     });
 
-    // Skip typing animation on any keypress or click anywhere on the page.
-    // Ignore Enter key (that submits commands).
-    // When the input is focused and we're NOT animating, let normal typing through.
+    // Skip typing animation with Space bar only — no ambiguity.
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') return;
-      if (!this.commandInput.disabled && e.target === this.commandInput && !this.effects.skipAllRequested && !this._isAnimating) return;
-      this.effects.skip();
-    });
-
-    document.addEventListener('click', (e) => {
+      if (e.key !== ' ') return;
       if (!this._isAnimating && !this.effects.isTyping) return;
+      e.preventDefault(); // Don't type a space into the input
       this.effects.skip();
     });
 
