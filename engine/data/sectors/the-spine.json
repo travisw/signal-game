@@ -25,7 +25,12 @@
         "vehicles": "Cars and trucks frozen mid-journey, picked clean by scavengers. A few still have personal belongings visible through dirty windows -- snapshots of the moment everything stopped.",
         "view": "Flat scrubland with occasional ruins. Far to the west, a tall structure rises above the horizon -- the antenna.",
         "road": "Four lanes of cracked asphalt. Weeds push through the gaps. Built to last, and it has -- barely."
-      }
+      },
+      "choices": [
+        { "text": "Search the abandoned vehicles", "action": "look vehicles" },
+        { "text": "Scavenge some scrap metal", "action": "take scrap metal" },
+        { "text": "Press west along the highway", "goRoom": "overpass" }
+      ]
     },
     "overpass": {
       "name": "Overpass Junction",
@@ -71,7 +76,12 @@
         },
         "vehicles": "Everyone tried to flee at once. The highway became a parking lot, then a graveyard. Some doors are still open, as if the occupants walked away on foot.",
         "path": "A narrow channel cut through by scavengers. Just wide enough for one person. Dark enough to hide an ambush."
-      }
+      },
+      "choices": [
+        { "text": "Search inside the city bus", "action": "look bus" },
+        { "text": "Grab what you can carry", "action": "take power cell" },
+        { "text": "Push through the wreckage heading west", "goRoom": "spine-west" }
+      ]
     },
     "spine-west": {
       "name": "The Spine -- West End",
@@ -88,7 +98,12 @@
           "text": "Your {purple:implant} reads: {bright:SIGNAL BEARING: 274 WEST -- STRENGTH 6/10}. Getting close. The signal has a rhythm to it now -- almost like breathing.",
           "setFlag": "signal_strong_spine"
         }
-      }
+      },
+      "choices": [
+        { "text": "Focus on the signal through your implant", "action": "look signal" },
+        { "text": "Continue west toward the off-ramp", "goRoom": "spine-exit" },
+        { "text": "Double back through the wreckage", "goRoom": "wreckage" }
+      ]
     },
     "spine-exit": {
       "name": "Spine Off-Ramp",

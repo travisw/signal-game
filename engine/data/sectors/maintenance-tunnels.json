@@ -24,7 +24,12 @@
       "examine": {
         "warnings": "{pink:CAUTION — ELEVATED RAD LEVELS BEYOND THIS POINT}. The paint is cracked and peeling, but the message is clear enough.",
         "pipes": "Coolant, water, waste — all dead lines now. Empty tubes gathering dust for four decades."
-      }
+      },
+      "choices": [
+        { "text": "Read the radiation warnings", "action": "look warnings" },
+        { "text": "Continue south to the junction", "goRoom": "junction" },
+        { "text": "Climb back up to the cryo lab", "goSector": "cryo-lab", "goRoom": "exit-hatch" }
+      ]
     },
     "junction": {
       "name": "Tunnel Junction",
@@ -47,7 +52,13 @@
           "revealMemory": "mem-tunnel-001"
         },
         "ceiling": "Reinforced concrete. 40 years underground and still holding. They built this place to outlast the people inside it."
-      }
+      },
+      "choices": [
+        { "text": "Investigate the glowing water", "action": "look water" },
+        { "text": "Head west toward the generator room", "goRoom": "generator-room" },
+        { "text": "Go east to the server room", "goRoom": "server-room" },
+        { "text": "Continue south toward the surface", "goRoom": "locked-door" }
+      ]
     },
     "generator-room": {
       "name": "Generator Room",
@@ -107,7 +118,12 @@
         },
         "racks": "Dead servers. The {amber:circuit boards} and {amber:wiring} inside are still worth salvaging.",
         "drone": "Standard ATLAS maintenance drone — or it was. 40 years of firmware rot turned routine maintenance into territorial aggression."
-      }
+      },
+      "choices": [
+        { "text": "Access the active terminal", "action": "look terminal" },
+        { "text": "Salvage components from the dead racks", "action": "take circuit board" },
+        { "text": "Head back to the junction", "goRoom": "junction" }
+      ]
     },
     "locked-door": {
       "name": "Locked Security Door",

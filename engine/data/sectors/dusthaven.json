@@ -49,7 +49,13 @@
         "stalls": "Electronics, food, clothing, weapons -- the economy of survival, spread across blankets and plywood counters.",
         "children": "Three kids playing tag. They look healthy enough. Someone is feeding them, keeping them safe. Life goes on.",
         "square": "People trade, gossip, argue, and plan. The center of everything Dusthaven has rebuilt."
-      }
+      },
+      "choices": [
+        { "text": "Talk to Wex the merchant", "action": "talk wex" },
+        { "text": "Browse the market stalls", "action": "look stalls" },
+        { "text": "Visit the workshop", "goRoom": "workshop" },
+        { "text": "Head to the tavern", "goRoom": "tavern" }
+      ]
     },
     "workshop": {
       "name": "Workshop",
@@ -71,7 +77,12 @@
         },
         "tools": "Wrenches, pliers, soldering irons, a hand-cranked drill. The basics of post-apocalyptic engineering.",
         "workbenches": "A radio being repaired, a water filter half-assembled, what looks like a weapon modification. Resourceful people."
-      }
+      },
+      "choices": [
+        { "text": "Read the notice board", "action": "look board" },
+        { "text": "Inspect the forge", "action": "look forge" },
+        { "text": "Go back to the market square", "goRoom": "market-square" }
+      ]
     },
     "water-tower": {
       "name": "Water Tower",
@@ -93,7 +104,13 @@
           "text": "You focus on your {purple:implant}. From this height, the signal is clearer: {bright:BEARING 274 WEST -- STRENGTH 4/10}. It's coming from beyond The Spine, past the antenna. Somewhere underground.",
           "setFlag": "signal_stronger_dusthaven"
         }
-      }
+      },
+      "choices": [
+        { "text": "Focus on the signal from up here", "action": "look signal" },
+        { "text": "Take the stim pack", "action": "take stim pack" },
+        { "text": "Scan the horizon for landmarks", "action": "look view" },
+        { "text": "Climb back down to the market", "goRoom": "market-square" }
+      ]
     },
     "tavern": {
       "name": "The Rusty Valve",
@@ -112,7 +129,12 @@
           "revealMemory": "mem-dusthaven-001"
         },
         "locals": "A handful of settlers nursing drinks. They eye you with the casual wariness of people who've learned not to trust strangers quickly."
-      }
+      },
+      "choices": [
+        { "text": "Talk to the grizzled woman", "action": "talk kira" },
+        { "text": "Study her map of The Spine", "action": "look map" },
+        { "text": "Return to the market square", "goRoom": "market-square" }
+      ]
     },
     "west-road": {
       "name": "West Road",

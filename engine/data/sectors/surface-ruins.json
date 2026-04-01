@@ -47,7 +47,13 @@
         "signs": "Sun-bleached and rust-eaten. But someone scratched an arrow into one with the word {amber:DUSTHAVEN} and a distance. Recent.",
         "smoke": "Thin, controlled smoke to the east. A campfire, not a wildfire. Someone is living out here.",
         "rubble": "A collapsed building blocks the western road. You can pick through, but it'll take time and attention."
-      }
+      },
+      "choices": [
+        { "text": "Check the scratched sign", "action": "look signs" },
+        { "text": "Pick through the rubble field", "goRoom": "rubble-field" },
+        { "text": "Follow the smoke to the east", "goRoom": "scavenger-camp" },
+        { "text": "Take the northeast road", "goRoom": "northeast-road" }
+      ]
     },
     "rubble-field": {
       "name": "Rubble Field",
@@ -73,6 +79,11 @@
         },
         "footprints": "Multiple sets of tracks, some fresh. You're not alone out here."
       },
+      "choices": [
+        { "text": "Pop open the crushed vehicle's trunk", "action": "look vehicle" },
+        { "text": "Search the exposed room", "action": "look room" },
+        { "text": "Head back to the crossroads", "goRoom": "crossroads" }
+      ],
       "encounter": {
         "enemy": "tunnel-crawler",
         "introText": "Something shifts in the rubble. A pale, eyeless creature drags itself from a crack — a {pink:Tunnel Crawler}, warped by decades of radiation. It hisses and lunges."
@@ -97,7 +108,12 @@
         "shelters": "Two lean-tos. One holds a bedroll, the other is packed with organized salvage — circuits, wire, tools. A professional operation.",
         "camp": "Small but disciplined. Everything has a place. {purple:Mara} has survived out here a long time.",
         "flashlight": "A working {amber:flashlight} on a supply crate. Batteries are gold out here — this is a real find."
-      }
+      },
+      "choices": [
+        { "text": "Talk to Mara", "action": "talk mara" },
+        { "text": "Grab the flashlight", "action": "take flashlight" },
+        { "text": "Head back to the crossroads", "goRoom": "crossroads" }
+      ]
     },
     "northeast-road": {
       "name": "Northeast Road",

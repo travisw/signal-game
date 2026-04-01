@@ -29,7 +29,13 @@
         "tower": "A massive broadcast antenna, built before the Collapse. The structure is sound -- ATLAS built to last. The blinking {pink:red lights} mean it's still powered and operational.",
         "banners": "Cloth banners with a symbol: a circle with radiating lines -- like a broadcast signal. The Conduit's icon. They worship ATLAS as a sleeping god.",
         "camp": "Maybe 20 people live here, judging by the tents. Devoted followers who believe the signal is a prophecy."
-      }
+      },
+      "choices": [
+        { "text": "Examine the Conduit banners", "action": "look banners" },
+        { "text": "Approach the Conduit camp", "goRoom": "conduit-camp" },
+        { "text": "Enter the relay room", "goRoom": "relay-room" },
+        { "text": "Climb the antenna tower", "goRoom": "antenna-tower" }
+      ]
     },
     "conduit-camp": {
       "name": "Conduit Camp",
@@ -45,7 +51,12 @@
         "shrine": "A working server rack powered by a jury-rigged solar panel. Status lights blink in the same rhythm as the signal. Infrastructure turned into iconography.",
         "tents": "Simple but well-maintained. Books, tools, and technical manuals stacked neatly inside each one. They're not just worshippers -- they're students of the old technology.",
         "candles": "Candles arranged in a pattern around the shrine. You recognize it -- a {purple:neural interface} circuit diagram. These people know more than they let on."
-      }
+      },
+      "choices": [
+        { "text": "Speak with the robed figure", "action": "talk prophet" },
+        { "text": "Inspect the server rack shrine", "action": "look shrine" },
+        { "text": "Head back to the antenna base", "goRoom": "antenna-base" }
+      ]
     },
     "relay-room": {
       "name": "Relay Room",
@@ -69,7 +80,12 @@
           "setFlag": "knows_core_location"
         },
         "screens": "Signal strength, packet routing, error rates. All nominal. ATLAS's automation kept this running perfectly for 40 years."
-      }
+      },
+      "choices": [
+        { "text": "Study the relay equipment", "action": "look equipment" },
+        { "text": "Check the map to ATLAS Core", "action": "look map" },
+        { "text": "Return to the antenna base", "goRoom": "antenna-base" }
+      ]
     },
     "antenna-tower": {
       "name": "Antenna Tower Platform",
@@ -86,7 +102,12 @@
           "text": "At this height, the signal resolves into something almost coherent. Your {purple:implant} translates fragments:\n\n{purple:...REMEMBER... COME HOME... THE WORK IS NOT FINISHED...}\n\nATLAS is waiting for you. It knows who you are -- even if you don't.",
           "setFlag": "heard_atlas_voice"
         }
-      }
+      },
+      "choices": [
+        { "text": "Listen to the signal from up here", "action": "look signal" },
+        { "text": "Survey the landscape below", "action": "look landscape" },
+        { "text": "Climb back down", "goRoom": "antenna-base" }
+      ]
     },
     "descent-entrance": {
       "name": "Descent Entrance",

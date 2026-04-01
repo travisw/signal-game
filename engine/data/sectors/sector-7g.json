@@ -29,7 +29,12 @@
         "buildings": "Rows of identical concrete structures. Climate-controlled, reinforced, EMP-shielded. ATLAS was designed to survive anything -- except itself.",
         "power": "The hum comes from the largest building, dead ahead. Some kind of backup power system still running after 40 years. Nuclear, probably.",
         "avenue": "A wide service road for truck deliveries. Now just cracked concrete and weeds."
-      }
+      },
+      "choices": [
+        { "text": "Investigate the powered building", "action": "look power" },
+        { "text": "Salvage circuit boards from the ruins", "action": "take circuit board" },
+        { "text": "Head into the server cathedral", "goRoom": "server-cathedral" }
+      ]
     },
     "server-cathedral": {
       "name": "Server Cathedral",
@@ -59,7 +64,13 @@
         },
         "servers": "Thousands of racks in perfect rows. Most are dark -- power cells depleted decades ago. The surviving cluster runs on a dedicated nuclear micro-reactor, built to last a century.",
         "leds": "{green:Status lights} blink in complex patterns. Not random -- there's information encoded in the sequence. Your {purple:implant} can almost read it."
-      }
+      },
+      "choices": [
+        { "text": "Access the master terminal", "action": "look terminal" },
+        { "text": "Explore the data hall to the west", "goRoom": "data-hall" },
+        { "text": "Check the cooling tower to the east", "goRoom": "cooling-tower" },
+        { "text": "Descend to the deep archive", "goRoom": "deep-archive" }
+      ]
     },
     "data-hall": {
       "name": "Data Hall",
@@ -88,7 +99,12 @@
         },
         "storage": "Enterprise-grade storage. Each cabinet holds petabytes -- the sum total of everything ATLAS thought was worth keeping.",
         "damage": "Some cabinets have been physically smashed. Not by decay -- by people. Someone tried to destroy specific data. Recently, judging by the lack of dust on the debris."
-      }
+      },
+      "choices": [
+        { "text": "Access the workstation", "action": "look workstation" },
+        { "text": "Pocket a data chip from the storage", "action": "take data chip" },
+        { "text": "Return to the server cathedral", "goRoom": "server-cathedral" }
+      ]
     },
     "cooling-tower": {
       "name": "Cooling Tower",
@@ -109,7 +125,12 @@
         },
         "fans": "Industrial cooling fans, each three meters across. Without power, just massive propellers gathering dust.",
         "pipes": "A maze of coolant pipes. Some have corroded through, creating the puddles. The nuclear reactor powering the remaining servers must be somewhere below."
-      }
+      },
+      "choices": [
+        { "text": "Grab the Rad-Away from the shelf", "action": "take rad-away" },
+        { "text": "Collect bio-samples from the coolant", "action": "take bio sample" },
+        { "text": "Get out before the radiation gets worse", "goRoom": "server-cathedral" }
+      ]
     },
     "deep-archive": {
       "name": "Deep Archive",

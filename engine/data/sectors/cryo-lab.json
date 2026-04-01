@@ -61,7 +61,13 @@
         "cables": "Heavy cable bundles along the ceiling. Some are severed, ends blackened. Whatever hit this place, the power grid didn't survive it.",
         "floor": "Scuff marks and dust. Nobody has walked here in decades — except you, just now.",
         "light": "Battery-powered emergency strips. The flicker says they won't last forever."
-      }
+      },
+      "choices": [
+        { "text": "Check the leaking pipes", "action": "look pipes" },
+        { "text": "Head to the monitoring station", "goRoom": "monitoring-station" },
+        { "text": "Duck into the supply closet", "goRoom": "supply-closet" },
+        { "text": "Climb down through the exit hatch", "goRoom": "exit-hatch" }
+      ]
     },
     "monitoring-station": {
       "name": "Monitoring Station",
@@ -115,7 +121,12 @@
           "setFlag": "opened_crate"
         },
         "wrench": "A heavy {amber:pipe wrench}. Solid steel. Good for turning bolts — or skulls."
-      }
+      },
+      "choices": [
+        { "text": "Pry open the intact crate", "action": "look crate" },
+        { "text": "Grab the pipe wrench", "action": "take pipe wrench" },
+        { "text": "Head back to the corridor", "goRoom": "corridor" }
+      ]
     },
     "exit-hatch": {
       "name": "Exit Hatch",

@@ -24,7 +24,12 @@
         "shaft": "At least 500 meters down. The walls shifted from soil to bedrock to something almost crystalline. This facility was buried deep for a reason.",
         "lights": "{pink:Red emergency lighting.} Military-grade. A different system from the server farm above — bunker infrastructure.",
         "air": "Cool and clean. Still circulating after 40 years. Whatever powers the life support down here, it hasn't faltered."
-      }
+      },
+      "choices": [
+        { "text": "Examine the shaft walls", "action": "look shaft" },
+        { "text": "Continue deeper into the corridor", "goRoom": "maintenance-corridor" },
+        { "text": "Climb back up to the surface", "goSector": "the-antenna", "goRoom": "descent-entrance" }
+      ]
     },
     "maintenance-corridor": {
       "name": "Maintenance Corridor",
@@ -42,7 +47,12 @@
         },
         "doors": "Sealed labs, server rooms, living quarters. The staff here were meant to stay indefinitely. Some doors show signs of forced entry — from the inside.",
         "floor": "Polished concrete without a scratch. Automated cleaning, still running. ATLAS takes care of its home."
-      }
+      },
+      "choices": [
+        { "text": "Read the facility schematics", "action": "look panels" },
+        { "text": "Check the sealed doors", "action": "look doors" },
+        { "text": "Press on toward the observation deck", "goRoom": "observation-deck" }
+      ]
     },
     "observation-deck": {
       "name": "Observation Deck",
