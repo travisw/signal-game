@@ -314,14 +314,22 @@ export class Renderer {
           callback(value);
         }
       }
+    });
 
-      // Skip typing on any key during animation
+    // Skip typing animation on any keypress or click, anywhere on the page
+    document.addEventListener('keydown', (e) => {
       if (this.effects.isTyping) {
         this.effects.skip();
       }
     });
 
-    // Also handle click anywhere to focus input
+    document.addEventListener('click', (e) => {
+      if (this.effects.isTyping) {
+        this.effects.skip();
+      }
+    });
+
+    // Click anywhere to focus input (when not typing)
     this.gameContainer.addEventListener('click', (e) => {
       if (e.target !== this.commandInput && !window.getSelection().toString()) {
         this.focusInput();
