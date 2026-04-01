@@ -1413,12 +1413,12 @@ export class Game {
       this.player.rad = Math.min(this.player.maxRad, this.player.rad + choice.rad);
       this.renderer.printLine(`{pink:+${choice.rad} RAD}`);
     }
-    if (choice.goRoom) {
-      await this.enterRoom(choice.goRoom);
-      return;
-    }
     if (choice.goSector) {
       await this.enterSector(choice.goSector, choice.goRoom);
+      return;
+    }
+    if (choice.goRoom) {
+      await this.enterRoom(choice.goRoom);
       return;
     }
     if (choice.encounter) {

@@ -19,6 +19,7 @@
         "south": { "room": "server-cathedral", "timeCost": 10 },
         "s": { "room": "server-cathedral", "timeCost": 10 },
         "north": { "sector": "the-spine", "room": "spine-exit", "timeCost": 20 },
+        "n": { "sector": "the-spine", "room": "spine-exit", "timeCost": 20 },
         "back": { "sector": "the-spine", "room": "spine-exit", "timeCost": 20 }
       },
       "items": [
@@ -42,7 +43,9 @@
         "east": { "room": "cooling-tower", "timeCost": 5 },
         "e": { "room": "cooling-tower", "timeCost": 5 },
         "down": { "room": "deep-archive", "timeCost": 10 },
-        "south": { "room": "deep-archive", "timeCost": 10 }
+        "d": { "room": "deep-archive", "timeCost": 10 },
+        "south": { "room": "deep-archive", "timeCost": 10 },
+        "s": { "room": "deep-archive", "timeCost": 10 }
       },
       "examine": {
         "terminal": {
@@ -113,8 +116,11 @@
       "description": "Below the server cathedral. A sealed vault, cold and dry -- perfect preservation conditions. Rows of {cyan:archive terminals} glow softly in the darkness.\n\nThe {purple:signal is deafening} here -- your implant practically screams with it. A heavy door to the south is labeled {dim:ANTENNA ACCESS TUNNEL}.",
       "exits": {
         "up": { "room": "server-cathedral", "timeCost": 10 },
+        "u": { "room": "server-cathedral", "timeCost": 10 },
         "north": { "room": "server-cathedral", "timeCost": 10 },
-        "south": { "room": "antenna-road", "timeCost": 5 }
+        "n": { "room": "server-cathedral", "timeCost": 10 },
+        "south": { "room": "antenna-road", "timeCost": 5 },
+        "s": { "room": "antenna-road", "timeCost": 5 }
       },
       "examine": {
         "terminals": {
@@ -136,7 +142,8 @@
       "exits": {
         "north": { "room": "deep-archive" },
         "n": { "room": "deep-archive" },
-        "south": { "sector": "the-antenna", "room": "antenna-base", "timeCost": 30 }
+        "south": { "sector": "the-antenna", "room": "antenna-base", "timeCost": 30 },
+        "s": { "sector": "the-antenna", "room": "antenna-base", "timeCost": 30 }
       },
       "examine": {
         "tunnel": "Built for maintenance access. Wide enough for a small vehicle. The walls are smooth concrete, the floor swept clean.",

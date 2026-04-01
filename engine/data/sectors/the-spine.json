@@ -15,6 +15,7 @@
         "west": { "room": "overpass", "timeCost": 15 },
         "w": { "room": "overpass", "timeCost": 15 },
         "east": { "sector": "dusthaven", "room": "west-road", "timeCost": 45 },
+        "e": { "sector": "dusthaven", "room": "west-road", "timeCost": 45 },
         "back": { "sector": "dusthaven", "room": "west-road", "timeCost": 45 }
       },
       "items": [
@@ -95,7 +96,8 @@
       "exits": {
         "east": { "room": "spine-west" },
         "e": { "room": "spine-west" },
-        "west": { "sector": "sector-7g", "room": "sector-entrance", "timeCost": 20 }
+        "west": { "sector": "sector-7g", "room": "sector-entrance", "timeCost": 20 },
+        "w": { "sector": "sector-7g", "room": "sector-entrance", "timeCost": 20 }
       },
       "examine": {
         "sign": "ATLAS INFRASTRUCTURE CORP -- SECTOR 7-G -- AUTHORIZED PERSONNEL ONLY. The restriction seems quaint now.",

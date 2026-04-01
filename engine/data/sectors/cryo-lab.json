@@ -53,7 +53,8 @@
         "w": { "room": "supply-closet" },
         "south": { "room": "exit-hatch" },
         "s": { "room": "exit-hatch" },
-        "down": { "room": "exit-hatch" }
+        "down": { "room": "exit-hatch" },
+        "d": { "room": "exit-hatch" }
       },
       "examine": {
         "pipes": "Coolant lines to the cryo-pods — most have stopped flowing. One weeps a {green:fluorescent liquid} that pools on the floor.",
@@ -130,7 +131,8 @@
         "north": { "room": "corridor" },
         "n": { "room": "corridor" },
         "back": { "room": "corridor" },
-        "down": { "room": null, "sector": "maintenance-tunnels", "room": "tunnel-entrance", "timeCost": 10 }
+        "down": { "sector": "maintenance-tunnels", "room": "tunnel-entrance", "timeCost": 10 },
+        "d": { "sector": "maintenance-tunnels", "room": "tunnel-entrance", "timeCost": 10 }
       },
       "examine": {
         "hatch": "Heavy steel with a manual release lever. The hinges groan when tested but hold. Below, metal rungs descend about 10 meters into blackness.",

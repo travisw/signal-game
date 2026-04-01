@@ -17,7 +17,8 @@
       "exits": {
         "south": { "room": "crossroads", "timeCost": 10 },
         "s": { "room": "crossroads", "timeCost": 10 },
-        "down": { "sector": "maintenance-tunnels", "room": "tunnel-exit", "timeCost": 15 }
+        "down": { "sector": "maintenance-tunnels", "room": "tunnel-exit", "timeCost": 15 },
+        "d": { "sector": "maintenance-tunnels", "room": "tunnel-exit", "timeCost": 15 }
       },
       "examine": {
         "city": "Skyscrapers reduced to broken fingers against the sky. Not bomb damage — neglect. 40 years without power or repair. Entropy won.",

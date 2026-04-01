@@ -18,7 +18,8 @@
       "exits": {
         "south": { "room": "junction" },
         "s": { "room": "junction" },
-        "up": { "sector": "cryo-lab", "room": "exit-hatch", "timeCost": 10 }
+        "up": { "sector": "cryo-lab", "room": "exit-hatch", "timeCost": 10 },
+        "u": { "sector": "cryo-lab", "room": "exit-hatch", "timeCost": 10 }
       },
       "examine": {
         "warnings": "{pink:CAUTION — ELEVATED RAD LEVELS BEYOND THIS POINT}. The paint is cracked and peeling, but the message is clear enough.",
@@ -174,7 +175,8 @@
       "exits": {
         "north": { "room": "locked-door" },
         "n": { "room": "locked-door" },
-        "up": { "sector": "surface-ruins", "room": "overlook", "timeCost": 15 }
+        "up": { "sector": "surface-ruins", "room": "overlook", "timeCost": 15 },
+        "u": { "sector": "surface-ruins", "room": "overlook", "timeCost": 15 }
       },
       "examine": {
         "light": "Natural light from above. Weak, filtered through dust — but real. It's been 40 years since you last saw it, even if you don't remember.",

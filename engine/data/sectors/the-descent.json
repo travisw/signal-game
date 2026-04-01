@@ -16,6 +16,7 @@
       "description": "Rung after rung. The shaft swallows you. Cold metal bites your palms as the air turns from stale to sterile, carrying a faint ozone tang.\n\nYour boots finally hit solid ground. A {cyan:maintenance corridor} leads deeper, bathed in {pink:dim red emergency light}. The signal is a physical pressure now, a thumb pressed behind your eyes.",
       "exits": {
         "up": { "sector": "the-antenna", "room": "descent-entrance", "timeCost": 30 },
+        "u": { "sector": "the-antenna", "room": "descent-entrance", "timeCost": 30 },
         "south": { "room": "maintenance-corridor", "timeCost": 10 },
         "s": { "room": "maintenance-corridor", "timeCost": 10 }
       },

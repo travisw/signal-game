@@ -15,11 +15,13 @@
       "description": "You emerge from the tunnel into a vast open space. The tower rises above -- a skeletal lattice of steel stretching hundreds of meters into hazy sky. {pink:Red warning lights} still blink at its peak. The wind hums through the lattice like a struck tuning fork.\n\nYour {purple:implant} buzzes constantly now. A {purple:camp} has been set up to the west -- tents, a fire pit, banners with a strange symbol. The {pink:Conduit} is here.",
       "exits": {
         "north": { "sector": "sector-7g", "room": "antenna-road", "timeCost": 30 },
+        "n": { "sector": "sector-7g", "room": "antenna-road", "timeCost": 30 },
         "west": { "room": "conduit-camp", "timeCost": 5 },
         "w": { "room": "conduit-camp", "timeCost": 5 },
         "east": { "room": "relay-room", "timeCost": 5 },
         "e": { "room": "relay-room", "timeCost": 5 },
         "up": { "room": "antenna-tower", "timeCost": 10 },
+        "u": { "room": "antenna-tower", "timeCost": 10 },
         "south": { "room": "descent-entrance", "timeCost": 5 },
         "s": { "room": "descent-entrance", "timeCost": 5 }
       },
@@ -74,6 +76,7 @@
       "description": "A maintenance platform halfway up the tower. Wind howls around you, tugging at your clothes. The entire region spreads below: Dusthaven to the east, The Spine crossing the wasteland, Sector 7-G directly beneath.\n\nTo the southwest, a massive depression in the earth -- a sinkhole or excavation site. That must be where the tunnel leads. {bright:ATLAS Core.}",
       "exits": {
         "down": { "room": "antenna-base", "timeCost": 10 },
+        "d": { "room": "antenna-base", "timeCost": 10 },
         "back": { "room": "antenna-base", "timeCost": 10 }
       },
       "examine": {
@@ -92,7 +95,8 @@
       "exits": {
         "north": { "room": "antenna-base" },
         "n": { "room": "antenna-base" },
-        "down": { "sector": "the-descent", "room": "shaft-top", "timeCost": 30 }
+        "down": { "sector": "the-descent", "room": "shaft-top", "timeCost": 30 },
+        "d": { "sector": "the-descent", "room": "shaft-top", "timeCost": 30 }
       },
       "examine": {
         "door": "A blast door rated for nuclear attack. Two meters thick. Someone with serious clearance -- or serious tools -- opened this.",
