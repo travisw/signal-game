@@ -309,12 +309,40 @@ export class Renderer {
    * Register a handler for command submission (Enter key).
    */
   onCommand(callback) {
+    // Command history (up/down arrow)
+    this._history = [];
+    this._historyIndex = -1;
+
     this.commandInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const value = this.commandInput.value.trim();
         if (value) {
+          // Add to history (avoid consecutive duplicates)
+          if (this._history.length === 0 || this._history[this._history.length - 1] !== value) {
+            this._history.push(value);
+          }
+          this._historyIndex = -1;
           this.clearInput();
           callback(value);
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (this._history.length === 0) return;
+        if (this._historyIndex === -1) {
+          this._historyIndex = this._history.length - 1;
+        } else if (this._historyIndex > 0) {
+          this._historyIndex--;
+        }
+        this.commandInput.value = this._history[this._historyIndex];
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (this._historyIndex === -1) return;
+        if (this._historyIndex < this._history.length - 1) {
+          this._historyIndex++;
+          this.commandInput.value = this._history[this._historyIndex];
+        } else {
+          this._historyIndex = -1;
+          this.commandInput.value = '';
         }
       }
     });
