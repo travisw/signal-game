@@ -23,6 +23,9 @@ export class Renderer {
 
     // Track state for HUD
     this.hudState = null;
+
+    // True while a multi-line typing sequence is in progress
+    this._isAnimating = false;
   }
 
   // =====================
@@ -316,17 +319,18 @@ export class Renderer {
       }
     });
 
-    // Skip typing animation on any keypress or click, anywhere on the page
+    // Skip typing animation on any keypress or click anywhere on the page.
+    // Ignore Enter key (that submits commands).
+    // When the input is focused and we're NOT animating, let normal typing through.
     document.addEventListener('keydown', (e) => {
-      if (this.effects.isTyping) {
-        this.effects.skip();
-      }
+      if (e.key === 'Enter') return;
+      if (!this.commandInput.disabled && e.target === this.commandInput && !this.effects.skipAllRequested && !this._isAnimating) return;
+      this.effects.skip();
     });
 
     document.addEventListener('click', (e) => {
-      if (this.effects.isTyping) {
-        this.effects.skip();
-      }
+      if (!this._isAnimating && !this.effects.isTyping) return;
+      this.effects.skip();
     });
 
     // Click anywhere to focus input (when not typing)

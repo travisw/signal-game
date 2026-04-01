@@ -200,6 +200,7 @@ export class Game {
     }
 
     // Room description
+    this.renderer._isAnimating = true;
     const desc = this._resolveDescription(room);
     for (const line of desc.split('\n')) {
       if (line.trim()) {
@@ -208,6 +209,7 @@ export class Game {
         this.renderer.printBreak();
       }
     }
+    this.renderer._isAnimating = false;
 
     // Show items on the ground
     if (room.items && room.items.length > 0) {
@@ -1460,6 +1462,7 @@ export class Game {
   }
 
   async _printMultiline(text) {
+    this.renderer._isAnimating = true;
     const lines = text.split('\n');
     for (const line of lines) {
       if (line.trim()) {
@@ -1468,6 +1471,7 @@ export class Game {
         this.renderer.printBreak();
       }
     }
+    this.renderer._isAnimating = false;
   }
 
   _resolveDescription(room) {
