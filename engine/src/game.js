@@ -956,6 +956,7 @@ export class Game {
       this.phase = 'explore';
       this._combatEnemy = null;
       this.activeChoices = null;
+      this._generateRoomChoices(this.currentRoom);
       return;
     }
 
@@ -1083,6 +1084,9 @@ export class Game {
     }
 
     this._updateHUD();
+
+    // Re-show room choices now that combat is over
+    this._generateRoomChoices(this.currentRoom);
   }
 
   async _playerDeath() {
