@@ -141,5 +141,22 @@
     "type": "tool",
     "slot": "tool",
     "stackable": false
+  },
+  "ghost-protocol": {
+    "name": "Ghost Protocol",
+    "description": "A combat subroutine buried in your implant firmware. Use to auto-pass one combat skill check.",
+    "examineText": "Pre-Collapse military firmware. Someone loaded this into your implant before cryo. The question is who — and why.",
+    "type": "consumable",
+    "usable": true,
+    "consumable": true,
+    "stackable": false,
+    "useText": "The subroutine fires. Your body moves before your mind catches up — a perfect strike, executed from muscle memory you never earned."
+  },
+  "corrupted-chip": {
+    "name": "Corrupted Chip",
+    "description": "A data chip that wasn't there a moment ago. Reveals hidden details when used at a terminal.",
+    "examineText": "The data on this chip shifts every time you look at it. Like it's not stored — it's being generated. By what?",
+    "type": "key",
+    "stackable": false
   }
 }

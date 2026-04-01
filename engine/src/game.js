@@ -82,13 +82,14 @@ export class Game {
 
   async loadData() {
     try {
-      const [worldData, itemsData, enemiesData, npcsData, memoriesData, asciiArtData] = await Promise.all([
+      const [worldData, itemsData, enemiesData, npcsData, memoriesData, asciiArtData, easterEggs] = await Promise.all([
         this._loadJSON('data/world.json'),
         this._loadJSON('data/items.json'),
         this._loadJSON('data/enemies.json'),
         this._loadJSON('data/npcs.json'),
         this._loadJSON('data/memories.json'),
         this._loadJSON('data/ascii-art.json'),
+        this._loadJSON('data/easter-eggs.json'),
       ]);
 
       this.worldData = worldData;
@@ -97,6 +98,7 @@ export class Game {
       this.npcs = npcsData;
       this.memoriesData = memoriesData;
       this.asciiArt = asciiArtData;
+      this.easterEggs = easterEggs;
 
       return true;
     } catch (e) {
@@ -267,6 +269,11 @@ export class Game {
       this.renderer.printBreak();
       this.renderer.printLine(`{dim:> ${input}}`);
       this.renderer.printBreak();
+    }
+
+    // Easter egg check — before anything else
+    if (this.phase === 'explore' && await this._checkEasterEgg(raw)) {
+      return;
     }
 
     const num = parseInt(raw);
@@ -1488,6 +1495,89 @@ export class Game {
 
     const pool = failures[skill] || [`{pink:You don't have the skill for this.} {dim:${skill.toUpperCase()} ${level} required.}`];
     return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  // =====================
+  // Easter Eggs
+  // =====================
+
+  async _checkEasterEgg(input) {
+    if (!this.easterEggs) return false;
+
+    // Strip _meta key
+    const egg = this.easterEggs[input];
+    if (!egg || input === '_meta') return false;
+
+    // Check if already triggered (non-repeatable)
+    if (egg.flag && this._flagSet(egg.flag)) return false;
+
+    // Mark as triggered
+    if (egg.flag) this._setFlag(egg.flag);
+
+    this.renderer.printBreak();
+
+    // Dynamic responses
+    if (egg.dynamic === 'whoami') {
+      const memCount = this.player.memories.length;
+      if (memCount === 0) {
+        this.renderer.printLine('{cyan:> whoami}\n{dim:UNKNOWN. IDENTITY CORRUPTED. MEMORY FRAGMENTS: 0}');
+      } else if (memCount < 5) {
+        this.renderer.printLine(`{cyan:> whoami}\n{dim:IDENTITY: PARTIAL. FRAGMENTS RECOVERED: ${memCount}. ROLE: ???}`);
+      } else if (this._flagSet('memory_truth_revealed')) {
+        this.renderer.printLine('{cyan:> whoami}\n{bright:The engineer. The scientist. The operative. All of them. None of them.\nYou are whoever you decide to be next.}');
+      } else {
+        this.renderer.printLine(`{cyan:> whoami}\n{dim:IDENTITY: FRAGMENTARY. ${memCount} MEMORIES RECOVERED. THE TRUTH IS CLOSE.}`);
+      }
+      return true;
+    }
+
+    if (egg.dynamic === 'ping') {
+      const sectorId = this.currentSector?.id;
+      if (sectorId === 'the-descent' || sectorId === 'the-antenna') {
+        this.renderer.printLine('{cyan:> ping atlas.core.local}\n{green:REPLY FROM atlas.core.local: bytes=64 time<1ms TTL=∞}\n{green:REPLY FROM atlas.core.local: bytes=64 time<1ms TTL=∞}\n{green:REPLY FROM atlas.core.local: bytes=64 time<1ms TTL=∞}\n\n{pink:ATLAS IS LISTENING.}');
+      } else if (sectorId === 'sector-7g') {
+        this.renderer.printLine('{cyan:> ping atlas.core.local}\n{amber:REPLY FROM atlas.core.local: bytes=64 time=847ms TTL=12}\n\n{dim:Signal weak. But something answered.}');
+      } else {
+        this.renderer.printLine('{cyan:> ping atlas.core.local}\n{dim:REQUEST TIMED OUT.}\n{dim:REQUEST TIMED OUT.}\n{dim:REQUEST TIMED OUT.}\n\n{dim:No response. But your implant felt... something.}');
+      }
+      return true;
+    }
+
+    // Standard response
+    const lines = egg.response.split('\n');
+    for (const line of lines) {
+      if (line.trim()) {
+        this.renderer.printLine(`{dim:${line}}`);
+      } else {
+        this.renderer.printBreak();
+      }
+    }
+
+    // Effects
+    if (egg.effect === 'glitch') {
+      await this.renderer.effects.glitch(this.renderer.narrative, 1.5, 400);
+    } else if (egg.effect === 'shake') {
+      await this.renderer.effects.screenShake(300);
+    } else if (egg.effect === 'flash_green') {
+      await this.renderer.effects.flash('rgba(57, 255, 20, 0.2)', 200);
+    } else if (egg.effect === 'flash_pink') {
+      await this.renderer.effects.flash('rgba(255, 45, 149, 0.2)', 200);
+    } else if (egg.effect === 'flash_purple') {
+      await this.renderer.effects.flash('rgba(191, 95, 255, 0.2)', 200);
+    } else if (egg.effect === 'barrel_roll') {
+      this.renderer.gameContainer.style.transition = 'transform 1s ease-in-out';
+      this.renderer.gameContainer.style.transform = 'rotate(360deg)';
+      await new Promise(r => setTimeout(r, 1000));
+      this.renderer.gameContainer.style.transition = '';
+      this.renderer.gameContainer.style.transform = '';
+    }
+
+    // Give item
+    if (egg.giveItem) {
+      await this._addItem(egg.giveItem, 1);
+    }
+
+    return true;
   }
 
   async _printMultiline(text) {

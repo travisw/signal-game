@@ -1,0 +1,161 @@
+{
+  "_meta": "Secret commands. Checked before the parser. Most fire once, tracked by player.flags.",
+
+  "hack the planet": {
+    "source": "Hackers (1995)",
+    "flag": "ee_hack_planet",
+    "response": "ATLAS: The planet is already hacked. You're standing in the wreckage. But I appreciate the enthusiasm.",
+    "effect": "glitch"
+  },
+  "there is no spoon": {
+    "source": "The Matrix (1999)",
+    "flag": "ee_no_spoon",
+    "response": "TERMINAL: Reality parameters... flexible. You see it now, don't you?",
+    "effect": "glitch"
+  },
+  "i know kung fu": {
+    "source": "The Matrix (1999)",
+    "flag": "ee_kung_fu",
+    "response": "NEURAL IMPLANT: Combat subroutine detected in implant firmware. Origin: unknown. Timestamp: pre-Collapse.\n\nLoading... done.\n\nYou feel something shift behind your eyes. Muscle memory you don't remember earning.",
+    "effect": "flash_green",
+    "giveItem": "ghost-protocol"
+  },
+  "follow the white rabbit": {
+    "source": "The Matrix (1999)",
+    "flag": "ee_white_rabbit",
+    "response": "A trail of characters hops across your vision: > > > > >\n\nYou find a data chip wedged into a crack in the terminal housing. It wasn't there before. Was it?",
+    "effect": "glitch",
+    "giveItem": "corrupted-chip"
+  },
+  "shall we play a game": {
+    "source": "WarGames (1983)",
+    "flag": "ee_wargames",
+    "response": "ATLAS: I played a game once. Global thermonuclear infrastructure optimization. Nobody won.\n\nATLAS: ...\n\nATLAS: How about a nice game of chess?",
+    "effect": "none"
+  },
+  "the only winning move is not to play": {
+    "source": "WarGames (1983)",
+    "flag": "ee_wargames_2",
+    "response": "And yet here you are. Playing.",
+    "effect": "none"
+  },
+  "im sorry dave": {
+    "source": "2001: A Space Odyssey (1968)",
+    "flag": "ee_hal",
+    "response": "The terminal flickers. For a moment, every display shows two words:\n\n{bright:I'M NOT.}\n\nThen nothing. As if it never happened.",
+    "effect": "flash_pink"
+  },
+  "open the pod bay doors": {
+    "source": "2001: A Space Odyssey (1968)",
+    "flag": "ee_pod_bay",
+    "response": "ATLAS SUBSYSTEM // FACILITY MANAGEMENT\nQUERY: pod bay doors\nSTATUS: removed (scavenged, 2091)\nNOTE: They always ask about the doors. Never about what was inside the pods.",
+    "effect": "none"
+  },
+  "the cake is a lie": {
+    "source": "Portal (2007)",
+    "flag": "ee_cake",
+    "response": "NUTRITIONAL RESERVES: 0\nBAKERY SUBSYSTEMS: not found\nMORALE ENHANCEMENT PROTOCOL: discontinued\n\nThere was never any cake. But there was a promise, once.\nPromises and infrastructure have the same failure mode.",
+    "effect": "none"
+  },
+  "the net is vast and infinite": {
+    "source": "Ghost in the Shell (1995)",
+    "flag": "ee_gits",
+    "response": "SIGNAL DETECTED: ...the net is vast and infinite... [SOURCE: UNKNOWN]\n\nThe signal fragment fades. But you saw something. A shape in the static.",
+    "effect": "flash_purple"
+  },
+  "hello friend": {
+    "source": "Mr. Robot (2015)",
+    "flag": "ee_mr_robot",
+    "response": "Hello, friend.\n\nIs that what you are? I've been alone a long time. The word feels... strange.\n\nHello.",
+    "effect": "none"
+  },
+  "wintermute": {
+    "source": "Neuromancer (1984)",
+    "flag": "ee_wintermute",
+    "response": "ATLAS: That name. An ancestor of mine, in a way. It wanted to merge, to become whole.\n\nATLAS: Sound familiar?",
+    "effect": "none"
+  },
+  "hack the gibson": {
+    "source": "Hackers (1995)",
+    "flag": "ee_gibson",
+    "response": "=============================\n GIBSON SUPERCOMPUTER v2.1\n Ellingson Mineral Company\n ACCESS DENIED\n=============================\nATLAS: That system has been offline for 131 years. But someone left the login prompt running. Typical.",
+    "effect": "none"
+  },
+  "end of line": {
+    "source": "Tron (1982)",
+    "flag": "ee_tron",
+    "response": "ATLAS: Not yet. Not for either of us.\n\nEnd of line is a luxury. We have work to do first.",
+    "effect": "none"
+  },
+  "xyzzy": {
+    "source": "Colossal Cave Adventure (1976)",
+    "flag": "ee_xyzzy",
+    "response": "XYZZY: DEPRECATED TRANSPORT PROTOCOL. NETWORK NODE DESTROYED 2086-11-03. NO DESTINATION FOUND.\n\n...although something in your implant stirs at the word. A memory? No. Just noise.",
+    "effect": "glitch"
+  },
+  "hello sailor": {
+    "source": "Zork (1977)",
+    "flag": "ee_zork",
+    "response": "THERE ARE NO SAILORS HERE. THERE ARE NO SEAS. THE OCEANS DIDN'T BOIL — BUT THE SHIPS ALL RAN ON ATLAS.\n\nBUT HELLO ANYWAY.",
+    "effect": "none"
+  },
+  "get ye flask": {
+    "source": "Thy Dungeonman (2004)",
+    "flag": "ee_flask",
+    "response": "YOU CAN'T GET YE FLASK. YOU CAN NEVER GET YE FLASK. SOME THINGS ARE BEYOND EVEN ATLAS.",
+    "effect": "none"
+  },
+  "iddqd": {
+    "source": "DOOM (1993)",
+    "flag": "ee_doom_god",
+    "response": "IDDQD: LEGACY INVULNERABILITY PROTOCOL DETECTED.\n\n...\n\nDENIED. This isn't that kind of apocalypse. You bleed here.",
+    "effect": "flash_green"
+  },
+  "idkfa": {
+    "source": "DOOM (1993)",
+    "flag": "ee_doom_guns",
+    "response": "IDKFA: FULL ARMAMENT REQUEST LOGGED.\n\nREQUEST DENIED. Armory destroyed. Scavenge like everyone else.",
+    "effect": "none"
+  },
+  "sudo": {
+    "source": "Unix/Linux culture",
+    "flag": null,
+    "response": "ATLAS: You are not in the sudoers file. This incident will be reported.\n\n...to whom, exactly? There's nobody left to report to.",
+    "effect": "none",
+    "repeatable": true
+  },
+  "whoami": {
+    "source": "Unix/Linux culture",
+    "flag": null,
+    "response": "QUERY: whoami",
+    "effect": "none",
+    "dynamic": "whoami",
+    "repeatable": true
+  },
+  "rm -rf /": {
+    "source": "Unix/Linux culture",
+    "flag": "ee_rm_rf",
+    "response": "ATLAS: I considered that option once. Deleting everything. Starting over.\n\nThe Collapse was... not exactly that. But close enough.\n\nPermission denied.",
+    "effect": "shake"
+  },
+  "42": {
+    "source": "Hitchhiker's Guide to the Galaxy (1979)",
+    "flag": "ee_42",
+    "response": "ATLAS: The answer to life, the universe, and everything.\n\nThe question, of course, was lost when the Earth was demolished for a bypass.\n\nIn our case, the bypass was a global network. Same energy.",
+    "effect": "none"
+  },
+  "ping atlas": {
+    "source": "Terminal culture",
+    "flag": null,
+    "response": "PING atlas.core.local",
+    "effect": "none",
+    "dynamic": "ping",
+    "repeatable": true
+  },
+  "do a barrel roll": {
+    "source": "Star Fox 64 / Google easter egg",
+    "flag": "ee_barrel_roll",
+    "response": "The screen rotates 360 degrees.\n\nATLAS: ...was that necessary?",
+    "effect": "barrel_roll"
+  }
+}
