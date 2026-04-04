@@ -43,6 +43,7 @@ $config = [
 <body>
 	<div id="game-container" class="game-container">
 		<div class="scanlines"></div>
+		<button id="sidebar-toggle" class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">HUD</button>
 
 		<div id="top-bar" class="top-bar">
 			<span class="game-title">S I G N A L</span>

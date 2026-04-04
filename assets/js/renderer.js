@@ -105,6 +105,14 @@ export class Renderer {
         div.style.pointerEvents = 'none';
       }
 
+      // Make choices tappable (mobile) — clicking submits the number
+      const choiceNum = i + 1;
+      div.addEventListener('click', () => {
+        if (choice.disabled) return;
+        this.commandInput.value = String(choiceNum);
+        this.commandInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      });
+
       div.innerHTML = label;
       container.appendChild(div);
     });

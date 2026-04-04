@@ -388,3 +388,191 @@ html, body {
 .hidden {
   display: none;
 }
+
+/* ============================================
+   Mobile Responsive
+   ============================================ */
+
+/* --- Sidebar toggle button (mobile only) --- */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 50;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--purple);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.sidebar-toggle:active {
+  background: var(--border);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size: 14px;
+  }
+
+  /* --- Top bar: compact --- */
+  .top-bar {
+    padding: 8px 12px 6px;
+    font-size: 10px;
+  }
+
+  .top-bar::after {
+    left: 12px;
+    right: 12px;
+  }
+
+  .game-title {
+    letter-spacing: 2px;
+    font-size: 10px;
+  }
+
+  .top-bar .location {
+    font-size: 9px;
+    letter-spacing: 0;
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .top-bar .time-display {
+    font-size: 9px;
+  }
+
+  /* --- Main area: stack vertically --- */
+  .main {
+    flex-direction: column;
+    padding: 8px 12px;
+    gap: 0;
+  }
+
+  /* --- Narrative: full width --- */
+  .narrative {
+    flex: 1;
+    padding-right: 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* --- Sidebar: hidden by default, toggleable overlay --- */
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 40px;
+    right: 0;
+    bottom: 60px;
+    width: 220px;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    padding: 12px 8px;
+    z-index: 40;
+    overflow-y: auto;
+    font-size: 11px;
+  }
+
+  .sidebar.open {
+    display: block;
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  /* --- Input bar --- */
+  .input-bar {
+    padding: 8px 12px 12px;
+  }
+
+  .input-bar::before {
+    left: 12px;
+    right: 12px;
+  }
+
+  .command-input {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  /* --- ASCII art: scale down --- */
+  .ascii-art {
+    font-size: 9px;
+    line-height: 1.2;
+    overflow-x: auto;
+  }
+
+  /* --- Choices: large touch targets --- */
+  .choice-line {
+    padding: 10px 12px;
+    margin: 4px 0;
+    background: rgba(0, 229, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.1);
+  }
+
+  .choice-line:active {
+    background: rgba(0, 229, 255, 0.1);
+    border-color: var(--cyan);
+  }
+
+  /* --- Notifications: more padding --- */
+  .notification {
+    padding: 8px 12px;
+    margin: 6px 0;
+  }
+
+  /* --- Memory fragments --- */
+  .memory-fragment {
+    padding-left: 10px;
+    margin: 12px 0;
+  }
+
+  /* --- Combat display --- */
+  .enemy-display {
+    padding: 10px;
+  }
+
+  /* --- Reduce ambient glow on mobile (performance) --- */
+  .game-container::before {
+    height: 80px;
+  }
+
+  .scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 45, 149, 0.005) 3px,
+      rgba(255, 45, 149, 0.005) 6px
+    );
+  }
+}
+
+/* --- Very small screens (iPhone SE etc) --- */
+@media (max-width: 375px) {
+  :root {
+    --font-size: 13px;
+  }
+
+  .ascii-art {
+    font-size: 8px;
+  }
+
+  .top-bar .location {
+    max-width: 35%;
+  }
+
+  .choice-line {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}

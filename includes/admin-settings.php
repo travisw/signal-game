@@ -132,8 +132,8 @@ add_action( 'admin_init', function () {
 	add_settings_field( 'ai_rate_limit', 'Rate Limit', function () {
 		$settings = get_option( 'signal_game_settings', [] );
 		printf(
-			'<input type="number" name="signal_game_settings[ai_rate_limit]" value="%s" min="1" max="60" style="width:80px"> <span class="description">requests per minute per session. Default: 10</span>',
-			esc_attr( $settings['ai_rate_limit'] ?? '10' )
+			'<input type="number" name="signal_game_settings[ai_rate_limit]" value="%s" min="1" max="60" style="width:80px"> <span class="description">requests per minute per session. Default: 30</span>',
+			esc_attr( $settings['ai_rate_limit'] ?? '30' )
 		);
 	}, 'signal-game', 'signal_game_ai' );
 } );

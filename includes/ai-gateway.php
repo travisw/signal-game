@@ -50,7 +50,7 @@ function signal_game_ai_generate( WP_REST_Request $request ) {
 	}
 
 	// Rate limiting (per-IP, simple transient-based).
-	$rate_limit = intval( $settings['ai_rate_limit'] ?? 10 );
+	$rate_limit = intval( $settings['ai_rate_limit'] ?? 30 );
 	$ip_hash    = md5( $_SERVER['REMOTE_ADDR'] ?? 'unknown' );
 	$rate_key   = 'signal_ai_rate_' . $ip_hash;
 	$requests   = intval( get_transient( $rate_key ) ?: 0 );

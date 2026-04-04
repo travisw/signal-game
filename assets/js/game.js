@@ -1608,20 +1608,35 @@ export class Game {
     // Request for this room (for revisit)
     this.aiService.requestBackground('roomNarration', context);
 
-    // Request for all connected rooms
+    // Stagger neighbor pre-fetches — one every 3 seconds to avoid rate limits.
+    // Deduplicate exits (n/north both go to same room).
     const exits = room.exits || {};
+    const seen = new Set();
+    const neighbors = [];
+
     for (const exit of Object.values(exits)) {
       const targetSectorId = exit.sector || this.currentSector.id;
       const targetRoomId = exit.room;
       if (!targetRoomId) continue;
 
+      const key = `${targetSectorId}:${targetRoomId}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+
       const targetSector = this.sectors[targetSectorId] || this.currentSector;
       const neighborRoom = targetSector?.rooms?.[targetRoomId];
       if (neighborRoom) {
-        const neighborCtx = this._buildAIContext(neighborRoom, targetSectorId, targetRoomId);
-        this.aiService.requestBackground('roomNarration', neighborCtx);
+        neighbors.push({ room: neighborRoom, sectorId: targetSectorId, roomId: targetRoomId });
       }
     }
+
+    // Stagger: first neighbor after 2s, then one every 3s
+    neighbors.forEach((n, i) => {
+      setTimeout(() => {
+        const ctx = this._buildAIContext(n.room, n.sectorId, n.roomId);
+        this.aiService.requestBackground('roomNarration', ctx);
+      }, 2000 + i * 3000);
+    });
   }
 
   _buildAIContext(room, sectorId, roomId) {
