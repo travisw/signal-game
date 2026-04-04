@@ -439,11 +439,10 @@ html, body {
     display: none;
   }
 
-  /* --- Main area: stack vertically --- */
+  /* --- Main area: stays horizontal, sidebar shrinks narrative --- */
   .main {
-    flex-direction: column;
     padding: 8px 12px;
-    gap: 0;
+    gap: 8px;
   }
 
   /* --- Narrative: full width --- */
@@ -454,16 +453,15 @@ html, body {
     line-height: 1.6;
   }
 
-  /* --- Sidebar: slides in from top, pushes content down --- */
+  /* --- Sidebar: drawer from right, shrinks narrative to fit --- */
   .sidebar {
     display: none;
-    flex: 0 0 auto;
-    max-height: 40vh;
+    flex: 0 0 180px;
     overflow-y: auto;
-    font-size: 11px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+    font-size: 10px;
+    line-height: 1.4;
+    border-left: 1px solid var(--border);
+    padding-left: 8px;
   }
 
   .sidebar.open {
