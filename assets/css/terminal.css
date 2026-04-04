@@ -423,17 +423,20 @@ html, body {
     font-size: 10px;
   }
 
+  .top-bar {
+    padding-right: 50px; /* Room for HUD button */
+  }
+
   .top-bar .location {
     font-size: 9px;
     letter-spacing: 0;
-    max-width: 45%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .top-bar .time-display {
-    font-size: 9px;
+    display: none;
   }
 
   /* --- Main area: stack vertically --- */
@@ -451,20 +454,16 @@ html, body {
     line-height: 1.6;
   }
 
-  /* --- Sidebar: hidden by default, toggleable overlay --- */
+  /* --- Sidebar: slides in from top, pushes content down --- */
   .sidebar {
     display: none;
-    position: fixed;
-    top: 40px;
-    right: 0;
-    bottom: 60px;
-    width: 220px;
-    background: var(--bg);
-    border-left: 1px solid var(--border);
-    padding: 12px 8px;
-    z-index: 40;
+    flex: 0 0 auto;
+    max-height: 40vh;
     overflow-y: auto;
     font-size: 11px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
 
   .sidebar.open {
@@ -473,7 +472,7 @@ html, body {
 
   .sidebar-toggle {
     display: block !important;
-    position: fixed;
+    position: absolute;
     top: 6px;
     right: 8px;
     z-index: 50;
@@ -485,7 +484,7 @@ html, body {
     padding: 3px 8px;
     cursor: pointer;
     border-radius: 3px;
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   /* --- Input bar --- */
