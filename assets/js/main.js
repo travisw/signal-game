@@ -20,8 +20,13 @@ const aiService = new AIContentService({
   nonce: wpConfig?.nonce || null,
 });
 
+// Determine base URL for loading game data.
+// In WordPress: passed via wpSignalGame.assetsURL
+// Standalone: relative to the HTML file (assets/ is sibling)
+const baseURL = wpConfig?.assetsURL || '';
+
 // Initialize game
-const game = new Game(renderer, aiService);
+const game = new Game(renderer, aiService, baseURL);
 
 // Wire up command input
 renderer.onCommand(async (input) => {

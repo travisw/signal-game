@@ -8,11 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once SIGNAL_GAME_DIR . 'providers/claude.php';
-require_once SIGNAL_GAME_DIR . 'providers/openai.php';
-require_once SIGNAL_GAME_DIR . 'providers/custom.php';
-require_once SIGNAL_GAME_DIR . 'prompt-builder.php';
-require_once SIGNAL_GAME_DIR . 'packet-validator.php';
+require_once SIGNAL_GAME_DIR . 'includes/providers/claude.php';
+require_once SIGNAL_GAME_DIR . 'includes/providers/openai.php';
+require_once SIGNAL_GAME_DIR . 'includes/providers/custom.php';
+require_once SIGNAL_GAME_DIR . 'includes/prompt-builder.php';
+require_once SIGNAL_GAME_DIR . 'includes/packet-validator.php';
 
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'signal-game/v1', '/ai/generate', [

@@ -15,7 +15,7 @@ import { join } from 'path';
 import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
 
-const DATA_DIR = join(import.meta.dirname, '..', 'engine', 'data');
+const DATA_DIR = join(import.meta.dirname, '..', 'assets', 'data');
 
 let world, items, enemies, npcs, memories;
 const sectors = {};

@@ -13,7 +13,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
 // Import the AI content service directly
-import { AIContentService } from '../engine/src/ai-content.js';
+import { AIContentService } from '../assets/js/ai-content.js';
 
 // =====================
 // AIContentService — disabled mode

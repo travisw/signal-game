@@ -5,12 +5,13 @@
  * game phases, event bus, and coordinates all subsystems.
  */
 
-import { endings } from '../hooks/endings.js';
+import { endings } from './hooks/endings.js';
 
 export class Game {
-  constructor(renderer, aiService) {
+  constructor(renderer, aiService, baseURL) {
     this.renderer = renderer;
     this.aiService = aiService || null;
+    this.baseURL = baseURL || '';
 
     // Game state phases
     this.phase = 'boot'; // boot, intro, explore, combat, dialogue, gameover
@@ -84,13 +85,13 @@ export class Game {
   async loadData() {
     try {
       const [worldData, itemsData, enemiesData, npcsData, memoriesData, asciiArtData, easterEggs] = await Promise.all([
-        this._loadJSON('data/world.json'),
-        this._loadJSON('data/items.json'),
-        this._loadJSON('data/enemies.json'),
-        this._loadJSON('data/npcs.json'),
-        this._loadJSON('data/memories.json'),
-        this._loadJSON('data/ascii-art.json'),
-        this._loadJSON('data/easter-eggs.json'),
+        this._loadJSON('data/world.json', true),
+        this._loadJSON('data/items.json', true),
+        this._loadJSON('data/enemies.json', true),
+        this._loadJSON('data/npcs.json', true),
+        this._loadJSON('data/memories.json', true),
+        this._loadJSON('data/ascii-art.json', true),
+        this._loadJSON('data/easter-eggs.json', true),
       ]);
 
       this.worldData = worldData;
@@ -112,7 +113,7 @@ export class Game {
     if (this.sectors[sectorId]) return this.sectors[sectorId];
 
     try {
-      const data = await this._loadJSON(`data/sectors/${sectorId}.json`);
+      const data = await this._loadJSON(`data/sectors/${sectorId}.json`, true);
       this.sectors[sectorId] = data;
       return data;
     } catch (e) {
@@ -121,9 +122,10 @@ export class Game {
     }
   }
 
-  async _loadJSON(path) {
-    const response = await fetch(path);
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
+  async _loadJSON(path, useBase = false) {
+    const url = useBase ? `${this.baseURL}${path}` : path;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
     return response.json();
   }
 

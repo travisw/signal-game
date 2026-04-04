@@ -12,7 +12,7 @@ A browser-based text adventure game with a synthwave terminal aesthetic. Wake up
     > FOLLOW THE SIGNAL. REMEMBER WHO YOU ARE.
 ```
 
-## Play
+## Play (Standalone)
 
 No build step. No dependencies. Just a browser.
 
@@ -22,10 +22,10 @@ git clone https://github.com/travisw/signal-game.git
 cd signal-game
 ./serve.sh
 
-# Open http://localhost:8749
+# Open http://localhost:8749/game.html
 ```
 
-Or serve the `engine/` directory with any static file server.
+Or serve the `assets/` directory with any static file server and open `game.html`.
 
 ## About
 
@@ -54,34 +54,49 @@ Or serve the `engine/` directory with any static file server.
 
 ## Structure
 
+The repo IS a WordPress plugin. The game engine lives in `assets/`.
+
 ```
 signal-game/
-├── engine/
-│   ├── index.html          # Entry point — open and play
-│   ├── src/
-│   │   ├── game.js         # State machine, game loop, event bus
-│   │   ├── renderer.js     # Terminal UI, HUD, ASCII art
-│   │   ├── parser.js       # Command input parsing
-│   │   ├── effects.js      # Typing, glitch, shake, transitions
-│   │   ├── save.js         # Save/load abstraction
-│   │   └── main.js         # Bootstrap
+├── signal-game.php          # WP plugin entry point
+├── includes/                # WP plugin PHP
+│   ├── admin-settings.php   # Admin settings page
+│   ├── save-handler.php     # REST API save/load
+│   ├── ai-gateway.php       # AI content endpoint
+│   ├── prompt-builder.php   # AI prompt assembly
+│   ├── packet-validator.php # AI response validation
+│   └── providers/           # AI provider adapters
+│       ├── claude.php
+│       ├── openai.php
+│       └── custom.php
+├── templates/
+│   └── game.php             # Full-screen game template
+├── assets/
+│   ├── game.html            # Standalone entry point
+│   ├── js/
+│   │   ├── main.js          # Bootstrap
+│   │   ├── game.js          # State machine, game loop
+│   │   ├── renderer.js      # Terminal UI, HUD, ASCII art
+│   │   ├── effects.js       # Typing, glitch, shake
+│   │   ├── parser.js        # Command input parsing
+│   │   ├── save.js          # Save/load abstraction
+│   │   ├── ai-content.js    # AI content service
+│   │   └── hooks/
+│   │       └── endings.js   # Ending cinematics
 │   ├── css/
-│   │   └── terminal.css    # Synthwave terminal stylesheet
-│   ├── data/
-│   │   ├── world.json      # Sector map and connections
-│   │   ├── sectors/        # One JSON file per sector
-│   │   ├── items.json      # Items, recipes, equipment
-│   │   ├── npcs.json       # Characters and dialogue trees
-│   │   ├── enemies.json    # Enemy types and stats
-│   │   ├── memories.json   # Memory fragments and skill unlocks
-│   │   └── ascii-art.json  # All ASCII art by ID
-│   └── hooks/
-│       └── endings.js      # Ending cinematics
-├── wordpress-plugin/        # WP integration (coming soon)
-├── docs/
-│   ├── superpowers/specs/  # Design spec
-│   └── research/           # Game design research guides
-└── serve.sh                # Dev server launcher
+│   │   └── terminal.css     # Synthwave terminal stylesheet
+│   └── data/
+│       ├── world.json       # Sector map and connections
+│       ├── sectors/         # One JSON file per sector
+│       ├── items.json       # Items, recipes, equipment
+│       ├── npcs.json        # Characters and dialogue trees
+│       ├── enemies.json     # Enemy types and stats
+│       ├── memories.json    # Memory fragments and skill unlocks
+│       ├── ascii-art.json   # All ASCII art by ID
+│       └── easter-eggs.json # Secret commands
+├── tests/                   # Test suite (75 tests)
+├── docs/                    # Design specs and research
+└── serve.sh                 # Standalone dev server
 ```
 
 ## Commands
@@ -114,10 +129,60 @@ The game uses consistent color coding:
 - **Green** — safety, healing, positive outcomes
 - **Dim grey** — background flavor and atmosphere
 
+## WordPress Plugin
+
+The game can run as a WordPress plugin with user-based saves and optional AI-generated content.
+
+### Installation
+
+1. Download the [latest release](https://github.com/travisw/signal-game/releases) as a ZIP file.
+2. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
+3. Upload the ZIP file and click **Install Now**.
+4. Activate the plugin.
+5. Create a new **Page**, and in the page editor set the template to **SIGNAL Game (Full Screen)**.
+6. Visit that page — the game loads full-screen, no theme chrome.
+
+### Save/Load
+
+When logged in to WordPress, saves are stored in your user account (instead of localStorage). The `save` and `load` commands work the same way.
+
+### AI Content (Optional)
+
+The plugin includes an AI gateway that generates varied room descriptions, NPC dialogue, and ambient events. To enable:
+
+1. Go to **WP Admin → Settings → SIGNAL Game**.
+2. Check **Enable AI Content**.
+3. Choose a provider (Anthropic Claude, OpenAI, or a custom OpenAI-compatible endpoint).
+4. Enter your API key.
+5. Adjust temperature, rate limits, and model if desired.
+6. Save.
+
+How it works:
+- Room descriptions render instantly from static content (zero lag).
+- AI variants are pre-fetched in the background for connected rooms.
+- By room 2-3, AI content is cached and ready — the player never waits.
+- If AI is slow, down, or returns invalid content, the static description is used automatically.
+- API keys stay server-side — the browser never sees them.
+
+### Admin Settings
+
+| Setting | Description |
+|---------|-------------|
+| Game Title | Displayed in the title bar (default: SIGNAL) |
+| Starting Sector | Override the starting location (default: cryo-lab) |
+| Difficulty | Easy / Normal / Hard |
+| Welcome Text | Custom text shown during boot sequence |
+| AI Enabled | Master toggle for AI content generation |
+| AI Provider | Claude, OpenAI, or Custom endpoint |
+| API Key | Your provider's API key (stored encrypted) |
+| Model Override | Use a specific model instead of the default |
+| Temperature | 0.0 (deterministic) to 1.0 (creative), default 0.7 |
+| Rate Limit | Max AI requests per minute per session (default: 10) |
+
 ## Future
 
-- WordPress plugin for public distribution and configurability
-- AI-generated sectors for endless replayability
+- AI-generated side sectors for endless replayability
+- Entity memory for NPC continuity across AI-generated content
 - Sound and music (synthwave ambient)
 - Mobile-optimized layout
 

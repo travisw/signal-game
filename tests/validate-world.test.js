@@ -16,7 +16,7 @@ import { join } from 'path';
 import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
 
-const DATA_DIR = join(import.meta.dirname, '..', 'engine', 'data');
+const DATA_DIR = join(import.meta.dirname, '..', 'assets', 'data');
 
 // Load all data files
 let world, items, enemies, npcs, memories, asciiArt;
