@@ -363,6 +363,24 @@ export class Renderer {
       this.effects.skip();
     });
 
+    // Mobile keyboard handling: keep input visible when keyboard opens.
+    // The visualViewport API gives us the actual visible area.
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        // Set the game container height to the visual viewport height.
+        // This shrinks the game when the keyboard is open instead of
+        // pushing the top bar off screen.
+        this.gameContainer.style.height = `${window.visualViewport.height}px`;
+      });
+    }
+
+    // Scroll input into view when focused on mobile
+    this.commandInput.addEventListener('focus', () => {
+      setTimeout(() => {
+        this.commandInput.scrollIntoView({ block: 'nearest' });
+      }, 300); // Delay to let keyboard finish animating
+    });
+
     // Click anywhere to focus input (when not typing)
     this.gameContainer.addEventListener('click', (e) => {
       if (e.target !== this.commandInput && !window.getSelection().toString()) {
