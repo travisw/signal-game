@@ -105,15 +105,20 @@ export class Renderer {
         div.style.pointerEvents = 'none';
       }
 
-      // Make choices tappable (mobile) — clicking submits the number
-      const choiceNum = i + 1;
-      div.addEventListener('click', () => {
-        if (choice.disabled) return;
-        this.commandInput.value = String(choiceNum);
-        this.commandInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      });
-
       div.innerHTML = label;
+
+      // Make choices tappable (mobile) — clicking submits the number.
+      // Uses the stored callback directly instead of dispatching a
+      // synthetic KeyboardEvent (which is unreliable on mobile browsers).
+      if (!choice.disabled) {
+        const choiceNum = i + 1;
+        div.addEventListener('click', () => {
+          if (this._onCommandCallback) {
+            this.commandInput.value = '';
+            this._onCommandCallback(String(choiceNum));
+          }
+        });
+      }
       container.appendChild(div);
     });
 
@@ -317,6 +322,9 @@ export class Renderer {
    * Register a handler for command submission (Enter key).
    */
   onCommand(callback) {
+    // Store callback for use by tappable choices
+    this._onCommandCallback = callback;
+
     // Command history (up/down arrow)
     this._history = [];
     this._historyIndex = -1;
