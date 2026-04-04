@@ -1,16 +1,20 @@
 /**
  * SIGNAL — Main Entry Point
  *
- * Bootstraps the game: initializes renderer, AI content service,
+ * Bootstraps the game: initializes renderer, audio, AI content service,
  * and game engine. Wires up input and starts the game.
  */
 
 import { Renderer } from './renderer.js';
 import { Game } from './game.js';
 import { AIContentService } from './ai-content.js';
+import { AudioEngine } from './audio.js';
 
 // Initialize renderer
 const renderer = new Renderer();
+
+// Initialize audio (lazy — activates on first user interaction)
+const audio = new AudioEngine();
 
 // Initialize AI content service (enabled only when WordPress provides config)
 const wpConfig = window.wpSignalGame;
@@ -21,15 +25,17 @@ const aiService = new AIContentService({
 });
 
 // Determine base URL for loading game data.
-// In WordPress: passed via wpSignalGame.assetsURL
-// Standalone: relative to the HTML file (assets/ is sibling)
 const baseURL = wpConfig?.assetsURL || '';
 
 // Initialize game
-const game = new Game(renderer, aiService, baseURL);
+const game = new Game(renderer, aiService, baseURL, audio);
 
 // Wire up command input
 renderer.onCommand(async (input) => {
+  // Initialize audio on first user interaction (browser requirement)
+  audio.init();
+  audio.keyClick();
+
   renderer.setInputEnabled(false);
   try {
     await game.handleCommand(input);

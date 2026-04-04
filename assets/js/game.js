@@ -8,10 +8,11 @@
 import { endings } from './hooks/endings.js';
 
 export class Game {
-  constructor(renderer, aiService, baseURL) {
+  constructor(renderer, aiService, baseURL, audio) {
     this.renderer = renderer;
     this.aiService = aiService || null;
     this.baseURL = baseURL || '';
+    this.audio = audio || null;
 
     // Game state phases
     this.phase = 'boot'; // boot, intro, explore, combat, dialogue, gameover
@@ -178,6 +179,7 @@ export class Game {
     const room = this.currentSector.rooms[roomId];
     if (!room) {
       this.renderer.printLine(`{pink:ERROR: Room "${roomId}" not found.}`);
+      this.audio?.error();
       return;
     }
 
@@ -194,6 +196,7 @@ export class Game {
 
     // Clear and render room
     this.renderer.clearNarrative();
+    this.audio?.transition();
 
     // ASCII art
     if (room.art) {
@@ -555,6 +558,7 @@ export class Game {
     }
 
     this.renderer.printNotification(`+${qty} ${itemData.name}`, 'info');
+    this.audio?.confirm();
     this._updateHUD();
   }
 
@@ -687,8 +691,10 @@ export class Game {
     this.player.nrg -= nrgCost;
     this._updateHUD();
 
+    this.audio?.hackSequence();
     await this.renderer.printLineTyped('{cyan:Initiating neural handshake...}');
     await this.renderer.effects.glitch(this.renderer.narrative, 1.5, 400);
+    this.audio?.confirm();
     await this.renderer.printLineTyped('{green:Connection established.}');
     this.renderer.printBreak();
 
@@ -871,6 +877,7 @@ export class Game {
 
     this.renderer.printBreak();
     await this.renderer.effects.screenShake(200);
+    this.audio?.combatAlert();
     this.renderer.printLine(`{pink:⚠ HOSTILE CONTACT — ${enemyTemplate.name}}`);
     this.renderer.printBreak();
 
@@ -998,6 +1005,7 @@ export class Game {
         return;
       }
       this.player.nrg -= nrgCost;
+      this.audio?.hackSequence();
       await this.renderer.printLineTyped('{cyan:Initiating hack sequence...}');
       await this.renderer.effects.glitch(this.renderer.narrative, 1.5, 300);
       enemy.hp = 0;
@@ -1086,6 +1094,7 @@ export class Game {
     this.phase = 'explore';
     this._combatEnemy = null;
     this.activeChoices = null;
+    this.audio?.confirm();
 
     await this.renderer.effects.flash('rgba(57, 255, 20, 0.15)', 200);
     this.renderer.printBreak();
@@ -1117,6 +1126,7 @@ export class Game {
   async _playerDeath() {
     this.phase = 'gameover';
     this.player.hp = 0;
+    this.audio?.death();
     this._updateHUD();
 
     await this.renderer.effects.flash('rgba(255, 45, 149, 0.3)', 300);
@@ -1141,7 +1151,8 @@ export class Game {
 
     this.player.memories.push(memoryId);
 
-    // Visual effect
+    // Audio + visual effect
+    this.audio?.memoryReveal();
     this.renderer.printBreak();
     await this.renderer.effects.memoryReveal(
       this.renderer.narrative,
@@ -1485,6 +1496,7 @@ export class Game {
    * Generate varied, interesting failure text for skill checks.
    */
   _failureText(skillCheck) {
+    this.audio?.error();
     if (!skillCheck) return '{pink:You can\'t do that.}';
 
     const skill = skillCheck.skill;
