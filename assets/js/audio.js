@@ -291,6 +291,156 @@ export class AudioEngine {
     });
   }
 
+  // =====================
+  // Ambient sounds
+  // =====================
+
+  /**
+   * Start ambient background sounds.
+   * Random quiet blips, static crackle, and distant beeps
+   * at irregular intervals. Creates atmosphere without
+   * being tied to player actions.
+   *
+   * @param {string} proximity - 'far', 'mid', or 'near' to ATLAS Core.
+   *   Controls frequency and intensity of signal-related sounds.
+   */
+  startAmbient(proximity = 'far') {
+    this.stopAmbient();
+    this._ambientProximity = proximity;
+    this._ambientLoop();
+  }
+
+  stopAmbient() {
+    if (this._ambientTimer) {
+      clearTimeout(this._ambientTimer);
+      this._ambientTimer = null;
+    }
+  }
+
+  _ambientLoop() {
+    if (!this._ready()) {
+      // Retry later if audio isn't ready yet
+      this._ambientTimer = setTimeout(() => this._ambientLoop(), 3000);
+      return;
+    }
+
+    // Pick a random ambient sound
+    const roll = Math.random();
+    const proximity = this._ambientProximity || 'far';
+
+    if (roll < 0.3) {
+      this._ambientStaticCrackle();
+    } else if (roll < 0.5) {
+      this._ambientDistantBeep();
+    } else if (roll < 0.65) {
+      this._ambientDataBlip();
+    } else if (roll < 0.75 && proximity !== 'far') {
+      // Signal-related sounds — more frequent near the Core
+      this._ambientSignalFragment();
+    }
+    // Otherwise: silence. Silence is part of the design.
+
+    // Schedule next ambient sound at a random interval.
+    // Closer to Core = more frequent.
+    const baseDelay = { far: 12000, mid: 8000, near: 5000 }[proximity] || 12000;
+    const variance = baseDelay * 0.5;
+    const delay = baseDelay + (Math.random() * variance) - (variance / 2);
+
+    this._ambientTimer = setTimeout(() => this._ambientLoop(), delay);
+  }
+
+  /**
+   * Soft static crackle — like a bad radio connection.
+   */
+  _ambientStaticCrackle() {
+    const bufferSize = this.ctx.sampleRate * 0.15;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.015;
+    }
+
+    const source = this.ctx.createBufferSource();
+    const gain = this.ctx.createGain();
+
+    source.buffer = buffer;
+    gain.gain.value = this.volume * 0.3;
+
+    source.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    const now = this.ctx.currentTime;
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+    source.start(now);
+  }
+
+  /**
+   * Distant beep — like a machine far away acknowledging something.
+   */
+  _ambientDistantBeep() {
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = 600 + Math.random() * 800;
+    gain.gain.value = this.volume * 0.02; // Very quiet — distant
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    const now = this.ctx.currentTime;
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  }
+
+  /**
+   * Data blip — short digital chirp, like data flowing through a wire.
+   */
+  _ambientDataBlip() {
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'square';
+    osc.frequency.value = 1500 + Math.random() * 1000;
+    gain.gain.value = this.volume * 0.015;
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    const now = this.ctx.currentTime;
+    osc.frequency.exponentialRampToValueAtTime(osc.frequency.value * 0.5, now + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+    osc.start(now);
+    osc.stop(now + 0.05);
+  }
+
+  /**
+   * Signal fragment — eerie, signal-like tone. Only near the Core.
+   */
+  _ambientSignalFragment() {
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = 440;
+    gain.gain.value = this.volume * 0.03;
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    const now = this.ctx.currentTime;
+    // Wobble the frequency slightly — sounds like a signal trying to lock on
+    osc.frequency.setValueAtTime(440, now);
+    osc.frequency.linearRampToValueAtTime(445, now + 0.1);
+    osc.frequency.linearRampToValueAtTime(435, now + 0.2);
+    osc.frequency.linearRampToValueAtTime(440, now + 0.3);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+    osc.start(now);
+    osc.stop(now + 0.4);
+  }
+
   // --- Internal ---
 
   _ready() {

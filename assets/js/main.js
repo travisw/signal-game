@@ -31,10 +31,16 @@ const baseURL = wpConfig?.assetsURL || '';
 const game = new Game(renderer, aiService, baseURL, audio);
 
 // Wire up command input
+let ambientStarted = false;
 renderer.onCommand(async (input) => {
   // Initialize audio on first user interaction (browser requirement)
   audio.init();
-  audio.keyClick();
+
+  // Start ambient sounds after first command
+  if (!ambientStarted && audio.enabled) {
+    audio.startAmbient('far');
+    ambientStarted = true;
+  }
 
   renderer.setInputEnabled(false);
   try {

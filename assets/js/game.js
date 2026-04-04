@@ -171,6 +171,18 @@ export class Game {
     }
 
     this.currentSector = sector;
+
+    // Update ambient sound proximity based on distance to ATLAS Core
+    const nearSectors = ['the-descent'];
+    const midSectors = ['sector-7g', 'the-antenna'];
+    if (nearSectors.includes(sectorId)) {
+      this.audio?.startAmbient('near');
+    } else if (midSectors.includes(sectorId)) {
+      this.audio?.startAmbient('mid');
+    } else {
+      this.audio?.startAmbient('far');
+    }
+
     await this.renderer.effects.transitionStatic(300);
     await this.enterRoom(roomId || sector.startRoom);
   }
