@@ -8,8 +8,9 @@
 import { endings } from '../hooks/endings.js';
 
 export class Game {
-  constructor(renderer) {
+  constructor(renderer, aiService) {
     this.renderer = renderer;
+    this.aiService = aiService || null;
 
     // Game state phases
     this.phase = 'boot'; // boot, intro, explore, combat, dialogue, gameover
@@ -201,9 +202,12 @@ export class Game {
       }
     }
 
-    // Room description
+    // Room description — check for cached AI variant, fall back to static
+    const staticDesc = this._resolveDescription(room);
+    const cachedAI = this.aiService?.getCached('roomNarration', this.currentSector.id, roomId);
+    const desc = cachedAI?.description || staticDesc;
+
     this.renderer._isAnimating = true;
-    const desc = this._resolveDescription(room);
     for (const line of desc.split('\n')) {
       if (line.trim()) {
         await this.renderer.printLineTyped(line.trim());
@@ -212,6 +216,9 @@ export class Game {
       }
     }
     this.renderer._isAnimating = false;
+
+    // Pre-fetch AI content in background (for this room on revisit + neighbors)
+    this._prefetchAIContent(room, roomId);
 
     // Show items on the ground
     if (room.items && room.items.length > 0) {
@@ -1585,6 +1592,55 @@ export class Game {
     }
 
     return true;
+  }
+
+  // =====================
+  // AI Content Pre-fetch
+  // =====================
+
+  _prefetchAIContent(room, roomId) {
+    if (!this.aiService?.enabled) return;
+
+    const context = this._buildAIContext(room, this.currentSector.id, roomId);
+
+    // Request for this room (for revisit)
+    this.aiService.requestBackground('roomNarration', context);
+
+    // Request for all connected rooms
+    const exits = room.exits || {};
+    for (const exit of Object.values(exits)) {
+      const targetSectorId = exit.sector || this.currentSector.id;
+      const targetRoomId = exit.room;
+      if (!targetRoomId) continue;
+
+      const targetSector = this.sectors[targetSectorId] || this.currentSector;
+      const neighborRoom = targetSector?.rooms?.[targetRoomId];
+      if (neighborRoom) {
+        const neighborCtx = this._buildAIContext(neighborRoom, targetSectorId, targetRoomId);
+        this.aiService.requestBackground('roomNarration', neighborCtx);
+      }
+    }
+  }
+
+  _buildAIContext(room, sectorId, roomId) {
+    const roomKey = `${sectorId}:${roomId}`;
+    const visitCount = [...this.visitedRooms].filter(r => r === roomKey).length || 0;
+
+    return {
+      sectorId,
+      roomId,
+      roomName: room.name,
+      staticDescription: this._resolveDescription(room),
+      timeOfDay: this.hour >= 18 || this.hour < 6 ? 'night' : 'day',
+      day: this.day,
+      playerSkills: { ...this.player.skills },
+      playerHp: this.player.hp,
+      playerRad: this.player.rad,
+      visitCount,
+      activeFlags: Object.keys(this.player.flags),
+      memoriesFound: this.player.memories,
+      recentEvents: [],
+    };
   }
 
   async _printMultiline(text) {

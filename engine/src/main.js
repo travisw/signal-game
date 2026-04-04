@@ -1,16 +1,27 @@
 /**
  * SIGNAL — Main Entry Point
  *
- * Bootstraps the game: initializes renderer and game engine,
- * wires up input, and starts the game.
+ * Bootstraps the game: initializes renderer, AI content service,
+ * and game engine. Wires up input and starts the game.
  */
 
 import { Renderer } from './renderer.js';
 import { Game } from './game.js';
+import { AIContentService } from './ai-content.js';
 
-// Initialize
+// Initialize renderer
 const renderer = new Renderer();
-const game = new Game(renderer);
+
+// Initialize AI content service (enabled only when WordPress provides config)
+const wpConfig = window.wpSignalGame;
+const aiService = new AIContentService({
+  enabled: wpConfig?.ai?.enabled || false,
+  endpoint: wpConfig?.apiBase || null,
+  nonce: wpConfig?.nonce || null,
+});
+
+// Initialize game
+const game = new Game(renderer, aiService);
 
 // Wire up command input
 renderer.onCommand(async (input) => {
