@@ -432,28 +432,102 @@ class AIContentService {
 
 ### Integration with game.js
 
-In `enterRoom()`, after loading the static description:
+**Content delivery strategy: static-first + pre-fetch neighbors (A+C)**
+
+The player never waits for AI content. Room entry always renders the static description immediately. AI content enhances the experience but is never a bottleneck.
+
+**On room entry:**
+1. Render the static description instantly (zero lag)
+2. Check if a cached AI variant exists for this room+state — if so, use it instead
+3. Fire a background AI request for the current room (for next visit)
+4. Pre-fetch AI content for all connected rooms in the background
+
+**On revisit:**
+- The AI content (cached from the pre-fetch or prior background request) is available instantly and replaces the static description
+
+**Result:** First room of a session uses static. By the time you explore 2-3 rooms, every subsequent room has AI content waiting. The player never sees a loading state.
 
 ```js
-// Try AI narration (non-blocking, falls back to static)
-const aiContent = await this.aiService?.request('roomNarration', {
-  sectorId: this.currentSector.id,
-  roomId: roomId,
-  roomName: room.name,
-  staticDescription: desc,
-  timeOfDay: this.hour >= 18 || this.hour < 6 ? 'night' : 'day',
-  day: this.day,
-  playerSkills: { ...this.player.skills },
-  playerHp: this.player.hp,
-  playerRad: this.player.rad,
-  visitCount: this._roomVisitCount(roomId),
-  activeFlags: Object.keys(this.player.flags),
-  memoriesFound: this.player.memories,
-  recentEvents: this._recentEvents(3),
-});
+// In enterRoom():
 
-// Use AI description if available, otherwise static
-const finalDesc = aiContent?.description || desc;
+// 1. Always start with static description
+const staticDesc = this._resolveDescription(room);
+
+// 2. Check cache for AI variant
+const cachedAI = this.aiService?.getCached('roomNarration', this.currentSector.id, roomId);
+const desc = cachedAI?.description || staticDesc;
+
+// 3. Render immediately (no await)
+this.renderer._isAnimating = true;
+for (const line of desc.split('\n')) {
+  if (line.trim()) await this.renderer.printLineTyped(line.trim());
+  else this.renderer.printBreak();
+}
+this.renderer._isAnimating = false;
+
+// 4. Background: request AI for THIS room (for next visit) + all neighbors
+this._prefetchAIContent(room);
+```
+
+```js
+// Pre-fetch helper (fire-and-forget, no await)
+_prefetchAIContent(room) {
+  if (!this.aiService?.enabled) return;
+
+  const context = this._buildAIContext(room);
+
+  // Request current room (for revisit)
+  this.aiService.requestBackground('roomNarration', context);
+
+  // Request all connected rooms
+  const exits = room.exits || {};
+  for (const exit of Object.values(exits)) {
+    const targetSector = exit.sector || this.currentSector.id;
+    const targetRoom = exit.room;
+    if (!targetRoom) continue;
+
+    const sector = this.sectors[targetSector] || this.currentSector;
+    const neighborRoom = sector?.rooms?.[targetRoom];
+    if (neighborRoom) {
+      const neighborCtx = this._buildAIContext(neighborRoom, targetSector, targetRoom);
+      this.aiService.requestBackground('roomNarration', neighborCtx);
+    }
+  }
+}
+```
+
+### AIContentService changes for A+C
+
+The content service needs two fetch modes:
+
+```js
+class AIContentService {
+  // Blocking request (used when we need result now — rare)
+  async request(packetType, context) { ... }
+
+  // Fire-and-forget background request (populates cache)
+  requestBackground(packetType, context) {
+    const cacheKey = this._fingerprint(packetType, context);
+    if (this.cache.has(cacheKey)) return; // already cached
+    if (this._inflight.has(cacheKey)) return; // already requesting
+
+    this._inflight.add(cacheKey);
+    this.request(packetType, context)
+      .then(content => {
+        if (content) this.cache.set(cacheKey, content);
+      })
+      .finally(() => this._inflight.delete(cacheKey));
+  }
+
+  // Synchronous cache check (no network)
+  getCached(packetType, sectorId, roomId) {
+    // Check all cache keys matching this type+sector+room
+    for (const [key, val] of this.cache) {
+      if (key.startsWith(`${packetType}:${sectorId}:${roomId}:`)) return val;
+    }
+    return null;
+  }
+}
 ```
 
 ### Standalone mode behavior
