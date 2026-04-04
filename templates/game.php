@@ -37,7 +37,7 @@ $config = [
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( $assets_url . 'css/terminal.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( $assets_url . 'css/terminal.css?v=' . SIGNAL_GAME_VERSION ); ?>">
 	<script>window.wpSignalGame = <?php echo wp_json_encode( $config ); ?>;</script>
 </head>
 <body>
@@ -62,6 +62,6 @@ $config = [
 		</div>
 	</div>
 
-	<script type="module" src="<?php echo esc_url( $assets_url . 'js/main.js' ); ?>"></script>
+	<script type="module" src="<?php echo esc_url( $assets_url . 'js/main.js?v=' . SIGNAL_GAME_VERSION ); ?>"></script>
 </body>
 </html>
