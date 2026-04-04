@@ -393,21 +393,9 @@ html, body {
    Mobile Responsive
    ============================================ */
 
-/* --- Sidebar toggle button (mobile only) --- */
+/* --- Sidebar toggle button (mobile only, hidden on desktop) --- */
 .sidebar-toggle {
-  display: none;
-  position: fixed;
-  top: 8px;
-  right: 8px;
-  z-index: 50;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  color: var(--purple);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 4px 10px;
-  cursor: pointer;
-  border-radius: 3px;
+  display: none !important;
 }
 
 .sidebar-toggle:active {
@@ -484,7 +472,20 @@ html, body {
   }
 
   .sidebar-toggle {
-    display: block;
+    display: block !important;
+    position: fixed;
+    top: 6px;
+    right: 8px;
+    z-index: 50;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--purple);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0.6;
   }
 
   /* --- Input bar --- */
