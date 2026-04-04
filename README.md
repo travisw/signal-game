@@ -40,9 +40,8 @@ Or serve the `assets/` directory with any static file server and open `game.html
 - Turn-based combat with skill-based alternatives — most fights can be resolved without violence
 - Trade, craft, and manage scarce resources
 - Talk to NPCs with branching dialogue and faction dynamics
-- Make choices that shape the story and determine the ending
-
-**3 Endings:** Reboot, Terminate, or Merge — each with variations based on your recovered memories and choices.
+- Make choices that shape the story and determine your ending
+- Multiple endings with variations based on your recovered memories and choices
 
 ## Tech
 
@@ -93,7 +92,7 @@ signal-game/
 │       ├── enemies.json     # Enemy types and stats
 │       ├── memories.json    # Memory fragments and skill unlocks
 │       ├── ascii-art.json   # All ASCII art by ID
-│       └── easter-eggs.json # Secret commands
+│       └── easter-eggs.json
 ├── tests/                   # Test suite (75 tests)
 ├── docs/                    # Design specs and research
 └── serve.sh                 # Standalone dev server
